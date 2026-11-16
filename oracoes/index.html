@@ -3,19 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Orações · Catholicam</title>
-<meta name="description" content="Orações diárias, marianas e eucarísticas, o Angelus e a Via-Sacra.">
+<meta name="theme-color" content="#2f6b45">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>Orações católicas: Pai Nosso, Ave Maria, Credo e mais · Catholicam</title>
+<meta name="description" content="As orações católicas com o texto usado no Brasil: Pai Nosso, Ave Maria, Credo, Salve Rainha, Santo Anjo, São Miguel Arcanjo, Angelus e a Via-Sacra.">
 <link rel="canonical" href="https://catholicam.com.br/oracoes/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Catholicam">
-<meta property="og:title" content="Orações · Catholicam">
-<meta property="og:description" content="Orações diárias, marianas e eucarísticas, o Angelus e a Via-Sacra.">
-<meta property="og:url" content="https://catholicam.com.br/oracoes/">
 <meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Orações católicas: Pai Nosso, Ave Maria, Credo e mais · Catholicam">
+<meta property="og:description" content="As orações católicas com o texto usado no Brasil: Pai Nosso, Ave Maria, Credo, Salve Rainha, Santo Anjo, São Miguel Arcanjo, Angelus e a Via-Sacra.">
+<meta property="og:url" content="https://catholicam.com.br/oracoes/">
+<meta property="og:image" content="https://catholicam.com.br/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "name": "Orações", "url": "https://catholicam.com.br/oracoes/", "description": "As orações católicas com o texto usado no Brasil: Pai Nosso, Ave Maria, Credo, Salve Rainha, Santo Anjo, São Miguel Arcanjo, Angelus e a Via-Sacra.", "inLanguage": "pt-BR", "isPartOf": {"@id": "https://catholicam.com.br/#site"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Início", "item": "https://catholicam.com.br/"}, {"@type": "ListItem", "position": 2, "name": "Orações", "item": "https://catholicam.com.br/oracoes/"}]}]}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+Sans:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+Sans:wght@400;500;700&display=swap"></noscript>
 <style>
 /* Plano: livro litúrgico em tela. Coluna única de leitura, índice com pontilhado como sumário de missal,
    rubricas em vermelho (instruções) e texto rezado em preto. A cor de destaque acompanha o tempo litúrgico do dia. */
@@ -179,6 +190,13 @@ th{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mut
 
 footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var(--ui);font-size:.9rem;color:var(--muted)}
 @media (max-width:420px){h1{font-size:2rem}.today .season{font-size:1.6rem}}
+
+.crumb{font-family:var(--ui);font-size:.92rem;color:var(--muted);margin:1.2rem 0 0}
+.crumb a{color:var(--muted)}
+.prayer h3 a{color:inherit;text-decoration:none}
+.prayer h3 a:hover{color:var(--accent);text-decoration:underline}
+.related{list-style:none;padding:0;margin:0}
+.related li{padding:.45rem 0;border-bottom:1px solid var(--line)}
 </style>
 </head>
 <body>
@@ -217,7 +235,47 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
 <section class="view on" data-view="oracoes">
   <div class="stack"><h1>Orações</h1><p class="lede">As orações que todo católico aprende, com o texto usado no Brasil.</p></div>
   <div class="chips" id="p-cats" role="group" aria-label="Grupos de orações"></div>
-  <div id="prayers" class="stack"></div>
+  <div id="prayers" class="stack"><div class="stack cat-h"><h2>Orações de todo dia</h2><article class="prayer"><h3><a href="/oracoes/sinal-da-cruz/">Sinal da Cruz</a></h3><p>Em nome do Pai, do Filho e do Espírito Santo. Amém.</p></article><article class="prayer"><h3><a href="/oracoes/pai-nosso/">Pai Nosso</a></h3><p>Pai nosso que estais nos céus, santificado seja o vosso nome; venha a nós o vosso reino, seja feita a vossa vontade, assim na terra como no céu.
+O pão nosso de cada dia nos dai hoje; perdoai-nos as nossas ofensas, assim como nós perdoamos a quem nos tem ofendido; e não nos deixeis cair em tentação, mas livrai-nos do mal. Amém.</p></article><article class="prayer"><h3><a href="/oracoes/ave-maria/">Ave Maria</a></h3><p>Ave Maria, cheia de graça, o Senhor é convosco; bendita sois vós entre as mulheres, e bendito é o fruto do vosso ventre, Jesus.
+Santa Maria, Mãe de Deus, rogai por nós, pecadores, agora e na hora de nossa morte. Amém.</p></article><article class="prayer"><h3><a href="/oracoes/gloria-ao-pai/">Glória ao Pai</a></h3><p>Glória ao Pai, ao Filho e ao Espírito Santo.
+Como era no princípio, agora e sempre. Amém.</p></article><article class="prayer"><h3><a href="/oracoes/credo/">Credo (Símbolo dos Apóstolos)</a></h3><p>Creio em Deus Pai todo-poderoso, criador do céu e da terra; e em Jesus Cristo, seu único Filho, nosso Senhor; que foi concebido pelo poder do Espírito Santo; nasceu da Virgem Maria; padeceu sob Pôncio Pilatos, foi crucificado, morto e sepultado; desceu à mansão dos mortos; ressuscitou ao terceiro dia; subiu aos céus, está sentado à direita de Deus Pai todo-poderoso, donde há de vir a julgar os vivos e os mortos.
+Creio no Espírito Santo, na santa Igreja Católica, na comunhão dos santos, na remissão dos pecados, na ressurreição da carne, na vida eterna. Amém.</p></article><article class="prayer"><h3><a href="/oracoes/santo-anjo/">Santo Anjo</a></h3><p>Santo Anjo do Senhor, meu zeloso guardador, se a ti me confiou a piedade divina, sempre me rege, me guarda, me governa e me ilumina. Amém.</p></article></div><div class="stack cat-h"><h2>A Nossa Senhora</h2><article class="prayer"><h3><a href="/oracoes/salve-rainha/">Salve Rainha</a></h3><p>Salve, Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve! A vós bradamos, os degredados filhos de Eva; a vós suspiramos, gemendo e chorando neste vale de lágrimas.
+Eia, pois, advogada nossa, esses vossos olhos misericordiosos a nós volvei; e depois deste desterro mostrai-nos Jesus, bendito fruto do vosso ventre, ó clemente, ó piedosa, ó doce sempre Virgem Maria.
+Rogai por nós, santa Mãe de Deus, para que sejamos dignos das promessas de Cristo. Amém.</p></article><article class="prayer"><h3><a href="/oracoes/angelus/">Angelus (O Anjo do Senhor)</a></h3><p class="r">Reza-se às 6h, ao meio-dia e às 18h, fora do Tempo Pascal.</p><p>℣. O anjo do Senhor anunciou a Maria.
+℟. E ela concebeu do Espírito Santo.
+Ave Maria…
+
+℣. Eis aqui a serva do Senhor.
+℟. Faça-se em mim segundo a vossa palavra.
+Ave Maria…
+
+℣. E o Verbo se fez carne.
+℟. E habitou entre nós.
+Ave Maria…
+
+℣. Rogai por nós, santa Mãe de Deus.
+℟. Para que sejamos dignos das promessas de Cristo.
+
+Oremos: Infundi, Senhor, a vossa graça em nossas almas, para que nós, que pela anunciação do anjo conhecemos a encarnação de Cristo, vosso Filho, pela sua paixão e cruz sejamos conduzidos à glória da ressurreição. Pelo mesmo Cristo, Senhor nosso. Amém.</p></article><article class="prayer"><h3><a href="/oracoes/regina-caeli/">Rainha do Céu (Regina Caeli)</a></h3><p class="r">Substitui o Angelus no Tempo Pascal.</p><p>Rainha do céu, alegrai-vos, aleluia.
+Porque aquele que merecestes trazer em vosso seio, aleluia.
+Ressuscitou como disse, aleluia.
+Rogai a Deus por nós, aleluia.
+
+℣. Alegrai-vos e exultai, ó Virgem Maria, aleluia.
+℟. Porque o Senhor ressuscitou verdadeiramente, aleluia.
+
+Oremos: Ó Deus, que vos dignastes alegrar o mundo com a ressurreição do vosso Filho, Jesus Cristo, Senhor nosso, concedei-nos, vos suplicamos, que por sua Mãe, a Virgem Maria, alcancemos as alegrias da vida eterna. Por Cristo, Senhor nosso. Amém.</p></article><article class="prayer"><h3><a href="/oracoes/lembrai-vos/">Lembrai-vos</a></h3><p>Lembrai-vos, ó piíssima Virgem Maria, que nunca se ouviu dizer que algum daqueles que têm recorrido à vossa proteção, implorado a vossa assistência e reclamado o vosso socorro, fosse por vós desamparado.
+Animado eu, pois, com igual confiança, a vós, ó Virgem entre todas singular, como a Mãe recorro, de vós me valho e, gemendo sob o peso dos meus pecados, me prostro a vossos pés. Não rejeiteis as minhas súplicas, ó Mãe do Filho de Deus humanado, mas dignai-vos de as ouvir propícia e de me alcançar o que vos rogo. Amém.</p></article><article class="prayer"><h3><a href="/oracoes/a-vossa-protecao/">À vossa proteção</a></h3><p>À vossa proteção recorremos, santa Mãe de Deus; não desprezeis as nossas súplicas em nossas necessidades, mas livrai-nos sempre de todos os perigos, ó Virgem gloriosa e bendita. Amém.</p></article><article class="prayer"><h3><a href="/oracoes/consagracao-a-nossa-senhora/">Consagração a Nossa Senhora</a></h3><p>Ó minha Senhora, ó minha Mãe, eu me ofereço todo a vós, e em prova da minha devoção para convosco, vos consagro neste dia meus olhos, meus ouvidos, minha boca, meu coração e inteiramente todo o meu ser. E porque assim sou vosso, ó incomparável Mãe, guardai-me e defendei-me como coisa e propriedade vossa. Amém.</p></article></div><div class="stack cat-h"><h2>A Jesus Cristo</h2><article class="prayer"><h3><a href="/oracoes/alma-de-cristo/">Alma de Cristo</a></h3><p class="r">Tradicionalmente rezada depois da comunhão.</p><p>Alma de Cristo, santificai-me.
+Corpo de Cristo, salvai-me.
+Sangue de Cristo, inebriai-me.
+Água do lado de Cristo, lavai-me.
+Paixão de Cristo, confortai-me.
+Ó bom Jesus, ouvi-me.
+Dentro de vossas chagas, escondei-me.
+Não permitais que eu me separe de vós.
+Do espírito maligno, defendei-me.
+Na hora da minha morte, chamai-me e mandai-me ir para vós, para que com vossos santos vos louve por todos os séculos dos séculos. Amém.</p></article><article class="prayer"><h3><a href="/oracoes/ato-de-contricao/">Ato de Contrição</a></h3><p>Meu Deus, eu me arrependo de todo o coração de vos ter ofendido, porque sois tão bom e amável. Prometo, com a vossa graça, nunca mais pecar. Meu Jesus, misericórdia!</p></article><article class="prayer"><h3><a href="/oracoes/o-meu-jesus/">Ó meu Jesus</a></h3><p>Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno, levai as almas todas para o céu e socorrei principalmente as que mais precisarem.</p></article></div><div class="stack cat-h"><h2>Ao Espírito Santo e aos anjos</h2><article class="prayer"><h3><a href="/oracoes/vinde-espirito-santo/">Vinde, Espírito Santo</a></h3><p>Vinde, Espírito Santo, enchei os corações dos vossos fiéis e acendei neles o fogo do vosso amor. Enviai o vosso Espírito e tudo será criado, e renovareis a face da terra.
+Oremos: Ó Deus, que instruístes os corações dos vossos fiéis com a luz do Espírito Santo, fazei que apreciemos retamente todas as coisas segundo o mesmo Espírito e gozemos sempre da sua consolação. Por Cristo, Senhor nosso. Amém.</p></article><article class="prayer"><h3><a href="/oracoes/sao-miguel-arcanjo/">São Miguel Arcanjo</a></h3><p>São Miguel Arcanjo, defendei-nos no combate, sede o nosso refúgio contra as maldades e ciladas do demônio. Ordene-lhe Deus, instantemente o pedimos, e vós, príncipe da milícia celeste, pela virtude divina, precipitai no inferno a Satanás e aos outros espíritos malignos que andam pelo mundo para perder as almas. Amém.</p></article></div></div>
   <div class="block" id="via-sacra"><h2>Via-Sacra</h2>
     <p>Caminho de oração pelas catorze estações da Paixão do Senhor, rezado sobretudo nas sextas-feiras da Quaresma.</p>
     <p class="r">Em cada estação, de joelhos:</p>
@@ -236,7 +294,6 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
 </main>
 <footer><div class="wrap"><p class="top"><a href="/">Voltar ao sumário</a></p>Catholicam · protótipo · sem anúncios · <a href="/apoiar/">Apoiar o projeto</a> · <span class="r">Ad maiorem Dei gloriam</span></div></footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 (function(){
 "use strict";
@@ -273,7 +330,8 @@ function jump(label,el){
   var c=document.createElement("button");c.type="button";c.className="chip";c.textContent=label;
   c.addEventListener("click",function(){el.scrollIntoView({block:"start"})});cats.appendChild(c);
 }
-groups.forEach(function(g){
+if(box.querySelector(".cat-h"))Array.prototype.forEach.call(box.querySelectorAll(".cat-h"),function(w,i){jump(groups[i][0],w)});
+else groups.forEach(function(g){
   var w=document.createElement("div");w.className="stack cat-h";
   var h=document.createElement("h2");h.textContent=g[0];w.appendChild(h);
   g[1].forEach(function(k){
@@ -575,7 +633,8 @@ function qfig(q){
   var box=$("quotes"),cats=$("q-cats");
   function chip(label,el){var c=document.createElement("button");c.type="button";c.className="chip";c.textContent=label;
     c.addEventListener("click",function(){el.scrollIntoView({block:"start"})});cats.appendChild(c)}
-  [["Palavras de Jesus",function(q){return q[0]==="Jesus Cristo"}],["Palavras de Maria",function(q){return q[0]==="Maria"}],["Palavras dos santos",function(q){return q[0]!=="Jesus Cristo"&&q[0]!=="Maria"}]].forEach(function(g){
+  [["Palavras de Jesus",function(q){return q[0]==="Jesus Cristo"}],["Palavras de Maria",function(q){return q[0]==="Maria"}],["Palavras dos santos",function(q){return q[0]!=="Jesus Cristo"&&q[0]!=="Maria"}]].forEach(function(g,i){
+    var pre=box.querySelectorAll(".cat-h");if(pre.length){chip(g[0],pre[i]);return}
     var w=document.createElement("div");w.className="stack cat-h";
     var h=document.createElement("h2");h.textContent=g[0];w.appendChild(h);
     Q.filter(g[1]).forEach(function(q){w.appendChild(qfig(q))});
@@ -627,7 +686,8 @@ Array.prototype.forEach.call(document.querySelectorAll("button.to"),function(b){
 
 /* ---------- Página atual no menu ---------- */
 Array.prototype.forEach.call(document.querySelectorAll("#nav a"),function(a){
-  if(a.getAttribute("href")===location.pathname)a.setAttribute("aria-current","page");
+  var h=a.getAttribute("href"),p=location.pathname;
+  if(h===p||(h!=="/"&&p.indexOf(h)===0))a.setAttribute("aria-current","page");
 });
 })();
 </script>

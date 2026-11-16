@@ -3,19 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Frases · Catholicam</title>
-<meta name="description" content="Palavras de Jesus, de Maria e dos santos, com a fonte de cada uma.">
+<meta name="theme-color" content="#2f6b45">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>Frases de santos, de Jesus e de Maria, com a fonte · Catholicam</title>
+<meta name="description" content="Frases de Jesus, de Nossa Senhora e dos santos, cada uma com a fonte para conferir, e as frases que circulam atribuídas por engano.">
 <link rel="canonical" href="https://catholicam.com.br/frases/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Catholicam">
-<meta property="og:title" content="Frases · Catholicam">
-<meta property="og:description" content="Palavras de Jesus, de Maria e dos santos, com a fonte de cada uma.">
-<meta property="og:url" content="https://catholicam.com.br/frases/">
 <meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Frases de santos, de Jesus e de Maria, com a fonte · Catholicam">
+<meta property="og:description" content="Frases de Jesus, de Nossa Senhora e dos santos, cada uma com a fonte para conferir, e as frases que circulam atribuídas por engano.">
+<meta property="og:url" content="https://catholicam.com.br/frases/">
+<meta property="og:image" content="https://catholicam.com.br/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "name": "Frases", "url": "https://catholicam.com.br/frases/", "description": "Frases de Jesus, de Nossa Senhora e dos santos, cada uma com a fonte para conferir, e as frases que circulam atribuídas por engano.", "inLanguage": "pt-BR", "isPartOf": {"@id": "https://catholicam.com.br/#site"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Início", "item": "https://catholicam.com.br/"}, {"@type": "ListItem", "position": 2, "name": "Frases", "item": "https://catholicam.com.br/frases/"}]}]}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+Sans:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+Sans:wght@400;500;700&display=swap"></noscript>
 <style>
 /* Plano: livro litúrgico em tela. Coluna única de leitura, índice com pontilhado como sumário de missal,
    rubricas em vermelho (instruções) e texto rezado em preto. A cor de destaque acompanha o tempo litúrgico do dia. */
@@ -179,6 +190,13 @@ th{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mut
 
 footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var(--ui);font-size:.9rem;color:var(--muted)}
 @media (max-width:420px){h1{font-size:2rem}.today .season{font-size:1.6rem}}
+
+.crumb{font-family:var(--ui);font-size:.92rem;color:var(--muted);margin:1.2rem 0 0}
+.crumb a{color:var(--muted)}
+.prayer h3 a{color:inherit;text-decoration:none}
+.prayer h3 a:hover{color:var(--accent);text-decoration:underline}
+.related{list-style:none;padding:0;margin:0}
+.related li{padding:.45rem 0;border-bottom:1px solid var(--line)}
 </style>
 </head>
 <body>
@@ -217,7 +235,7 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
 <section class="view on" data-view="frases">
   <div class="stack"><h1>Frases</h1><p class="lede">Palavras de Jesus, de Maria e dos santos. Cada frase traz a fonte, para que se possa conferir.</p></div>
   <div class="chips" id="q-cats" role="group" aria-label="Grupos de frases"></div>
-  <div id="quotes" class="stack"></div>
+  <div id="quotes" class="stack"><div class="stack cat-h"><h2>Palavras de Jesus</h2><figure class="quote"><blockquote>Eu sou o caminho, a verdade e a vida.</blockquote><figcaption><b>Jesus Cristo</b> · Jo 14,6</figcaption></figure><figure class="quote"><blockquote>Amai-vos uns aos outros como eu vos amei.</blockquote><figcaption><b>Jesus Cristo</b> · Jo 15,12</figcaption></figure><figure class="quote"><blockquote>Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei.</blockquote><figcaption><b>Jesus Cristo</b> · Mt 11,28</figcaption></figure><figure class="quote"><blockquote>Buscai em primeiro lugar o Reino de Deus e a sua justiça.</blockquote><figcaption><b>Jesus Cristo</b> · Mt 6,33</figcaption></figure><figure class="quote"><blockquote>Bem-aventurados os misericordiosos, porque alcançarão misericórdia.</blockquote><figcaption><b>Jesus Cristo</b> · Mt 5,7</figcaption></figure><figure class="quote"><blockquote>Eu sou a ressurreição e a vida.</blockquote><figcaption><b>Jesus Cristo</b> · Jo 11,25</figcaption></figure><figure class="quote"><blockquote>Dai a César o que é de César e a Deus o que é de Deus.</blockquote><figcaption><b>Jesus Cristo</b> · Mt 22,21</figcaption></figure><figure class="quote"><blockquote>Tudo o que fizestes a um destes meus irmãos mais pequeninos, a mim o fizestes.</blockquote><figcaption><b>Jesus Cristo</b> · Mt 25,40</figcaption></figure><figure class="quote"><blockquote>Pai, perdoa-lhes, porque não sabem o que fazem.</blockquote><figcaption><b>Jesus Cristo</b> · Lc 23,34</figcaption></figure><figure class="quote"><blockquote>Eu estarei convosco todos os dias, até o fim dos tempos.</blockquote><figcaption><b>Jesus Cristo</b> · Mt 28,20</figcaption></figure></div><div class="stack cat-h"><h2>Palavras de Maria</h2><figure class="quote"><blockquote>Eis aqui a serva do Senhor; faça-se em mim segundo a tua palavra.</blockquote><figcaption><b>Maria</b> · Lc 1,38</figcaption></figure><figure class="quote"><blockquote>A minha alma engrandece o Senhor, e o meu espírito exulta em Deus, meu Salvador.</blockquote><figcaption><b>Maria</b> · Lc 1,46-47</figcaption></figure><figure class="quote"><blockquote>Fazei tudo o que ele vos disser.</blockquote><figcaption><b>Maria</b> · Jo 2,5</figcaption></figure></div><div class="stack cat-h"><h2>Palavras dos santos</h2><figure class="quote"><blockquote>Já não sou eu que vivo, é Cristo que vive em mim.</blockquote><figcaption><b>São Paulo</b> · Gl 2,20</figcaption></figure><figure class="quote"><blockquote>A glória de Deus é o homem vivo, e a vida do homem é a visão de Deus.</blockquote><figcaption><b>Santo Irineu de Lião</b> · Contra as Heresias IV, 20, 7</figcaption></figure><figure class="quote"><blockquote>Fizeste-nos para ti, e inquieto está o nosso coração enquanto não repousa em ti.</blockquote><figcaption><b>Santo Agostinho</b> · Confissões I, 1</figcaption></figure><figure class="quote"><blockquote>Tarde te amei, ó beleza tão antiga e tão nova, tarde te amei!</blockquote><figcaption><b>Santo Agostinho</b> · Confissões X, 27</figcaption></figure><figure class="quote"><blockquote>Ignorar as Escrituras é ignorar Cristo.</blockquote><figcaption><b>São Jerônimo</b> · Comentário a Isaías, prólogo</figcaption></figure><figure class="quote"><blockquote>Nada antepor ao amor de Cristo.</blockquote><figcaption><b>São Bento</b> · Regra 4, 21</figcaption></figure><figure class="quote"><blockquote>Louvado sejas, meu Senhor, com todas as tuas criaturas.</blockquote><figcaption><b>São Francisco de Assis</b> · Cântico das Criaturas</figcaption></figure><figure class="quote"><blockquote>A graça não destrói a natureza, mas a aperfeiçoa.</blockquote><figcaption><b>Santo Tomás de Aquino</b> · Suma Teológica I, q. 1, a. 8</figcaption></figure><figure class="quote"><blockquote>Se fordes o que deveis ser, ateareis fogo em toda a Itália.</blockquote><figcaption><b>Santa Catarina de Sena</b> · Carta 368</figcaption></figure><figure class="quote"><blockquote>Em tudo amar e servir.</blockquote><figcaption><b>Santo Inácio de Loyola</b> · Exercícios Espirituais, 233</figcaption></figure><figure class="quote"><blockquote>Nada te perturbe, nada te espante. Tudo passa. Só Deus basta.</blockquote><figcaption><b>Santa Teresa de Jesus</b> · Poesias</figcaption></figure><figure class="quote"><blockquote>No entardecer da vida, seremos julgados pelo amor.</blockquote><figcaption><b>São João da Cruz</b> · Ditos de Luz e Amor, 59</figcaption></figure><figure class="quote"><blockquote>O sacerdócio é o amor do coração de Jesus.</blockquote><figcaption><b>São João Maria Vianney</b> · Citado no Catecismo, 1589</figcaption></figure><figure class="quote"><blockquote>No coração da Igreja, minha Mãe, eu serei o amor.</blockquote><figcaption><b>Santa Teresinha do Menino Jesus</b> · História de uma Alma, manuscrito B</figcaption></figure><figure class="quote"><blockquote>Passarei o meu céu fazendo o bem na terra.</blockquote><figcaption><b>Santa Teresinha do Menino Jesus</b> · Últimas conversas, 17 de julho de 1897</figcaption></figure><figure class="quote"><blockquote>Não tenhais medo! Abri as portas a Cristo!</blockquote><figcaption><b>São João Paulo II</b> · Homilia de 22 de outubro de 1978</figcaption></figure></div></div>
   <div class="block" id="q-erradas"><h2>Frases atribuídas por engano</h2>
     <p>Muitas frases bonitas circulam com o nome de um santo sem serem dele. O site só publica frases com fonte conhecida.</p><div class="rite"><span class="what">Oração da Serenidade</span><span class="r">não é de São Francisco</span><span class="how">A oração que pede serenidade para aceitar o que não se pode mudar e coragem para mudar o que se pode é do teólogo protestante norte-americano Reinhold Niebuhr, do século XX. Não consta em nenhum escrito de São Francisco de Assis.</span></div><div class="rite"><span class="what">Senhor, fazei de mim um instrumento de vossa paz</span><span class="r">autor desconhecido</span><span class="how">A chamada Oração de São Francisco apareceu pela primeira vez em uma revista francesa em 1912, sem autor. Exprime bem o espírito franciscano e a Igreja a reza com gosto, mas não foi escrita pelo santo.</span></div><div class="rite"><span class="what">Pregue o Evangelho; se necessário, use palavras</span><span class="r">não consta nos escritos</span><span class="how">A frase não está nos escritos de São Francisco. O que ele escreveu na Regra é que todos os irmãos preguem com as obras.</span></div><div class="rite"><span class="what">Quem canta reza duas vezes</span><span class="r">forma popular</span><span class="how">Atribuída a Santo Agostinho, não aparece assim em suas obras. Ele escreveu que cantar é próprio de quem ama.</span></div><div class="rite"><span class="what">Frases sobre capitalismo e socialismo</span><span class="r">não são de santos</span><span class="how">O ensinamento da Igreja sobre o tema está nas encíclicas sociais. Veja a página <a href="/doutrina-social/">Doutrina social</a>.</span></div>
   </div>
@@ -226,7 +244,6 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
 </main>
 <footer><div class="wrap"><p class="top"><a href="/">Voltar ao sumário</a></p>Catholicam · protótipo · sem anúncios · <a href="/apoiar/">Apoiar o projeto</a> · <span class="r">Ad maiorem Dei gloriam</span></div></footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 (function(){
 "use strict";
@@ -263,7 +280,8 @@ function jump(label,el){
   var c=document.createElement("button");c.type="button";c.className="chip";c.textContent=label;
   c.addEventListener("click",function(){el.scrollIntoView({block:"start"})});cats.appendChild(c);
 }
-groups.forEach(function(g){
+if(box.querySelector(".cat-h"))Array.prototype.forEach.call(box.querySelectorAll(".cat-h"),function(w,i){jump(groups[i][0],w)});
+else groups.forEach(function(g){
   var w=document.createElement("div");w.className="stack cat-h";
   var h=document.createElement("h2");h.textContent=g[0];w.appendChild(h);
   g[1].forEach(function(k){
@@ -565,7 +583,8 @@ function qfig(q){
   var box=$("quotes"),cats=$("q-cats");
   function chip(label,el){var c=document.createElement("button");c.type="button";c.className="chip";c.textContent=label;
     c.addEventListener("click",function(){el.scrollIntoView({block:"start"})});cats.appendChild(c)}
-  [["Palavras de Jesus",function(q){return q[0]==="Jesus Cristo"}],["Palavras de Maria",function(q){return q[0]==="Maria"}],["Palavras dos santos",function(q){return q[0]!=="Jesus Cristo"&&q[0]!=="Maria"}]].forEach(function(g){
+  [["Palavras de Jesus",function(q){return q[0]==="Jesus Cristo"}],["Palavras de Maria",function(q){return q[0]==="Maria"}],["Palavras dos santos",function(q){return q[0]!=="Jesus Cristo"&&q[0]!=="Maria"}]].forEach(function(g,i){
+    var pre=box.querySelectorAll(".cat-h");if(pre.length){chip(g[0],pre[i]);return}
     var w=document.createElement("div");w.className="stack cat-h";
     var h=document.createElement("h2");h.textContent=g[0];w.appendChild(h);
     Q.filter(g[1]).forEach(function(q){w.appendChild(qfig(q))});
@@ -617,7 +636,8 @@ Array.prototype.forEach.call(document.querySelectorAll("button.to"),function(b){
 
 /* ---------- Página atual no menu ---------- */
 Array.prototype.forEach.call(document.querySelectorAll("#nav a"),function(a){
-  if(a.getAttribute("href")===location.pathname)a.setAttribute("aria-current","page");
+  var h=a.getAttribute("href"),p=location.pathname;
+  if(h===p||(h!=="/"&&p.indexOf(h)===0))a.setAttribute("aria-current","page");
 });
 })();
 </script>
