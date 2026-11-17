@@ -442,7 +442,7 @@ function showBook(i,c){
   bookBtns.forEach(function(b,k){b.setAttribute("aria-pressed",k===i?"true":"false")});
   var ch=$("b-ch");ch.textContent="";
   if(!bible){
-    $("b-info").textContent=f[2]+" · "+f[1]+(f[1]===1?" capítulo":" capítulos")+" · carregue o texto para ler";
+    $("b-info").textContent=f[2]+" · "+f[1]+(f[1]===1?" capítulo":" capítulos")+" · carregando o texto…";
     for(var k=1;k<=f[1];k++){var s=document.createElement("span");s.textContent=k;ch.appendChild(s)}
     return;
   }
@@ -506,18 +506,9 @@ function fromServer(){
   var st=$("b-status");if(st)st.textContent="Carregando o texto da Bíblia…";
   return getJson(BIBLIA_FONTE).then(function(d){
     if(accept(d))idb("readwrite",function(s){return s.put(d,"biblia")}).catch(function(){});
-  }).catch(function(){if(st)st.textContent="Não foi possível carregar o texto agora. Verifique a conexão ou selecione o arquivo abaixo."});
+  }).catch(function(){if(st)st.textContent="Não foi possível carregar o texto agora. Verifique a conexão e recarregue a página."});
 }
 if(document.getElementById("b-text"))idb("readonly",function(s){return s.get("biblia")}).then(function(d){if(!d||!accept(d))return fromServer()},fromServer).catch(function(){});
-$("b-file").addEventListener("change",function(){
-  var f=this.files&&this.files[0],st=$("b-status");if(!f)return;
-  st.textContent="Lendo o arquivo…";
-  f.text().then(function(t){
-    var d;try{d=JSON.parse(t)}catch(e){st.textContent="Este arquivo não é um JSON válido. Baixe o biblia.json novamente e tente de novo.";return}
-    if(!accept(d)){st.textContent="O arquivo não tem os 73 livros no formato esperado. Use o biblia.json do repositório indicado.";return}
-    idb("readwrite",function(s){return s.put(d,"biblia")}).catch(function(){});
-  },function(){st.textContent="Não foi possível ler o arquivo. Tente selecioná-lo de novo."});
-});
 $("b-search").addEventListener("submit",function(ev){
   ev.preventDefault();
   var q=norm($("b-q").value.trim()),out=$("b-results"),cnt=$("b-count");out.textContent="";

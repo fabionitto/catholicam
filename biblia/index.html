@@ -234,16 +234,7 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
 <!-- BÍBLIA -->
 <section class="view on" data-view="biblia">
   <div class="stack"><h1>Bíblia Sagrada</h1><p class="lede">O cânon católico: 46 livros do Antigo Testamento e 27 do Novo.</p><div class="chips"><button type="button" class="chip to" data-to="about-biblia">O que é a Bíblia e sua história</button></div></div>
-  <div class="reader" id="loader">
-    <h3>Carregar o texto da Bíblia</h3>
-    <p>O leitor usa a tradução do Pe. Manuel de Matos Soares (edição de 1956). O texto não vem embutido nesta página: você carrega o arquivo uma vez e ele fica guardado neste aparelho.</p>
-    <ol>
-      <li>Baixe o arquivo <a href="https://raw.githubusercontent.com/Dancrf/biblia-db/main/biblia.json">biblia.json</a> do repositório <a href="https://github.com/Dancrf/biblia-db">Dancrf/biblia-db</a>.</li>
-      <li>Selecione o arquivo baixado no campo abaixo.</li>
-    </ol>
-    <input type="file" id="b-file" accept=".json,application/json" aria-label="Arquivo biblia.json">
-    <p class="r" id="b-status">O texto é carregado do repositório de origem e fica guardado neste aparelho.</p>
-  </div>
+  <p class="r" id="loader"><span id="b-status">Carregando o texto da Bíblia…</span></p>
   <form class="stack" id="b-search" hidden>
     <div class="controls">
       <input type="search" id="b-q" placeholder="Buscar palavra ou frase" aria-label="Buscar na Bíblia">
@@ -454,7 +445,7 @@ function showBook(i,c){
   bookBtns.forEach(function(b,k){b.setAttribute("aria-pressed",k===i?"true":"false")});
   var ch=$("b-ch");ch.textContent="";
   if(!bible){
-    $("b-info").textContent=f[2]+" · "+f[1]+(f[1]===1?" capítulo":" capítulos")+" · carregue o texto para ler";
+    $("b-info").textContent=f[2]+" · "+f[1]+(f[1]===1?" capítulo":" capítulos")+" · carregando o texto…";
     for(var k=1;k<=f[1];k++){var s=document.createElement("span");s.textContent=k;ch.appendChild(s)}
     return;
   }
@@ -518,18 +509,9 @@ function fromServer(){
   var st=$("b-status");if(st)st.textContent="Carregando o texto da Bíblia…";
   return getJson(BIBLIA_FONTE).then(function(d){
     if(accept(d))idb("readwrite",function(s){return s.put(d,"biblia")}).catch(function(){});
-  }).catch(function(){if(st)st.textContent="Não foi possível carregar o texto agora. Verifique a conexão ou selecione o arquivo abaixo."});
+  }).catch(function(){if(st)st.textContent="Não foi possível carregar o texto agora. Verifique a conexão e recarregue a página."});
 }
 if(document.getElementById("b-text"))idb("readonly",function(s){return s.get("biblia")}).then(function(d){if(!d||!accept(d))return fromServer()},fromServer).catch(function(){});
-$("b-file").addEventListener("change",function(){
-  var f=this.files&&this.files[0],st=$("b-status");if(!f)return;
-  st.textContent="Lendo o arquivo…";
-  f.text().then(function(t){
-    var d;try{d=JSON.parse(t)}catch(e){st.textContent="Este arquivo não é um JSON válido. Baixe o biblia.json novamente e tente de novo.";return}
-    if(!accept(d)){st.textContent="O arquivo não tem os 73 livros no formato esperado. Use o biblia.json do repositório indicado.";return}
-    idb("readwrite",function(s){return s.put(d,"biblia")}).catch(function(){});
-  },function(){st.textContent="Não foi possível ler o arquivo. Tente selecioná-lo de novo."});
-});
 $("b-search").addEventListener("submit",function(ev){
   ev.preventDefault();
   var q=norm($("b-q").value.trim()),out=$("b-results"),cnt=$("b-count");out.textContent="";
