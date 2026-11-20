@@ -123,6 +123,32 @@ EXTRA_CSS = """
 .prayer h3 a:hover{color:var(--accent);text-decoration:underline}
 .related{list-style:none;padding:0;margin:0}
 .related li{padding:.45rem 0;border-bottom:1px solid var(--line)}
+/* acordeões (<details>) das listas longas: o texto fica no HTML, só recolhido */
+.acc{border-top:1px solid var(--line)}
+.acc>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:.75rem;padding:.85rem .35rem;border-radius:4px;transition:background-color .15s}
+.acc>summary::-webkit-details-marker{display:none}
+.acc>summary:hover{background:var(--surface)}
+.acc>summary>h2,.acc>summary>h3{flex:1;margin:0;font-family:var(--ui);font-size:1.12rem;font-weight:700;letter-spacing:0;text-transform:none;color:var(--ink);line-height:1.3}
+.acc>summary:hover>h2,.acc>summary:hover>h3{color:var(--accent)}
+.acc>summary::after{content:"";flex:none;width:.5rem;height:.5rem;margin-right:.3rem;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:translateY(-.15rem) rotate(45deg);transition:transform .2s}
+.acc[open]>summary::after{transform:translateY(.1rem) rotate(-135deg)}
+.acc-body{max-width:70ch;line-height:1.65;padding:.15rem .35rem 1.3rem;display:flex;flex-direction:column;gap:.9rem}
+.acc-body.block,.acc-body.prayer{border-top:0;padding-top:.15rem}
+.acc-actions{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center;font-family:var(--ui);font-size:.92rem}
+.acc-copy{font:inherit;color:var(--muted);background:none;border:1px solid var(--line);border-radius:999px;padding:.3rem .8rem;cursor:pointer}
+.acc-copy:hover{color:var(--accent);border-color:var(--accent)}
+.acc-tools{position:sticky;top:var(--hdr,0px);z-index:4;background:var(--bg);padding:.65rem 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:.5rem;font-family:var(--ui)}
+.acc-row{display:flex;flex-wrap:wrap;gap:.5rem}
+.acc-row input{flex:1 1 12rem;min-width:0;font:inherit;font-size:1rem;padding:.5rem .7rem;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink)}
+.acc-az{display:flex;gap:.3rem;overflow-x:auto;padding-bottom:.15rem}
+.acc-az .chip{flex:none;min-width:2.25rem;padding:.25rem .55rem}
+.acc-count{margin:0;font-size:.88rem;color:var(--muted)}
+mark.acc-hit{background:#ffe08a;color:#17202a;border-radius:2px}
+.acc-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+details.acc,.acc [id]{scroll-margin-top:calc(var(--hdr,0px) + var(--tools,0px) + .75rem)}
+@media (min-width:720px){.acc-az{flex-wrap:wrap;overflow:visible}}
+@media (prefers-reduced-motion:reduce){.acc>summary,.acc>summary::after{transition:none}}
+@media print{.acc-tools,.acc-copy,.acc>summary::after{display:none}}
 """
 head = head.replace("</style>", EXTRA_CSS + "</style>", 1)
 # CSS num arquivo próprio (/assets/site.css), que o navegador guarda entre uma página e outra
@@ -192,7 +218,101 @@ QR_TAG = '<script src="/assets/qrcode.min.js"></script>\n'
 assert QR_TAG in script
 # JavaScript num arquivo próprio (/assets/site.js)
 js_m = re.search(r"<script>\n(.*?)</script>\n", script, re.S)
-SITE_JS = js_m.group(1)
+SITE_JS = js_m.group(1) + r"""
+/* ---------- Acordeões: busca, filtro A-Z, link direto (gerado pelo build.py) ---------- */
+(function(){
+var items=[].slice.call(document.querySelectorAll("details.acc"));
+if(!items.length)return;
+var root=document.documentElement,hdr=document.querySelector("header.site"),tools=document.querySelector(".acc-tools");
+function sizes(){
+  root.style.setProperty("--hdr",(hdr&&getComputedStyle(hdr).position==="sticky"?hdr.offsetHeight:0)+"px");
+  root.style.setProperty("--tools",(tools?tools.offsetHeight:0)+"px");
+}
+sizes();addEventListener("resize",sizes);
+function fold(s){var o="";for(var i=0;i<s.length;i++){var d=s[i].normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();o+=d.length===1?d:s[i].toLowerCase()}return o}
+/* botão "Copiar link direto" dentro de cada item aberto */
+function copyText(u,done){
+  function old(){var t=document.createElement("textarea");t.value=u;t.setAttribute("readonly","");t.style.position="fixed";t.style.opacity="0";
+    document.body.appendChild(t);t.select();try{document.execCommand("copy")}catch(e){}document.body.removeChild(t);done()}
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(u).then(done,old);else old();
+}
+function actions(d){
+  var b=d.querySelector(".acc-body");if(!d.id||!b||b.querySelector(".acc-copy"))return;
+  var row=b.querySelector(".acc-actions");
+  if(!row){row=document.createElement("div");row.className="acc-actions";b.appendChild(row)}
+  var btn=document.createElement("button");btn.type="button";btn.className="acc-copy";btn.textContent="Copiar link direto";
+  btn.addEventListener("click",function(){
+    copyText(location.origin+location.pathname+"#"+d.id,function(){
+      btn.textContent="Link copiado";setTimeout(function(){btn.textContent="Copiar link direto"},2000)});
+  });
+  row.appendChild(btn);
+}
+items.forEach(function(d){d.addEventListener("toggle",function(){if(d.open)actions(d)});if(d.open)actions(d)});
+/* busca, letras, expandir e recolher */
+var q,count,letter="",auto=[],data=items.map(function(d){return{d:d,l:d.getAttribute("data-l")||"",all:fold(d.textContent)}});
+function unmark(){[].slice.call(document.querySelectorAll("mark.acc-hit")).forEach(function(m){var p=m.parentNode;p.replaceChild(document.createTextNode(m.textContent),m);p.normalize()})}
+function mark(el,nq){
+  var w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null),ns=[],n;
+  while((n=w.nextNode()))if(!n.parentNode.closest(".acc-actions"))ns.push(n);
+  ns.forEach(function(n){
+    var s=n.nodeValue,f=fold(s),i=f.indexOf(nq),last=0,frag=null;
+    while(i>=0){
+      frag=frag||document.createDocumentFragment();
+      frag.appendChild(document.createTextNode(s.slice(last,i)));
+      var m=document.createElement("mark");m.className="acc-hit";m.textContent=s.slice(i,i+nq.length);frag.appendChild(m);
+      last=i+nq.length;i=f.indexOf(nq,last);
+    }
+    if(frag){frag.appendChild(document.createTextNode(s.slice(last)));n.parentNode.replaceChild(frag,n)}
+  });
+}
+function apply(){
+  var nq=fold(q.value.trim()),shown=0;
+  unmark();auto.forEach(function(d){d.open=false});auto=[];
+  data.forEach(function(x){
+    var ok=(!letter||x.l===letter)&&(!nq||x.all.indexOf(nq)>=0);
+    x.d.hidden=!ok;if(!ok)return;shown++;
+    if(nq.length>1){mark(x.d,nq);if(!x.d.open){x.d.open=true;auto.push(x.d)}}
+  });
+  [].slice.call(document.querySelectorAll("div.cat-h")).forEach(function(g){if(g.querySelector("details.acc"))g.hidden=!g.querySelector("details.acc:not([hidden])")});
+  count.textContent="Mostrando "+shown+" de "+items.length+(items.length===1?" item":" itens");
+}
+function reset(){
+  if(!tools)return;q.value="";letter="";
+  [].forEach.call(tools.querySelectorAll("[data-l]"),function(x){x.setAttribute("aria-pressed",x.getAttribute("data-l")===""?"true":"false")});
+  apply();
+}
+if(tools){
+  q=tools.querySelector("input");count=tools.querySelector(".acc-count");
+  var tm;q.addEventListener("input",function(){clearTimeout(tm);tm=setTimeout(apply,120)});
+  tools.addEventListener("click",function(e){
+    var b=e.target.closest("button");if(!b)return;
+    if(b.hasAttribute("data-l")){
+      letter=b.getAttribute("data-l");
+      [].forEach.call(tools.querySelectorAll("[data-l]"),function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});
+      apply();
+    }else if(b.hasAttribute("data-acc")){
+      var o=b.getAttribute("data-acc")==="open";items.forEach(function(d){if(!d.hidden)d.open=o});auto=[];
+    }
+  });
+}
+/* link direto: /pagina/#item abre o item e rola até ele */
+function go(smooth){
+  var id;try{id=decodeURIComponent(location.hash.slice(1))}catch(e){return}
+  var t=id&&document.getElementById(id);if(!t)return;
+  for(var e=t;e;e=e.parentElement)if(e.hidden){reset();break}
+  for(e=t;e;e=e.parentElement)if(e.tagName==="DETAILS")e.open=true;
+  smooth=smooth&&!matchMedia("(prefers-reduced-motion: reduce)").matches;
+  requestAnimationFrame(function(){sizes();t.scrollIntoView({behavior:smooth?"smooth":"auto",block:"start"})});
+}
+addEventListener("hashchange",function(){go(true)});
+go(false);
+/* ao abrir a página por um link direto, confere a posição de novo depois que fontes e imagens carregam */
+if(location.hash)addEventListener("load",function(){setTimeout(function(){go(true)},50)});
+/* impressão: imprime tudo aberto */
+addEventListener("beforeprint",function(){items.forEach(function(d){if(!d.open){d.open=true;d.setAttribute("data-print","")}})});
+addEventListener("afterprint",function(){items.forEach(function(d){if(d.hasAttribute("data-print")){d.open=false;d.removeAttribute("data-print")}})});
+})();
+"""
 js_ver = hashlib.sha256(SITE_JS.encode()).hexdigest()[:10]
 script = script.replace(js_m.group(0), f'<script src="/assets/site.js?v={js_ver}" defer></script>\n')
 script_noqr = script.replace(QR_TAG, "")
@@ -258,14 +378,28 @@ def prayer_article(k, link=True, tag="h3", title=None):
     r = f'<p class="r">{esc(p["r"])}</p>' if p.get("r") else ""
     return f'<article class="prayer"><{tag}>{t}</{tag}>{r}<p>{esc(p["x"])}</p></article>'
 
+def initial(t):
+    """Letra inicial do título, sem acento (usada no filtro A-Z)."""
+    m = re.search(r"[a-z]", slugify(t))
+    return m.group(0).upper() if m else "#"
+
+def prayer_acc(k):
+    """Oração da lista em acordeão: o texto completo fica no HTML, só recolhido."""
+    p = P[k]
+    r = f'<p class="r">{esc(p["r"])}</p>' if p.get("r") else ""
+    return (f'<details class="acc" id="{PRAYERS[k]}" data-l="{initial(p["t"])}"><summary><h3>{esc(p["t"])}</h3></summary>'
+            f'<div class="acc-body prayer">{r}<p>{esc(p["x"])}</p>'
+            f'<p class="acc-actions"><a href="{purl(k)}">Origem, quando rezar e latim</a></p></div></details>')
+
 prayers_html = "".join(
-    f'<div class="stack cat-h"><h2>{esc(g[0])}</h2>' + "".join(prayer_article(k) for k in g[1]) + "</div>" for g in GROUPS)
+    f'<div class="stack cat-h"><h2>{esc(g[0])}</h2>' + "".join(prayer_acc(k) for k in g[1]) + "</div>" for g in GROUPS)
 
 def qfig(q):
     return f'<figure class="quote"><blockquote>{esc(q[1])}</blockquote><figcaption><b>{esc(q[0])}</b> · {linkify(esc(q[2]))}</figcaption></figure>'
 QG = [("Palavras de Jesus", lambda q: q[0] == "Jesus Cristo"), ("Palavras de Maria", lambda q: q[0] == "Maria"),
       ("Palavras dos santos", lambda q: q[0] not in ("Jesus Cristo", "Maria"))]
-quotes_html = "".join(f'<div class="stack cat-h"><h2>{n}</h2>' + "".join(qfig(q) for q in Q if f(q)) + "</div>" for n, f in QG)
+quotes_html = "".join(f'<details class="acc cat-h" id="{slugify(n)}" data-l="{initial(n)}"><summary><h2>{n}</h2></summary>'
+                      '<div class="acc-body">' + "".join(qfig(q) for q in Q if f(q)) + "</div></details>" for n, f in QG)
 
 def fill(body, div_id, inner):
     tag = f'<div id="{div_id}" class="stack"></div>'
@@ -278,6 +412,7 @@ def add_ids(body):
     def r(m):
         tag, attrs, inner = m.group(1), m.group(2), m.group(3)
         if "id=" in attrs or not text(inner): return m.group(0)
+        if body[max(0, m.start() - 9):m.start()] == "<summary>": return m.group(0)  # título de acordeão: o id fica no <details>
         base = slugify(text(inner))[:60] or "secao"; i, sid = 2, base
         while sid in used: sid, i = f"{base}-{i}", i + 1
         used.add(sid)
@@ -290,6 +425,76 @@ def add_toc(body):
            + "".join(f'<li><a href="#{i}">{esc(text(t))}</a></li>' for i, t in hs) + "</ul></nav>")
     m = re.search(r'<p class="lede">.*?</p>', body, re.S) or re.search(r"</h1>", body)
     return body[:m.end()] + toc + body[m.end():]
+
+# acordeões: cada bloco de primeiro nível que começa com <h2> vira <details><summary><h2>…</h2></summary>.
+# O texto não muda e continua no HTML (só recolhido), então o Google lê tudo. Blocos interativos
+# (terço guiado, calendário, liturgia, Pix, busca da Bíblia) continuam abertos como antes.
+VOID = {"br", "img", "input", "meta", "link", "hr", "source", "wbr", "col", "area", "embed", "track"}
+TAG_RE = re.compile(r"<!--.*?-->|<(/?)([a-zA-Z][a-zA-Z0-9]*)\b[^>]*?(/?)>", re.S)
+def top_children(s):
+    out, depth, start = [], 0, None
+    for m in TAG_RE.finditer(s):
+        if not m.group(2) or m.group(2).lower() in VOID or m.group(3): continue
+        if m.group(1):
+            depth -= 1
+            if depth == 0: out.append((start, m.end()))
+        else:
+            if depth == 0: start = m.start()
+            depth += 1
+    assert depth == 0, "HTML desbalanceado"
+    return out
+LIVE_IDS = set(re.findall(r'\$\("([\w-]+)"\)', footer_script)) - {"about-oracoes", "via-sacra", "q-erradas"}
+INTERACTIVE = re.compile(r"<(button|input|iframe|select|textarea|canvas|form)\b|" +
+                         r'id="(' + "|".join(map(re.escape, sorted(LIVE_IDS))) + ')"')
+BLOCK_RE = re.compile(r'<div([^>]*)>\s*<h2([^>]*)>(.*?)</h2>', re.S)
+ACC_RE = re.compile(r'<details class="acc[^"]*" id="([^"]+)"[^>]*><summary>(.*?)</summary>(.*?)</details>', re.S)
+
+def acc_toolbar(letters, n):
+    az = "".join(f'<button type="button" class="chip" data-l="{l}" aria-pressed="false">{l}</button>' for l in letters)
+    return ('<div class="acc-tools" role="search" aria-label="Buscar e filtrar nesta página">'
+            '<div class="acc-row"><label class="acc-sr" for="acc-q">Buscar nesta página</label>'
+            '<input id="acc-q" type="search" placeholder="Buscar nesta página" autocomplete="off" enterkeyhint="search">'
+            '<button type="button" class="chip" data-acc="open">Expandir tudo</button>'
+            '<button type="button" class="chip" data-acc="close">Recolher tudo</button></div>'
+            + ('<div class="acc-az" role="group" aria-label="Filtrar pela letra inicial">'
+               f'<button type="button" class="chip" data-l="" aria-pressed="true">Todas</button>{az}</div>' if len(letters) > 1 else "")
+            + f'<p class="acc-count" aria-live="polite">Mostrando {n} de {n} itens</p></div>')
+
+def accordionize(sec, path, min_items=3):
+    """Devolve (seção com acordeões e barra de busca, ItemList para o JSON-LD ou None)."""
+    o, c = sec.index(">", sec.index("<section")) + 1, sec.rindex("</section>")
+    inner, out, last = sec[o:c], [], 0
+    spans = top_children(inner)
+    for a, b in spans:
+        el = inner[a:b]
+        m = BLOCK_RE.match(el)
+        if not m or INTERACTIVE.search(el) or "<h1" in el: continue
+        attrs, h2a, h2in = m.group(1), m.group(2), m.group(3)
+        assert not re.sub(r'\s*(class|id)="[^"]*"', "", attrs).strip(), attrs
+        cls = (re.search(r'class="([^"]*)"', attrs) or [None, ""])[1]
+        did = re.search(r'id="([^"]*)"', attrs)
+        hid = re.search(r' id="([^"]*)"', h2a)
+        if did: aid = did.group(1)
+        elif hid: aid, h2a = hid.group(1), h2a.replace(hid.group(0), "")
+        else: aid = slugify(text(h2in))
+        rest = el[m.end():el.rindex("</div>")]
+        out.append(inner[last:a] + f'<details class="acc" id="{aid}" data-l="{initial(text(h2in))}">'
+                   f'<summary><h2{h2a}>{h2in}</h2></summary><div class="{(cls + " acc-body").strip()}">{rest}</div></details>')
+        last = b
+    new = inner[:0] + "".join(out) + inner[last:]
+    found = ACC_RE.findall(new)
+    if len(found) < min_items: return sec, None
+    ids = [i for i, _, _ in found]
+    assert len(set(ids)) == len(ids), f"ids repetidos em {path}"
+    letters = sorted({initial(text(s)) for _, s, _ in found} - {"#"})
+    first = top_children(new)[0][1]  # depois do bloco do título (h1)
+    new = new[:first] + acc_toolbar(letters, len(found)) + new[first:]
+    ld = {"@type": "ItemList", "name": "Tópicos desta página", "numberOfItems": len(found), "itemListElement": [
+        {"@type": "ListItem", "position": i + 1, "item": {
+            "@type": "CreativeWork", "@id": BASE + path + "#" + aid, "url": BASE + path + "#" + aid,
+            "name": text(s), "text": re.sub(r"\s+", " ", text(re.sub(r"<br\s*/?>|</p>|</li>|</td>", " ", body))).strip()}}
+        for i, (aid, s, body) in enumerate(found)]}
+    return sec[:o] + new + sec[c:], ld
 
 # lista de livros da Bíblia (página /biblia/)
 books_html = "".join(
@@ -323,6 +528,10 @@ for v, body in sections:
     if v == "biblia": sec = fill(sec, "books", books_html)
     if v not in ("inicio",): sec = add_ids(sec)
     if v not in ("inicio", "oracoes", "frases", "biblia"): sec = add_toc(sec)
+    if v != "inicio":
+        sec, acc_ld = accordionize(sec, url(v))
+        if acc_ld and v != "oracoes":  # /oracoes/ já tem a ItemList com o endereço de cada oração
+            ld["@graph"].append(acc_ld)
     pages[url(v)] = (page_head(title, desc, url(v), ld, legacy if v == "inicio" else "") + "</head>\n<body>" + header_f
                      + "\n\n" + sec + "\n\n" + (script if v == "apoiar" else script_noqr))
 
@@ -406,9 +615,10 @@ for k in SET_ORDER:
             + items +
             f'<div class="stack"><h2 id="outros">Outros mistérios</h2><p>{outros}</p></div>\n</section>')
     body = add_toc(body)
+    body, acc_ld = accordionize(body, path)
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "WebPage", "name": f"Mistérios {nome}", "url": BASE + path, "description": desc, "inLanguage": "pt-BR", "isPartOf": {"@id": BASE + "/#site"}},
-        crumbs_ld([("Início", "/"), ("Terço", "/terco/"), (f"Mistérios {nome}", path)])]}
+        crumbs_ld([("Início", "/"), ("Terço", "/terco/"), (f"Mistérios {nome}", path)])] + ([acc_ld] if acc_ld else [])}
     pages[path] = (page_head(f"{title} · Catholicam", desc, path, ld) + "</head>\n<body>" + header_f
                    + "\n\n" + body + "\n\n" + script_noqr)
 
