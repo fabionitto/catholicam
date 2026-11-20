@@ -1,0 +1,308 @@
+{
+ "sinal": {
+  "titulo": "Sinal da Cruz e Pelo Sinal: oração completa",
+  "h1": "Oração do Sinal da Cruz",
+  "descricao": "O Sinal da Cruz completo, “Em nome do Pai, do Filho e do Espírito Santo”, e o Pelo Sinal da Santa Cruz. Com a origem do gesto e o texto em latim.",
+  "nomes": [
+   "Pelo Sinal da Santa Cruz",
+   "Persignação",
+   "Em nome do Pai"
+  ],
+  "versoes": [
+   [
+    "Pelo Sinal (persignação)",
+    "Pelo sinal da Santa Cruz, livrai-nos, Deus, Nosso Senhor, dos nossos inimigos. Em nome do Pai, do Filho e do Espírito Santo. Amém."
+   ]
+  ],
+  "historia": [
+   "O Sinal da Cruz é o gesto mais antigo e mais simples da oração cristã. Por volta do ano 200, Tertuliano já contava que os cristãos traçavam a cruz na fronte em todos os momentos do dia: ao sair, ao entrar, ao comer, ao deitar.",
+   "As palavras vêm da ordem de Jesus de batizar \"em nome do Pai, do Filho e do Espírito Santo\" (Mt 28,19). Por isso, quem faz o Sinal da Cruz professa ao mesmo tempo a fé na Santíssima Trindade e na redenção pela cruz de Cristo, e recorda o próprio Batismo."
+  ],
+  "quando": "No início e no fim das orações, ao entrar na igreja, antes das refeições e no começo da Missa.",
+  "latim": "In nomine Patris, et Filii, et Spiritus Sancti. Amen."
+ },
+ "pai": {
+  "titulo": "Pai Nosso: oração completa, origem e latim",
+  "h1": "Oração do Pai Nosso",
+  "descricao": "A oração do Pai Nosso completa, como se reza no Brasil: a oração que Jesus ensinou (Mt 6,9-13). Com a origem, quando rezar e o Pater Noster em latim.",
+  "nomes": [
+   "Pai-Nosso",
+   "Oração do Senhor",
+   "Pater Noster"
+  ],
+  "historia": [
+   "O Pai Nosso foi ensinado pelo próprio Jesus, quando os discípulos lhe pediram: \"Senhor, ensina-nos a rezar\". O Evangelho o traz em duas versões, uma mais longa (Mt 6,9-13) e outra mais breve (Lc 11,2-4). A Igreja reza a de São Mateus.",
+   "Por isso é chamada Oração do Senhor. Tertuliano a chamou de resumo de todo o Evangelho, e a Didaqué, escrito cristão do século I, já recomendava rezá-la três vezes ao dia. O Catecismo da Igreja Católica dedica a ela toda a sua última parte (CIC 2759-2865)."
+  ],
+  "quando": "Na Missa, antes da comunhão; no terço, no início de cada mistério; e nas orações da manhã e da noite.",
+  "latim": "Pater noster, qui es in caelis, sanctificetur nomen tuum. Adveniat regnum tuum. Fiat voluntas tua, sicut in caelo et in terra.\nPanem nostrum quotidianum da nobis hodie, et dimitte nobis debita nostra, sicut et nos dimittimus debitoribus nostris. Et ne nos inducas in tentationem, sed libera nos a malo. Amen."
+ },
+ "ave": {
+  "titulo": "Ave Maria: oração completa, origem e latim",
+  "h1": "Oração da Ave Maria",
+  "descricao": "A oração da Ave Maria completa, como se reza no Brasil: a saudação do anjo Gabriel e o Santa Maria, Mãe de Deus. Com a origem bíblica e o texto em latim.",
+  "nomes": [
+   "Ave-Maria",
+   "Saudação Angélica"
+  ],
+  "historia": [
+   "A primeira parte da Ave Maria vem do Evangelho: é a saudação do anjo Gabriel a Maria (Lc 1,28) unida às palavras de Isabel (Lc 1,42). Na Idade Média se acrescentou o nome de Jesus no fim dessa saudação.",
+   "A segunda parte, o pedido \"Santa Maria, Mãe de Deus, rogai por nós\", foi se formando no fim da Idade Média e ganhou a forma atual no Breviário Romano de São Pio V, em 1568. O título Mãe de Deus foi proclamado pelo Concílio de Éfeso, em 431."
+  ],
+  "quando": "No terço (dez vezes em cada mistério), no Angelus e em qualquer momento do dia.",
+  "latim": "Ave Maria, gratia plena, Dominus tecum. Benedicta tu in mulieribus, et benedictus fructus ventris tui, Iesus.\nSancta Maria, Mater Dei, ora pro nobis peccatoribus, nunc et in hora mortis nostrae. Amen."
+ },
+ "gloria": {
+  "titulo": "Glória ao Pai: oração completa e em latim",
+  "h1": "Oração do Glória ao Pai",
+  "descricao": "O Glória ao Pai completo: “Glória ao Pai, ao Filho e ao Espírito Santo, como era no princípio, agora e sempre. Amém.” Com a origem e o Gloria Patri.",
+  "nomes": [
+   "Glória",
+   "Gloria Patri",
+   "Doxologia"
+  ],
+  "historia": [
+   "O Glória ao Pai é uma doxologia, isto é, um louvor à Santíssima Trindade. A primeira parte vem dos primeiros séculos e se tornou mais importante no século IV, durante a crise ariana, porque afirma que o Pai, o Filho e o Espírito Santo recebem a mesma glória.",
+   "A segunda parte, \"como era no princípio\", já aparece no Ocidente no século VI: o Concílio de Vaison, em 529, mandou que fosse cantada nas igrejas da Gália, como já se fazia em Roma."
+  ],
+  "quando": "No fim de cada salmo na Liturgia das Horas e no fim de cada mistério do terço.",
+  "latim": "Gloria Patri, et Filio, et Spiritui Sancto. Sicut erat in principio, et nunc, et semper, et in saecula saeculorum. Amen."
+ },
+ "credo": {
+  "titulo": "Credo (Creio em Deus Pai): oração completa",
+  "h1": "Credo: Creio em Deus Pai",
+  "descricao": "O Credo completo, o Creio em Deus Pai (Símbolo dos Apóstolos) que se reza no início do terço. Com a origem nos primeiros séculos e o texto em latim.",
+  "nomes": [
+   "Creio em Deus Pai",
+   "Símbolo dos Apóstolos",
+   "Credo Apostólico"
+  ],
+  "historia": [
+   "O Símbolo dos Apóstolos é o resumo da fé da Igreja. O Catecismo explica que ele é o antigo símbolo batismal da Igreja de Roma (CIC 194): as perguntas feitas aos que iam ser batizados, já usadas nos séculos II e III, deram origem ao texto, que chegou à forma atual por volta do século VIII.",
+   "Ele não deve ser confundido com o Credo Niceno-Constantinopolitano, mais longo, elaborado pelos concílios de Niceia (325) e de Constantinopla (381) e rezado na Missa dos domingos. Os dois professam a mesma fé."
+  ],
+  "quando": "No início do terço e, quando o celebrante o indica, na Missa no lugar do Credo Niceno-Constantinopolitano.",
+  "latim": "Credo in Deum Patrem omnipotentem, Creatorem caeli et terrae. Et in Iesum Christum, Filium eius unicum, Dominum nostrum, qui conceptus est de Spiritu Sancto, natus ex Maria Virgine, passus sub Pontio Pilato, crucifixus, mortuus, et sepultus, descendit ad inferos, tertia die resurrexit a mortuis, ascendit ad caelos, sedet ad dexteram Dei Patris omnipotentis, inde venturus est iudicare vivos et mortuos.\nCredo in Spiritum Sanctum, sanctam Ecclesiam catholicam, sanctorum communionem, remissionem peccatorum, carnis resurrectionem, vitam aeternam. Amen."
+ },
+ "salve": {
+  "titulo": "Oração da Salve Rainha completa, origem e latim",
+  "h1": "Oração da Salve Rainha",
+  "descricao": "A oração da Salve Rainha completa, como se reza no fim do terço: “Salve, Rainha, Mãe de misericórdia”. Com a origem, quando rezar e a Salve Regina em latim.",
+  "nomes": [
+   "Salve Regina",
+   "Salve, Rainha, Mãe de misericórdia"
+  ],
+  "veja": [
+   [
+    "Rezar o terço guiado, que termina com a Salve Rainha",
+    "/terco/"
+   ],
+   [
+    "A Salve Regina cantada em latim",
+    "/musicas/#hinos-tradicionais-em-latim"
+   ],
+   [
+    "Nossa Senhora: dogmas, festas e Aparecida",
+    "/maria/"
+   ]
+  ],
+  "historia": [
+   "A Salve Rainha é uma das quatro grandes antífonas marianas da Igreja. Foi composta no século XI; a autoria é discutida, e o nome mais citado é o do monge Hermano Contracto, da abadia de Reichenau.",
+   "Desde a Idade Média ela é cantada no fim das Completas, a última oração do dia, e se tornou a oração com que se encerra o terço. Pede a Maria que, depois deste exílio, nos mostre Jesus."
+  ],
+  "quando": "No fim do terço e no fim da oração da noite (Completas), fora do Tempo Pascal.",
+  "latim": "Salve, Regina, Mater misericordiae, vita, dulcedo, et spes nostra, salve. Ad te clamamus, exsules filii Hevae. Ad te suspiramus, gementes et flentes in hac lacrimarum valle.\nEia ergo, advocata nostra, illos tuos misericordes oculos ad nos converte. Et Iesum, benedictum fructum ventris tui, nobis post hoc exsilium ostende. O clemens, O pia, O dulcis Virgo Maria."
+ },
+ "fatima": {
+  "titulo": "Ó meu Jesus, perdoai-nos: a oração de Fátima",
+  "h1": "Ó meu Jesus, perdoai-nos (oração de Fátima)",
+  "descricao": "A oração de Fátima “Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno”, ensinada por Nossa Senhora em 1917 e rezada no terço depois de cada Glória.",
+  "nomes": [
+   "Oração de Fátima",
+   "Ó meu Jesus, perdoai-nos"
+  ],
+  "historia": [
+   "Esta oração foi ensinada por Nossa Senhora aos três pastorinhos de Fátima, Lúcia, Francisco e Jacinta, na aparição de 13 de julho de 1917. Ela pediu que fosse rezada depois de cada mistério do terço.",
+   "As aparições de Fátima foram reconhecidas pela Igreja em 1930, e Francisco e Jacinta foram canonizados em 2017. A oração pede perdão, a salvação das almas e socorro para os que mais precisam da misericórdia de Deus."
+  ],
+  "quando": "No terço, depois do Glória ao Pai de cada mistério."
+ },
+ "anjo": {
+  "titulo": "Oração do Santo Anjo da Guarda completa",
+  "h1": "Oração do Santo Anjo da Guarda",
+  "descricao": "A oração do Santo Anjo completa: “Santo Anjo do Senhor, meu zeloso guardador”. Com a origem da devoção ao anjo da guarda e o Angele Dei em latim.",
+  "nomes": [
+   "Santo Anjo do Senhor",
+   "Oração ao Anjo da Guarda",
+   "Angele Dei"
+  ],
+  "historia": [
+   "A Igreja ensina que \"cada fiel é ladeado por um anjo como protetor e pastor para conduzi-lo à vida\" (CIC 336). A oração ao Anjo da Guarda é de origem medieval e se tornou uma das primeiras que as crianças aprendem.",
+   "A festa dos Santos Anjos da Guarda é celebrada em 2 de outubro. A versão rimada usada no Brasil, \"Santo Anjo do Senhor, meu zeloso guardador\", é uma adaptação popular da oração latina."
+  ],
+  "quando": "Ao acordar, antes de dormir e antes de sair de casa.",
+  "latim": "Angele Dei, qui custos es mei, me tibi commissum pietate superna illumina, custodi, rege et guberna. Amen."
+ },
+ "contricao": {
+  "titulo": "Ato de Contrição: oração completa para a Confissão",
+  "h1": "Ato de Contrição",
+  "descricao": "O Ato de Contrição completo, nas duas versões usadas no Brasil: “Meu Deus, eu me arrependo” e “Senhor meu Jesus Cristo”. Para a Confissão e a noite.",
+  "nomes": [
+   "Ato de Arrependimento",
+   "Oração de Contrição",
+   "Meu Deus, eu me arrependo"
+  ],
+  "versoes": [
+   [
+    "Versão longa",
+    "Senhor meu Jesus Cristo, Deus e Homem verdadeiro, Criador e Redentor meu, por serdes vós quem sois, sumamente bom e digno de ser amado sobre todas as coisas, e porque vos amo e estimo, pesa-me, Senhor, de todo o meu coração, de vos ter ofendido; e proponho firmemente, ajudado com os auxílios da vossa divina graça, emendar-me e nunca mais vos tornar a ofender; e espero alcançar o perdão das minhas culpas pela vossa infinita misericórdia. Amém."
+   ]
+  ],
+  "veja": [
+   [
+    "Como se confessar, passo a passo",
+    "/catequese/#como-se-confessar"
+   ],
+   [
+    "Os dez mandamentos, para o exame de consciência",
+    "/doutrina/"
+   ]
+  ],
+  "historia": [
+   "Contrição é \"uma dor da alma e uma detestação do pecado cometido, com o propósito de não mais pecar\" (CIC 1451). O Ato de Contrição expressa esse arrependimento em palavras, e é rezado pelo penitente na Confissão, antes da absolvição.",
+   "Existem várias fórmulas aprovadas, e todas trazem os mesmos elementos: a dor de ter ofendido a Deus, que é bom; o propósito de não pecar mais; e a confiança na sua misericórdia. Fora da Confissão, é bom rezá-lo todas as noites, no exame de consciência."
+  ],
+  "quando": "Na Confissão, antes da absolvição, e no exame de consciência da noite."
+ },
+ "espirito": {
+  "titulo": "Vinde, Espírito Santo, enchei os corações dos vossos fiéis",
+  "h1": "Oração Vinde, Espírito Santo",
+  "descricao": "Oração completa ao Espírito Santo: “Vinde, Espírito Santo, enchei os corações dos vossos fiéis e acendei neles o fogo do vosso amor”. Com a origem e o latim.",
+  "nomes": [
+   "Oração ao Espírito Santo",
+   "Vinde, Espírito Santo, enchei os corações dos vossos fiéis",
+   "Veni, Sancte Spiritus"
+  ],
+  "veja": [
+   [
+    "Crisma: o Espírito Santo e seus dons",
+    "/catequese/#crisma"
+   ],
+   [
+    "Pentecostes e as datas móveis do ano",
+    "/calendario/"
+   ]
+  ],
+  "historia": [
+   "A primeira parte é uma antiga antífona da liturgia de Pentecostes, cantada como verso do Aleluia na Missa da festa. O versículo \"Enviai o vosso Espírito\" vem do Salmo 104 (103 na numeração da Vulgata).",
+   "A oração final é a antiga coleta da Missa votiva do Espírito Santo. Por isso a oração é muito usada antes dos estudos, de uma reunião ou de qualquer decisão importante."
+  ],
+  "quando": "Antes de estudar, de trabalhar, de uma reunião ou de uma decisão, e na novena de Pentecostes.",
+  "latim": "Veni, Sancte Spiritus, reple tuorum corda fidelium, et tui amoris in eis ignem accende.\n℣. Emitte Spiritum tuum et creabuntur.\n℟. Et renovabis faciem terrae.\nOremus. Deus, qui corda fidelium Sancti Spiritus illustratione docuisti, da nobis in eodem Spiritu recta sapere, et de eius semper consolatione gaudere. Per Christum Dominum nostrum. Amen."
+ },
+ "miguel": {
+  "titulo": "Oração a São Miguel Arcanjo completa, com origem",
+  "h1": "Oração a São Miguel Arcanjo",
+  "descricao": "A oração a São Miguel Arcanjo completa: “São Miguel Arcanjo, defendei-nos no combate”. Com a história da oração do Papa Leão XIII e o texto em latim.",
+  "nomes": [
+   "São Miguel Arcanjo, defendei-nos no combate",
+   "Sancte Michael Archangele"
+  ],
+  "historia": [
+   "São Miguel é o arcanjo que combate o dragão no Apocalipse (Ap 12,7-9); seu nome quer dizer \"Quem é como Deus?\". A oração foi composta pelo Papa Leão XIII em 1886 e mandada rezar depois das Missas rezadas, junto com outras orações.",
+   "Essas orações depois da Missa deixaram de ser obrigatórias em 1964, mas São João Paulo II, em 1994, pediu que os fiéis não esquecessem esta oração, e o Papa Francisco renovou o pedido em 2018. A festa dos arcanjos Miguel, Gabriel e Rafael é em 29 de setembro."
+  ],
+  "quando": "Em momentos de tentação e de luta espiritual, e no fim do terço, onde é costume.",
+  "latim": "Sancte Michael Archangele, defende nos in proelio; contra nequitiam et insidias diaboli esto praesidium. Imperet illi Deus, supplices deprecamur: tuque, Princeps militiae caelestis, Satanam aliosque spiritus malignos, qui ad perditionem animarum pervagantur in mundo, divina virtute in infernum detrude. Amen."
+ },
+ "angelus": {
+  "titulo": "Angelus (O Anjo do Senhor): oração completa",
+  "h1": "Angelus: O Anjo do Senhor",
+  "descricao": "O Angelus completo, “O Anjo do Senhor anunciou a Maria”, com versículos, respostas e a oração final. Reza-se às 6h, ao meio-dia e às 18h. Com o latim.",
+  "nomes": [
+   "O Anjo do Senhor",
+   "Ângelus",
+   "Angelus Domini"
+  ],
+  "historia": [
+   "O Angelus recorda o mistério da Encarnação, quando o Filho de Deus se fez homem no seio de Maria. O costume de rezar três Ave-Marias ao toque do sino nasceu entre os séculos XIII e XIV, com forte incentivo dos franciscanos, e a forma atual se firmou no século XVI.",
+   "Os sinos das igrejas tocam às 6h, ao meio-dia e às 18h para lembrar a oração. Desde 1742, no Tempo Pascal, ela é substituída pela Rainha do Céu. Aos domingos, ao meio-dia, o Papa reza o Angelus com os fiéis na Praça de São Pedro."
+  ],
+  "quando": "Às 6h, ao meio-dia e às 18h, fora do Tempo Pascal.",
+  "latim": "℣. Angelus Domini nuntiavit Mariae.\n℟. Et concepit de Spiritu Sancto.\nAve Maria…\n℣. Ecce ancilla Domini.\n℟. Fiat mihi secundum verbum tuum.\nAve Maria…\n℣. Et Verbum caro factum est.\n℟. Et habitavit in nobis.\nAve Maria…\n℣. Ora pro nobis, sancta Dei Genetrix.\n℟. Ut digni efficiamur promissionibus Christi.\nOremus. Gratiam tuam, quaesumus, Domine, mentibus nostris infunde; ut qui, Angelo nuntiante, Christi Filii tui incarnationem cognovimus, per passionem eius et crucem ad resurrectionis gloriam perducamur. Per eundem Christum Dominum nostrum. Amen."
+ },
+ "regina": {
+  "titulo": "Rainha do Céu (Regina Caeli): oração da Páscoa",
+  "h1": "Rainha do Céu (Regina Caeli)",
+  "descricao": "A oração Rainha do Céu, alegrai-vos, aleluia (Regina Caeli), que substitui o Angelus no Tempo Pascal. Texto completo, origem e versão em latim.",
+  "nomes": [
+   "Regina Coeli",
+   "Rainha do Céu, alegrai-vos"
+  ],
+  "historia": [
+   "A Rainha do Céu é a antífona mariana do Tempo Pascal. O texto é conhecido desde o século XII; uma lenda piedosa o liga a São Gregório Magno, mas a origem exata é desconhecida.",
+   "Ela convida Maria a se alegrar com a Ressurreição do Filho. Desde 1742, por decisão do Papa Bento XIV, substitui o Angelus do Domingo de Páscoa até Pentecostes."
+  ],
+  "quando": "Do Domingo de Páscoa até Pentecostes, às 6h, ao meio-dia e às 18h, no lugar do Angelus.",
+  "latim": "Regina caeli, laetare, alleluia.\nQuia quem meruisti portare, alleluia.\nResurrexit, sicut dixit, alleluia.\nOra pro nobis Deum, alleluia.\n℣. Gaude et laetare, Virgo Maria, alleluia.\n℟. Quia surrexit Dominus vere, alleluia.\nOremus. Deus, qui per resurrectionem Filii tui, Domini nostri Iesu Christi, mundum laetificare dignatus es, praesta, quaesumus, ut per eius Genetricem Virginem Mariam perpetuae capiamus gaudia vitae. Per eundem Christum Dominum nostrum. Amen."
+ },
+ "lembrai": {
+  "titulo": "Lembrai-vos: oração a Nossa Senhora (Memorare)",
+  "h1": "Oração Lembrai-vos",
+  "descricao": "A oração Lembrai-vos completa: “Lembrai-vos, ó piíssima Virgem Maria, que nunca se ouviu dizer”. A súplica de confiança a Nossa Senhora, com o Memorare.",
+  "nomes": [
+   "Memorare",
+   "Lembrai-vos, ó piíssima Virgem Maria"
+  ],
+  "historia": [
+   "O Lembrai-vos (em latim, Memorare) é muitas vezes atribuído a São Bernardo de Claraval, que tanto falou da confiança em Maria, mas o texto aparece no século XV como parte de uma oração mais longa.",
+   "Quem o espalhou pelo mundo foi o padre francês Claude Bernard, no século XVII, que o rezava com os presos e os doentes de Paris e mandou imprimir milhares de cópias. É uma oração de confiança total na intercessão de Nossa Senhora."
+  ],
+  "quando": "Em momentos de aflição e ao pedir uma graça pela intercessão de Nossa Senhora.",
+  "latim": "Memorare, o piissima Virgo Maria, non esse auditum a saeculo quemquam ad tua currentem praesidia, tua implorantem auxilia, tua petentem suffragia esse derelictum.\nEgo tali animatus confidentia, ad te, Virgo virginum, Mater, curro, ad te venio, coram te gemens peccator assisto. Noli, Mater Verbi, verba mea despicere, sed audi propitia et exaudi. Amen."
+ },
+ "protecao": {
+  "titulo": "À vossa proteção: a mais antiga oração a Maria",
+  "h1": "Oração À vossa proteção",
+  "descricao": "A oração À vossa proteção recorremos, santa Mãe de Deus (Sub tuum praesidium), a súplica mais antiga a Nossa Senhora. Texto, história e latim.",
+  "nomes": [
+   "Sub tuum praesidium",
+   "À vossa proteção recorremos"
+  ],
+  "historia": [
+   "À vossa proteção (Sub tuum praesidium) é a oração a Nossa Senhora mais antiga que se conhece. Seu texto em grego foi encontrado num papiro egípcio datado entre os séculos III e IV, hoje guardado na Biblioteca John Rylands, em Manchester.",
+   "Já ali Maria é chamada Mãe de Deus, mais de um século antes do Concílio de Éfeso (431). A oração mostra que os primeiros cristãos já recorriam à intercessão de Maria nos perigos."
+  ],
+  "quando": "Em momentos de perigo e de necessidade, e no fim das Completas, como antífona mariana.",
+  "latim": "Sub tuum praesidium confugimus, sancta Dei Genetrix. Nostras deprecationes ne despicias in necessitatibus, sed a periculis cunctis libera nos semper, Virgo gloriosa et benedicta."
+ },
+ "consagracao": {
+  "titulo": "Consagração a Nossa Senhora: Ó minha Senhora",
+  "h1": "Consagração a Nossa Senhora",
+  "descricao": "A oração de consagração a Nossa Senhora completa: “Ó minha Senhora, ó minha Mãe, eu me ofereço todo a vós”. Com a origem e quando rezar.",
+  "nomes": [
+   "Ó minha Senhora, ó minha Mãe",
+   "Consagração a Maria"
+  ],
+  "historia": [
+   "Esta breve consagração, que começa com \"Ó minha Senhora, ó minha Mãe\", é atribuída ao jesuíta italiano Nicolau Zucchi, do século XVII, e se tornou muito popular no Brasil, sobretudo nas paróquias e nas famílias.",
+   "Consagrar-se a Maria é entregar-se a ela para pertencer mais inteiramente a Cristo. A Igreja conhece também formas mais longas de consagração, como a de São Luís Maria Grignion de Montfort, que se prepara com 33 dias de oração."
+  ],
+  "quando": "Pela manhã, ao começar o dia, e nas festas de Nossa Senhora."
+ },
+ "alma": {
+  "titulo": "Alma de Cristo: oração completa (Anima Christi)",
+  "h1": "Oração Alma de Cristo",
+  "descricao": "A oração Alma de Cristo completa, “Alma de Cristo, santificai-me”, rezada depois da comunhão. Com a origem no século XIV e o Anima Christi em latim.",
+  "nomes": [
+   "Anima Christi",
+   "Alma de Cristo, santificai-me"
+  ],
+  "historia": [
+   "A Alma de Cristo (Anima Christi) é uma oração do século XIV. Costuma ser atribuída a Santo Inácio de Loyola porque ele a colocou no início dos Exercícios Espirituais, mas ela já aparece em manuscritos anteriores ao nascimento dele.",
+   "Cada invocação pede que a força do Corpo, do Sangue e da Paixão de Cristo transforme quem reza. Por isso é tradicionalmente rezada depois da comunhão, em ação de graças."
+  ],
+  "quando": "Depois da comunhão, em ação de graças.",
+  "latim": "Anima Christi, sanctifica me.\nCorpus Christi, salva me.\nSanguis Christi, inebria me.\nAqua lateris Christi, lava me.\nPassio Christi, conforta me.\nO bone Iesu, exaudi me.\nIntra tua vulnera absconde me.\nNe permittas me separari a te.\nAb hoste maligno defende me.\nIn hora mortis meae voca me,\net iube me venire ad te,\nut cum Sanctis tuis laudem te\nin saecula saeculorum. Amen."
+ }
+}

@@ -4,10 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Catholicam</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/alegreya-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+@font-face{font-family:"Alegreya";font-style:italic;font-weight:400 500;font-display:swap;src:url(/assets/fonts/alegreya-italic.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Alegreya";font-style:normal;font-weight:400 700;font-display:swap;src:url(/assets/fonts/alegreya-normal.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Alegreya Sans";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/alegreya-sans-normal-400.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Alegreya Sans";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/alegreya-sans-normal-500.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:"Alegreya Sans";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/alegreya-sans-normal-700.woff2) format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 /* Plano: livro litúrgico em tela. Coluna única de leitura, índice com pontilhado como sumário de missal,
    rubricas em vermelho (instruções) e texto rezado em preto. A cor de destaque acompanha o tempo litúrgico do dia. */
 :root{
@@ -44,15 +47,6 @@ header.site{border-bottom:1px solid var(--line);background:var(--surface)}
 .tool{font-family:var(--ui);font-size:.95rem;font-weight:700;min-width:2.6rem;padding:.45rem .6rem;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:4px;cursor:pointer}
 .menu-btn{display:none;border-color:var(--accent);color:var(--accent)}
 nav.main{flex-basis:100%}
-@media (max-width:719px){
-  header.site{position:sticky;top:0;z-index:5}
-  .masthead{padding-top:.7rem;padding-bottom:.7rem}
-  .brand{font-size:1.6rem}
-  .menu-btn{display:inline-block}
-  nav.main{display:none}
-  nav.main.open{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem;max-height:70vh;overflow-y:auto}
-  nav.main a{padding:.7rem 0;border-bottom:1px solid var(--line);font-size:1.05rem}
-}
 .quote{margin:0;display:flex;flex-direction:column;gap:.35rem;padding:1rem 0;border-bottom:1px solid var(--line)}
 .quote blockquote{margin:0;font-family:var(--display);font-style:italic;font-size:1.3rem;line-height:1.35;text-wrap:balance}
 .quote figcaption{font-family:var(--ui);font-size:.92rem;color:var(--muted)}
@@ -65,6 +59,15 @@ nav.main{display:flex;flex-wrap:wrap;gap:.25rem .9rem;font-family:var(--ui);font
 nav.main a{color:var(--muted);text-decoration:none;padding:.15rem 0;border-bottom:2px solid transparent}
 nav.main a:hover{color:var(--ink)}
 nav.main a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:700}
+@media (max-width:719px){
+  header.site{position:sticky;top:0;z-index:5}
+  .masthead{padding-top:.7rem;padding-bottom:.7rem}
+  .brand{font-size:1.6rem}
+  .menu-btn{display:inline-block}
+  nav.main{display:none}
+  nav.main.open{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem;max-height:70vh;overflow-y:auto}
+  nav.main a{padding:.7rem 0;border-bottom:1px solid var(--line);font-size:1.05rem}
+}
 
 main{padding:1.75rem 0 3rem}
 section.view{display:none}
@@ -168,11 +171,42 @@ table{border-collapse:collapse;width:100%;font-family:var(--ui);font-size:.95rem
 th,td{text-align:left;padding:.5rem .6rem .5rem 0;border-bottom:1px solid var(--line);vertical-align:top}
 th{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
 
+.skip{position:absolute;left:-9999px;top:0;z-index:10;background:var(--surface);color:var(--accent);padding:.6rem 1rem;font-family:var(--ui);font-weight:700}
+.skip:focus{left:.5rem;top:.5rem}
+footer a{display:inline-block;padding:.6rem 0}
+footer .top{margin:0 0 .25rem}
+a.chip{display:inline-block}
+.toc-page{font-family:var(--ui);font-size:.95rem;border-left:3px solid var(--line);padding:.2rem 0 .2rem 1rem}
+.toc-page b{display:block;color:var(--muted);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.3rem}
+.toc-page ul{margin:0;padding:0;list-style:none}
+.toc-page li{padding:.15rem 0}
+.books{display:grid;grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr));gap:.4rem}
+a.book{font-family:var(--ui);font-size:.95rem;padding:.5rem .65rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:4px;display:flex;justify-content:space-between;gap:.5rem;text-decoration:none}
+a.book:hover{border-color:var(--accent);color:var(--accent)}
+a.book small{color:var(--muted);font-variant-numeric:tabular-nums}
+.chapters a{font-family:var(--ui);font-size:.9rem;font-variant-numeric:tabular-nums;min-width:2.6rem;min-height:2.4rem;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:3px;text-decoration:none}
+.chapters a:hover{border-color:var(--accent);color:var(--accent)}
+.chapters a[aria-current="page"]{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:700}
+.verses p{margin:0;scroll-margin-top:5rem}
+.verses p:target{background:color-mix(in srgb,var(--accent) 16%,transparent)}
+.verses p .vn{text-decoration:none}
+.pager{display:flex;justify-content:space-between;gap:.6rem;flex-wrap:wrap;font-family:var(--ui)}
+.pager a{flex:1 1 12rem;padding:.7rem .9rem;border:1px solid var(--line);background:var(--surface);text-decoration:none;color:var(--ink);border-radius:4px}
+.pager a small{display:block;color:var(--muted);font-size:.8rem}
+.pager a.next{text-align:right}
+.results a{display:block;padding:.6rem 0;border-bottom:1px solid var(--line);font-size:1rem;color:var(--ink);text-decoration:none}
+.results a b{font-family:var(--ui);color:var(--accent);margin-right:.4rem}
+.latin{font-style:italic}
+.passage{border-left:3px solid var(--line);padding-left:1rem}
+.passage p{margin:.2rem 0}
+.passage .vn{color:var(--rubric);font-family:var(--ui);font-size:.78rem;font-weight:700;margin-right:.3rem}
+h2[id],h3[id]{scroll-margin-top:5rem}
 footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var(--ui);font-size:.9rem;color:var(--muted)}
 @media (max-width:420px){h1{font-size:2rem}.today .season{font-size:1.6rem}}
 </style>
 </head>
 <body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
 <header class="site">
   <div class="wrap masthead">
     <a class="brand" href="#inicio">Catholic<b>am</b></a>
@@ -202,7 +236,7 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
   </div>
 </header>
 
-<main class="wrap">
+<main class="wrap" id="conteudo">
 
 <!-- INÍCIO -->
 <section class="view on" data-view="inicio">
@@ -221,6 +255,10 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
     <div class="controls"><button class="btn" id="t-pray" type="button">Rezar o terço de hoje</button></div>
   </div>
   <div class="stack"><h2>Frase do dia</h2><figure class="quote qday" id="qday"><blockquote id="qd-q">Eu sou o caminho, a verdade e a vida.</blockquote><figcaption id="qd-a"><b>Jesus Cristo</b> · Jo 14,6</figcaption></figure></div>
+  <div class="stack">
+    <h2>Orações mais rezadas</h2>
+    <div class="chips"><a class="chip" href="/oracoes/pai-nosso/">Pai Nosso</a><a class="chip" href="/oracoes/ave-maria/">Ave Maria</a><a class="chip" href="/oracoes/salve-rainha/">Salve Rainha</a><a class="chip" href="/oracoes/credo/">Credo</a><a class="chip" href="/oracoes/ato-de-contricao/">Ato de Contrição</a><a class="chip" href="/oracoes/vinde-espirito-santo/">Vinde, Espírito Santo</a><a class="chip" href="/oracoes/sao-miguel-arcanjo/">São Miguel Arcanjo</a><a class="chip" href="/oracoes/santo-anjo/">Santo Anjo</a></div>
+  </div>
   <div class="stack">
     <h2>Sumário</h2>
     <ul class="toc">
@@ -418,7 +456,7 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
 
 <!-- ORAÇÕES -->
 <section class="view" data-view="oracoes">
-  <div class="stack"><h1>Orações</h1><p class="lede">As orações que todo católico aprende, com o texto usado no Brasil.</p></div>
+  <div class="stack"><h1>Orações católicas</h1><p class="lede">As orações que todo católico aprende, com o texto completo usado no Brasil. Toque no nome de uma oração para ver a origem, quando rezar e a versão em latim.</p></div>
   <div class="chips" id="p-cats" role="group" aria-label="Grupos de orações"></div>
   <div id="prayers" class="stack"></div>
   <div class="block" id="via-sacra"><h2>Via-Sacra</h2>
@@ -438,12 +476,12 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
 
 <!-- TERÇO -->
 <section class="view" data-view="terco">
-  <div class="stack"><h1>Santo Terço</h1><p class="lede">Escolha os mistérios e avance uma conta por vez.</p><div class="chips"><button type="button" class="chip to" data-to="about-terco">O que é o terço e como surgiu</button></div></div>
+  <div class="stack"><h1>Santo Terço</h1><p class="lede">Escolha os mistérios e avance uma conta por vez.</p><div class="chips"><a class="chip" href="#about-terco">O que é o terço e como surgiu</a></div></div>
   <div class="chips" id="sets" role="group" aria-label="Mistérios"></div>
   <div class="rosary">
     <div class="bar"><i id="r-bar"></i></div>
     <div class="step" id="r-step"></div>
-    <h3 id="r-title"></h3>
+    <h3 id="r-title">Sinal da Cruz</h3>
     <p class="r" id="r-rubric"></p>
     <div class="beads" id="r-beads" aria-hidden="true"></div>
     <p class="text" id="r-text"></p>
@@ -454,36 +492,26 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
   </div>
   <div class="block"><h2>Os mistérios de cada dia</h2>
     <table><thead><tr><th>Mistérios</th><th>Dias</th></tr></thead><tbody>
-      <tr><td>Gozosos</td><td>Segunda-feira e sábado</td></tr>
-      <tr><td>Dolorosos</td><td>Terça-feira e sexta-feira</td></tr>
-      <tr><td>Gloriosos</td><td>Quarta-feira e domingo</td></tr>
-      <tr><td>Luminosos</td><td>Quinta-feira</td></tr>
+      <tr><td><a href="/terco/misterios-gozosos/">Mistérios gozosos</a></td><td>Segunda-feira e sábado</td></tr>
+      <tr><td><a href="/terco/misterios-dolorosos/">Mistérios dolorosos</a></td><td>Terça-feira e sexta-feira</td></tr>
+      <tr><td><a href="/terco/misterios-gloriosos/">Mistérios gloriosos</a></td><td>Quarta-feira e domingo</td></tr>
+      <tr><td><a href="/terco/misterios-luminosos/">Mistérios luminosos</a></td><td>Quinta-feira</td></tr>
     </tbody></table></div>
 <div class="block about" id="about-terco"><h2>Entenda</h2><h3>O que é o terço e como surgiu</h3><p>O Rosário é uma oração de contemplação: enquanto os lábios repetem a Ave Maria, o coração percorre com Maria os mistérios da vida de Jesus. Por isso São João Paulo II o chamou de compêndio do Evangelho. É uma oração centrada em Cristo.</p><p>O Rosário completo tinha 150 Ave-Marias, em paralelo com os 150 salmos; por isso foi chamado de Saltério de Nossa Senhora. Era a oração dos fiéis que não sabiam ler os salmos. O terço é a terça parte desse Rosário: cinco mistérios, cinquenta Ave-Marias. Hoje o Rosário tem vinte mistérios, mas o nome terço permaneceu.</p><p>Uma antiga tradição atribui a difusão do Rosário a São Domingos de Gusmão, que o teria recebido de Nossa Senhora. Historicamente, a oração se formou aos poucos na Idade Média e foi propagada sobretudo pelos dominicanos.</p><h2>Linha do tempo</h2><ol class="hist"><li><span class="yr">séc. XII</span><span>Fiéis rezam séries de Pai-Nossos e Ave-Marias contadas em cordões, no lugar dos 150 salmos.</span></li><li><span class="yr">séc. XIII</span><span>São Domingos (1170–1221) e a Ordem dos Pregadores; a tradição liga a eles a pregação do Rosário.</span></li><li><span class="yr">séc. XV</span><span>O dominicano Alano da Rocha difunde o Rosário e as confrarias; as Ave-Marias passam a ser unidas à meditação dos mistérios.</span></li><li><span class="yr">1569</span><span>São Pio V aprova a forma do Rosário com quinze mistérios.</span></li><li><span class="yr">1571</span><span>Vitória de Lepanto em 7 de outubro. Nasce a festa de Nossa Senhora do Rosário.</span></li><li><span class="yr">1883</span><span>Leão XIII dedica o mês de outubro ao Rosário.</span></li><li><span class="yr">1917</span><span>Em Fátima, Nossa Senhora pede que se reze o terço todos os dias.</span></li><li><span class="yr">2002</span><span>São João Paulo II acrescenta os mistérios luminosos na carta Rosarium Virginis Mariae.</span></li></ol><p class="r">Fontes: Rosarium Virginis Mariae (2002); Catecismo da Igreja Católica, 971 e 2678.</p></div>
 </section>
 
 <!-- BÍBLIA -->
 <section class="view" data-view="biblia">
-  <div class="stack"><h1>Bíblia Sagrada</h1><p class="lede">O cânon católico: 46 livros do Antigo Testamento e 27 do Novo.</p><div class="chips"><button type="button" class="chip to" data-to="about-biblia">O que é a Bíblia e sua história</button></div></div>
-  <p class="r" id="loader"><span id="b-status">Carregando o texto da Bíblia…</span></p>
-  <form class="stack" id="b-search" hidden>
+  <div class="stack"><h1>Bíblia Sagrada</h1><p class="lede">O cânon católico: 46 livros do Antigo Testamento e 27 do Novo.</p><div class="chips"><a class="chip" href="#about-biblia">O que é a Bíblia e sua história</a></div></div>
+  <p class="r" id="b-resume" hidden></p>
+  <form class="stack" id="b-search" role="search">
     <div class="controls">
       <input type="search" id="b-q" placeholder="Buscar palavra ou frase" aria-label="Buscar na Bíblia">
       <button class="btn" type="submit" style="flex:0 0 auto">Buscar</button>
     </div>
-    <p class="r" id="b-count"></p>
+    <p class="r" id="b-count" aria-live="polite"></p>
     <div class="results" id="b-results"></div>
   </form>
-  <div class="reader" id="reader">
-    <h3 id="b-name">Gênesis</h3>
-    <p class="r" id="b-info"></p>
-    <div class="chapters" id="b-ch"></div>
-    <div class="verses" id="b-text"></div>
-    <div class="controls" id="b-nav" hidden>
-      <button class="btn ghost" id="b-prev" type="button">Capítulo anterior</button>
-      <button class="btn" id="b-next" type="button">Próximo capítulo</button>
-    </div>
-  </div>
   <div id="books" class="stack"></div>
 <div class="block about" id="about-biblia"><h2>Entenda</h2><h3>O que é a Bíblia</h3><p>A Bíblia é a Palavra de Deus escrita. A Igreja ensina que Deus é o seu autor: ele inspirou os autores humanos, que escreveram como verdadeiros autores tudo e só aquilo que ele queria. A palavra Bíblia vem do grego e significa os livros.</p><p>São 73 livros: 46 do Antigo Testamento, escritos em hebraico, aramaico e grego, e 27 do Novo Testamento, escritos em grego. Os quatro Evangelhos ocupam o centro, porque são o principal testemunho da vida e do ensinamento de Jesus.</p><p>A Escritura é lida na Tradição viva da Igreja e interpretada com autoridade pelo Magistério. Sete livros do Antigo Testamento (Tobias, Judite, 1 e 2 Macabeus, Sabedoria, Eclesiástico e Baruc) fazem parte do cânon católico e não constam nas Bíblias protestantes.</p><h2>Linha do tempo</h2><ol class="hist"><li><span class="yr">séc. X–I a.C.</span><span>Formação dos livros do Antigo Testamento.</span></li><li><span class="yr">séc. III–II a.C.</span><span>Tradução grega do Antigo Testamento, a Septuaginta, usada pelos Apóstolos.</span></li><li><span class="yr">c. 50–100</span><span>Redação dos livros do Novo Testamento.</span></li><li><span class="yr">382–397</span><span>O sínodo de Roma e os concílios de Hipona e Cartago apresentam a lista dos 73 livros.</span></li><li><span class="yr">c. 382–405</span><span>São Jerônimo traduz a Bíblia para o latim: a Vulgata.</span></li><li><span class="yr">séc. XIII</span><span>Estêvão Langton divide o texto em capítulos.</span></li><li><span class="yr">1546</span><span>O Concílio de Trento define solenemente o cânon.</span></li><li><span class="yr">1551</span><span>Roberto Estienne numera os versículos do Novo Testamento.</span></li><li><span class="yr">1965</span><span>O Concílio Vaticano II publica a constituição Dei Verbum.</span></li></ol><p class="r">Fontes: Dei Verbum, 9–12; Catecismo da Igreja Católica, 101–141.</p></div>
 </section>
@@ -563,14 +591,14 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
 <section class="view" data-view="catequese">
   <div class="stack"><h1>Catequese</h1><p class="lede">Um caminho por etapas. Cada etapa reúne o que aprender, o que rezar e o que viver.</p></div>
 <div class="block about" id="about-catequese"><h2>Entenda</h2><h3>O que é a catequese</h3><p>Catequese vem do grego katechein, fazer ressoar. É a educação da fé de crianças, jovens e adultos, feita de modo orgânico e sistemático, para levá-los à plenitude da vida cristã. Seu centro é uma pessoa: Jesus Cristo.</p><p>Os pais são os primeiros catequistas dos filhos. A paróquia, com seus catequistas, continua essa missão e prepara para os sacramentos da iniciação cristã: Batismo, Confirmação e Eucaristia.</p><h2>Linha do tempo</h2><ol class="hist"><li><span class="yr">séc. I</span><span>Os Apóstolos ensinam os que pedem o Batismo (At 2,42).</span></li><li><span class="yr">séc. III–IV</span><span>O catecumenato prepara os adultos, por anos, para o Batismo na Vigília Pascal. São Cirilo de Jerusalém e Santo Agostinho escrevem catequeses.</span></li><li><span class="yr">1566</span><span>O Catecismo Romano orienta os párocos depois do Concílio de Trento.</span></li><li><span class="yr">1910</span><span>São Pio X admite as crianças à comunhão desde a idade da razão.</span></li><li><span class="yr">1972</span><span>É restaurado o catecumenato com o Rito de Iniciação Cristã de Adultos.</span></li><li><span class="yr">1979</span><span>São João Paulo II publica a exortação Catechesi Tradendae.</span></li><li><span class="yr">1992</span><span>Catecismo da Igreja Católica.</span></li><li><span class="yr">2020</span><span>A Santa Sé publica o novo Diretório para a Catequese.</span></li></ol><p class="r">Fontes: Catechesi Tradendae, 18; Catecismo da Igreja Católica, 4–10 e 1229–1233.</p></div>
-  <div class="block"><h2>Etapa 1</h2><h3>Primeiro anúncio</h3><p>Quem é Jesus Cristo, o que Ele fez por nós e o que significa ser batizado. Para quem chega ou retorna.</p><p class="r">Rezar: Sinal da Cruz, Pai Nosso, Ave Maria.</p></div>
-  <div class="block"><h2>Etapa 2</h2><h3>Primeira Eucaristia</h3><p>A história da salvação, os mandamentos, o pecado e a misericórdia, a Confissão, a Missa e a presença real de Cristo na Eucaristia.</p><p class="r">Rezar: Ato de Contrição, Credo, Santo Anjo.</p></div>
-  <div class="block"><h2>Etapa 3</h2><h3>Crisma</h3><p>O Espírito Santo e seus dons, a Igreja e sua missão, a vida moral, a vocação e o testemunho no mundo.</p><p class="r">Rezar: Vinde, Espírito Santo; o Terço.</p></div>
+  <div class="block"><h2>Etapa 1</h2><h3>Primeiro anúncio</h3><p>Quem é Jesus Cristo, o que Ele fez por nós e o que significa ser batizado. Para quem chega ou retorna.</p><p class="r">Rezar: <a href="/oracoes/sinal-da-cruz/">Sinal da Cruz</a>, <a href="/oracoes/pai-nosso/">Pai Nosso</a>, <a href="/oracoes/ave-maria/">Ave Maria</a>.</p></div>
+  <div class="block"><h2>Etapa 2</h2><h3>Primeira Eucaristia</h3><p>A história da salvação, os mandamentos, o pecado e a misericórdia, a Confissão, a Missa e a presença real de Cristo na Eucaristia.</p><p class="r">Rezar: <a href="/oracoes/ato-de-contricao/">Ato de Contrição</a>, <a href="/oracoes/credo/">Credo</a>, <a href="/oracoes/santo-anjo/">Santo Anjo</a>.</p></div>
+  <div class="block"><h2>Etapa 3</h2><h3>Crisma</h3><p>O Espírito Santo e seus dons, a Igreja e sua missão, a vida moral, a vocação e o testemunho no mundo.</p><p class="r">Rezar: <a href="/oracoes/vinde-espirito-santo/">Vinde, Espírito Santo</a>; o <a href="#terco">Terço</a>.</p></div>
   <div class="block"><h2>Etapa 4</h2><h3>Adultos (catecumenato)</h3><p>O Rito de Iniciação Cristã de Adultos conduz quem não foi batizado, ou não completou a iniciação, até a Vigília Pascal.</p><p class="r">Procure a secretaria da sua paróquia para iniciar.</p></div>
   <div class="block"><h2>Guia prático</h2><h3>Como se confessar</h3>
     <ol>
       <li><strong>Exame de consciência.</strong> Em oração, recorde os pecados desde a última confissão, percorrendo os dez mandamentos e os mandamentos da Igreja.</li>
-      <li><strong>Arrependimento e propósito.</strong> Peça perdão a Deus e decida, com a graça dele, não voltar a pecar.</li>
+      <li><strong>Arrependimento e propósito.</strong> Peça perdão a Deus e decida, com a graça dele, não voltar a pecar. O sacerdote pode pedir que você reze o <a href="/oracoes/ato-de-contricao/">Ato de Contrição</a>.</li>
       <li><strong>Acusação dos pecados.</strong> Faça o sinal da cruz, diga há quanto tempo se confessou e conte os pecados ao sacerdote com simplicidade. Os pecados graves devem ser ditos todos, com o número aproximado.</li>
       <li><strong>Conselho e penitência.</strong> Ouça o sacerdote e aceite a penitência que ele indicar.</li>
       <li><strong>Ato de contrição.</strong> Reze o Ato de Contrição quando o sacerdote pedir.</li>
@@ -604,7 +632,7 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
       <tr><td>Final</td><td>Canto de ação de graças ou de envio</td></tr>
     </tbody></table></div>
   <div class="block"><h2>Hinos tradicionais em latim</h2>
-    <h3>Salve Regina</h3><p class="r">Antífona mariana do Tempo Comum.</p>
+    <h3>Salve Regina</h3><p class="r">Antífona mariana do Tempo Comum. Em português: <a href="/oracoes/salve-rainha/">oração da Salve Rainha</a>.</p>
     <p class="lyric">Salve, Regina, Mater misericordiae,
 vita, dulcedo et spes nostra, salve.
 Ad te clamamus, exsules filii Hevae.
@@ -615,7 +643,7 @@ illos tuos misericordes oculos ad nos converte.
 Et Iesum, benedictum fructum ventris tui,
 nobis post hoc exsilium ostende.
 O clemens, o pia, o dulcis Virgo Maria.</p>
-    <h3>Regina Caeli</h3><p class="r">Antífona mariana do Tempo Pascal.</p>
+    <h3>Regina Caeli</h3><p class="r">Antífona mariana do Tempo Pascal. Em português: <a href="/oracoes/regina-caeli/">Rainha do Céu</a>.</p>
     <p class="lyric">Regina caeli, laetare, alleluia.
 Quia quem meruisti portare, alleluia.
 Resurrexit, sicut dixit, alleluia.
@@ -677,7 +705,7 @@ compar sit laudatio. Amen.</p>
 <section class="view" data-view="apoiar">
   <div class="stack"><h1>Apoiar o projeto</h1><p class="lede">O Catholicam não tem anúncios nem patrocinadores. Ele se mantém com a ajuda de quem o usa.</p></div>
   <div class="today" id="d-pix">
-    <h3>Doação por Pix</h3>
+    <h2>Doação por Pix</h2>
     <p id="d-none" class="r">Os dados para doação ainda estão sendo configurados.</p>
     <div id="d-box" class="stack" hidden>
       <p>Escolha o valor no aplicativo do seu banco. Qualquer quantia ajuda.</p>
@@ -717,17 +745,16 @@ compar sit laudatio. Amen.</p>
     </ul></div>
   <div class="block"><h2>Próximas etapas</h2>
     <ol>
-      <li>Colocar o arquivo da Bíblia na hospedagem definitiva, para o texto abrir sozinho.</li>
       <li>Ampliar orações: ladainhas, novenas e Liturgia das Horas.</li>
       <li>Liturgia diária: leituras e santo do dia.</li>
-      <li>Hospedagem definitiva e domínio próprio.</li>
+      <li>Uma página para cada santo e para cada aparição de Nossa Senhora.</li>
     </ol></div>
 </section>
 
 </main>
-<footer><div class="wrap"><p class="top"><a href="#inicio">Voltar ao sumário</a></p>Catholicam · protótipo · sem anúncios · <a href="#apoiar">Apoiar o projeto</a> · <span class="r">Ad maiorem Dei gloriam</span></div></footer>
+<footer><div class="wrap"><p class="top"><a href="#inicio">Voltar ao sumário</a></p>Catholicam · sem anúncios · <a href="#apoiar">Apoiar o projeto</a> · <span class="r">Ad maiorem Dei gloriam</span></div></footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="/assets/qrcode.min.js"></script>
 <script>
 (function(){
 "use strict";
@@ -886,118 +913,41 @@ var B=[
  ["Novo Testamento · Cartas de São Paulo",[["Romanos",16],["1 Coríntios",16],["2 Coríntios",13],["Gálatas",6],["Efésios",6],["Filipenses",4],["Colossenses",4],["1 Tessalonicenses",5],["2 Tessalonicenses",3],["1 Timóteo",6],["2 Timóteo",4],["Tito",3],["Filêmon",1],["Hebreus",13]]],
  ["Novo Testamento · Cartas católicas e Apocalipse",[["Tiago",5],["1 Pedro",5],["2 Pedro",3],["1 João",5],["2 João",1],["3 João",1],["Judas",1],["Apocalipse",22]]]
 ];
-var bookBtns=[],flatB=[],bible=null,cur={b:0,c:0},hitVerse=null;
-function norm(x){return x.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase()}
-function savePos(){try{localStorage.setItem("cath-pos",cur.b+":"+cur.c)}catch(e){}}
-function showChapter(i,c){
-  var caps=bible[i].capitulos;if(c<0||c>=caps.length)return;
-  cur={b:i,c:c};savePos();
-  var box=$("b-text");box.textContent="";
-  caps[c].versiculos.forEach(function(v){
-    var p=document.createElement("p"),n=document.createElement("span");
-    n.className="vn";n.textContent=v.numero;p.appendChild(n);
-    p.appendChild(document.createTextNode(v.texto));
-    if(hitVerse!==null&&String(v.numero)===String(hitVerse)){p.className="hit";p.id="b-hit"}
-    box.appendChild(p);
-  });
-  hitVerse=null;
-  Array.prototype.forEach.call($("b-ch").children,function(x,k){x.setAttribute("aria-pressed",k===c?"true":"false")});
-  $("b-info").textContent=bible[i].livro+" · capítulo "+caps[c].capitulo+" de "+caps.length+" · tradução do Pe. Matos Soares (1956)";
-  $("b-nav").hidden=false;
-  $("b-prev").disabled=(i===0&&c===0);
-  $("b-next").disabled=(i===bible.length-1&&c===caps.length-1);
-}
-function showBook(i,c){
-  var f=flatB[i];$("b-name").textContent=f[0];
-  bookBtns.forEach(function(b,k){b.setAttribute("aria-pressed",k===i?"true":"false")});
-  var ch=$("b-ch");ch.textContent="";
-  if(!bible){
-    $("b-info").textContent=f[2]+" · "+f[1]+(f[1]===1?" capítulo":" capítulos")+" · carregando o texto…";
-    for(var k=1;k<=f[1];k++){var s=document.createElement("span");s.textContent=k;ch.appendChild(s)}
-    return;
+/* Páginas da Bíblia: um endereço por livro (/biblia/<livro>/) e por capítulo (/biblia/<livro>/<n>/),
+   geradas pelo build.py. Aqui ficam só a busca e o "continuar a leitura". */
+(function(){
+  var body=document.body,here=body.getAttribute("data-biblia");
+  try{if(here)localStorage.setItem("cath-ler",JSON.stringify({u:location.pathname,t:here}))}catch(e){}
+  var rs=document.getElementById("b-resume");
+  if(rs){try{var l=JSON.parse(localStorage.getItem("cath-ler")||"null");
+    if(l&&l.u){var a=document.createElement("a");a.href=l.u;a.textContent=l.t;rs.textContent="Continuar a leitura: ";rs.appendChild(a);rs.hidden=false}}catch(e){}}
+  var form=document.getElementById("b-search");if(!form)return;
+  var bible=null,loading=null;
+  function norm(x){return x.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase()}
+  function load(){
+    if(bible)return Promise.resolve(bible);
+    if(!loading)loading=fetch("/assets/biblia.json").then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){bible=d;return d});
+    return loading;
   }
-  bible[i].capitulos.forEach(function(cp,k){
-    var bt=document.createElement("button");bt.type="button";bt.textContent=cp.capitulo;
-    bt.addEventListener("click",function(){showChapter(i,k)});ch.appendChild(bt);
+  form.addEventListener("submit",function(ev){
+    ev.preventDefault();
+    var q=norm($("b-q").value.trim()),out=$("b-results"),cnt=$("b-count");out.textContent="";
+    if(q.length<3){cnt.textContent="Digite pelo menos 3 letras.";return}
+    cnt.textContent="Buscando…";
+    load().then(function(d){
+      var total=0,max=60;
+      d.forEach(function(bk){bk.c.forEach(function(vs,c){vs.forEach(function(v){
+        if(norm(v[1]).indexOf(q)<0)return;
+        total++;if(total>max)return;
+        var a=document.createElement("a"),ref=document.createElement("b");
+        a.href="/biblia/"+bk.s+"/"+(c+1)+"/#v"+v[0];
+        ref.textContent=bk.n+" "+(c+1)+","+v[0];a.appendChild(ref);a.appendChild(document.createTextNode(v[1]));
+        out.appendChild(a);
+      })})});
+      cnt.textContent=total===0?"Nenhum versículo encontrado.":(total+(total===1?" versículo encontrado":" versículos encontrados")+(total>max?", mostrando os "+max+" primeiros.":"."));
+    }).catch(function(){cnt.textContent="Não foi possível carregar a busca agora. Verifique a conexão e tente de novo."});
   });
-  showChapter(i,c||0);
-}
-B.forEach(function(g){
-  var w=document.createElement("div");w.className="stack";
-  var h=document.createElement("h2");h.textContent=g[0];w.appendChild(h);
-  var grid=document.createElement("div");grid.className="books";
-  g[1].forEach(function(b){
-    var idx=flatB.length;flatB.push([b[0],b[1],g[0]]);
-    var bt=document.createElement("button");bt.type="button";bt.className="book";
-    var nm=document.createElement("span");nm.textContent=b[0];
-    var sm=document.createElement("small");sm.textContent=b[1];
-    bt.appendChild(nm);bt.appendChild(sm);
-    bt.addEventListener("click",function(){showBook(idx,0);$("reader").scrollIntoView({block:"start"})});
-    bookBtns.push(bt);grid.appendChild(bt);
-  });
-  w.appendChild(grid);$("books").appendChild(w);
-});
-showBook(0);
-$("b-prev").addEventListener("click",function(){
-  if(cur.c>0)showChapter(cur.b,cur.c-1);else if(cur.b>0)showBook(cur.b-1,bible[cur.b-1].capitulos.length-1);
-  $("reader").scrollIntoView({block:"start"});
-});
-$("b-next").addEventListener("click",function(){
-  if(cur.c<bible[cur.b].capitulos.length-1)showChapter(cur.b,cur.c+1);else if(cur.b<bible.length-1)showBook(cur.b+1,0);
-  $("reader").scrollIntoView({block:"start"});
-});
-function valid(d){return Array.isArray(d)&&d.length===73&&d[0]&&Array.isArray(d[0].capitulos)&&d[0].capitulos[0]&&Array.isArray(d[0].capitulos[0].versiculos)}
-function accept(d){
-  if(!valid(d))return false;
-  bible=d;$("loader").hidden=true;$("b-search").hidden=false;
-  var b=0,c=0;
-  try{var s=(localStorage.getItem("cath-pos")||"").split(":");b=+s[0]||0;c=+s[1]||0}catch(e){}
-  if(!bible[b]||!bible[b].capitulos[c]){b=0;c=0}
-  showBook(b,c);return true;
-}
-/* armazenamento local do texto, só neste aparelho */
-function idb(mode,fn){
-  return new Promise(function(res,rej){
-    try{
-      var o=indexedDB.open("catholicam",1);
-      o.onupgradeneeded=function(){o.result.createObjectStore("kv")};
-      o.onerror=function(){rej(o.error)};
-      o.onsuccess=function(){
-        try{var tx=o.result.transaction("kv",mode),rq=fn(tx.objectStore("kv"));
-          rq.onsuccess=function(){res(rq.result)};rq.onerror=function(){rej(rq.error)}}catch(e){rej(e)}
-      };
-    }catch(e){rej(e)}
-  });
-}
-/* O texto não é copiado para este site: é lido do repositório público de origem (Dancrf/biblia-db) */
-var BIBLIA_FONTE="https://raw.githubusercontent.com/Dancrf/biblia-db/main/biblia.json";
-function getJson(u){return fetch(u).then(function(r){if(!r.ok)throw 0;return r.json()})}
-function fromServer(){
-  var st=$("b-status");if(st)st.textContent="Carregando o texto da Bíblia…";
-  return getJson(BIBLIA_FONTE).then(function(d){
-    if(accept(d))idb("readwrite",function(s){return s.put(d,"biblia")}).catch(function(){});
-  }).catch(function(){if(st)st.textContent="Não foi possível carregar o texto agora. Verifique a conexão e recarregue a página."});
-}
-idb("readonly",function(s){return s.get("biblia")}).then(function(d){if(!d||!accept(d))return fromServer()},fromServer).catch(function(){});
-$("b-search").addEventListener("submit",function(ev){
-  ev.preventDefault();
-  var q=norm($("b-q").value.trim()),out=$("b-results"),cnt=$("b-count");out.textContent="";
-  if(q.length<3){cnt.textContent="Digite pelo menos 3 letras.";return}
-  var total=0,max=60;
-  bible.forEach(function(bk,i){bk.capitulos.forEach(function(cp,c){cp.versiculos.forEach(function(v){
-    if(norm(v.texto).indexOf(q)<0)return;
-    total++;if(total>max)return;
-    var bt=document.createElement("button"),ref=document.createElement("b");bt.type="button";
-    ref.textContent=flatB[i][0]+" "+cp.capitulo+","+v.numero;bt.appendChild(ref);
-    bt.appendChild(document.createTextNode(v.texto));
-    bt.addEventListener("click",function(){
-      hitVerse=v.numero;showBook(i,c);
-      var h=$("b-hit");(h||$("reader")).scrollIntoView({block:h?"center":"start"});
-    });
-    out.appendChild(bt);
-  })})});
-  cnt.textContent=total===0?"Nenhum versículo encontrado.":(total+(total===1?" versículo encontrado":" versículos encontrados")+(total>max?", mostrando os "+max+" primeiros.":"."));
-});
+})();
 
 /* ---------- Festas fixas (Maria e santos) ---------- */
 var MES=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
