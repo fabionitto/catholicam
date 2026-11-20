@@ -10,6 +10,8 @@ robots.txt e os arquivos comuns em /assets/ (site.css, site.js e biblia.json, us
 O /assets/qrcode.min.js (qrcodejs 1.0.0, licença MIT) fica no repositório e não é gerado.
 Precisa de Python 3 e Node.js (o Node lê as listas de orações, frases e mistérios do script da página).
 Textos extras das orações (título do Google, descrição, outros nomes, versões, história, latim): _src/oracoes_info.json.
+Liturgia diária (/liturgia/): o texto das leituras não é copiado (direitos da CNBB); a página mostra o
+site oficial da CNBB num iframe que só carrega quando o visitante pede.
 Texto da Bíblia: _src/biblia.json (baixado de BIBLIA_FONTE na primeira vez, se não existir).
 """
 import hashlib, html, json, re, subprocess, datetime, pathlib, unicodedata, urllib.request
@@ -49,6 +51,8 @@ SEO = {
             "Leia a Bíblia católica online: os 73 livros do Antigo e do Novo Testamento, capítulo por capítulo, com busca por palavras."),
  "missa": ("Partes da Missa: respostas dos fiéis e posturas",
             "As partes da Santa Missa passo a passo, o que os fiéis respondem em cada momento, quando ficar de pé, sentado ou de joelhos, e as cores litúrgicas."),
+ "liturgia": ("Liturgia diária: leituras da Missa de hoje (CNBB)",
+            "As leituras da Missa de hoje na liturgia diária da CNBB, o tempo litúrgico e a cor do dia, e como funcionam os anos A, B e C e o ano par e ímpar."),
  "calendario": ("Calendário litúrgico: Páscoa e datas móveis",
             "As datas móveis do ano litúrgico (Cinzas, Páscoa, Pentecostes, Corpus Christi, Advento), os dias de preceito no Brasil e as regras de jejum e abstinência."),
  "catequese": ("Catequese católica e como se confessar",

@@ -157,6 +157,7 @@ input[type="file"]{font-family:var(--ui);font-size:.95rem;max-width:100%}
 .hist li span:last-child{font-family:var(--ui);font-size:.98rem}
 .about h2:not(:first-child){margin-top:.5rem}
 #d-key{font-family:var(--ui);font-size:1.15rem;overflow-wrap:anywhere}
+a.btn.ghost{background:transparent;color:var(--accent)}
 a.btn{display:inline-block;text-align:center;text-decoration:none;font-family:var(--ui);font-size:1rem;font-weight:700;padding:.65rem 1.1rem;border:1px solid var(--accent);background:var(--accent);color:var(--bg);border-radius:4px;flex:1 1 8rem}
 .qr{display:flex;flex-direction:column;align-items:flex-start;gap:.5rem}
 #d-qr{background:#fff;padding:12px;border-radius:6px;line-height:0}
@@ -201,6 +202,9 @@ a.book small{color:var(--muted);font-variant-numeric:tabular-nums}
 .passage p{margin:.2rem 0}
 .passage .vn{color:var(--rubric);font-family:var(--ui);font-size:.78rem;font-weight:700;margin-right:.3rem}
 h2[id],h3[id]{scroll-margin-top:5rem}
+.cnbb-frame{display:block;width:100%;height:min(85vh,1100px);border:1px solid var(--line);background:#fff;margin-top:.5rem}
+.cnbb-box{display:flex;flex-direction:column;gap:.75rem}
+.cnbb-box label{cursor:pointer;font-family:var(--ui);font-size:.92rem;color:var(--muted)}
 footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var(--ui);font-size:.9rem;color:var(--muted)}
 @media (max-width:420px){h1{font-size:2rem}.today .season{font-size:1.6rem}}
 </style>
@@ -221,6 +225,7 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
       <a href="#missa">Missa</a>
       <a href="#oracoes">Orações</a>
       <a href="#terco">Terço</a>
+      <a href="#liturgia">Liturgia diária</a>
       <a href="#doutrina-social">Doutrina social</a>
       <a href="#maria">Maria</a>
       <a href="#santos">Santos</a>
@@ -252,7 +257,7 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
       <div class="fact"><span>Mistérios do terço</span><strong id="t-myst">Dolorosos</strong></div>
     </div>
     <p class="r">Calculado pelo calendário geral. Solenidades, festas e memórias do dia podem mudar a cor.</p>
-    <div class="controls"><button class="btn" id="t-pray" type="button">Rezar o terço de hoje</button></div>
+    <div class="controls"><button class="btn" id="t-pray" type="button">Rezar o terço de hoje</button><a class="btn ghost" href="#liturgia">Leituras da Missa de hoje</a></div>
   </div>
   <div class="stack"><h2>Frase do dia</h2><figure class="quote qday" id="qday"><blockquote id="qd-q">Eu sou o caminho, a verdade e a vida.</blockquote><figcaption id="qd-a"><b>Jesus Cristo</b> · Jo 14,6</figcaption></figure></div>
   <div class="stack">
@@ -264,6 +269,7 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
     <ul class="toc">
       <li><a href="#doutrina"><span class="t">Doutrina</span><span class="dots"></span><span class="d">O Credo, os sacramentos, os mandamentos, as virtudes.</span></a></li>
       <li><a href="#missa"><span class="t">A Santa Missa</span><span class="dots"></span><span class="d">Cada parte da celebração, as posturas e as cores, segundo o Missal Romano.</span></a></li>
+      <li><a href="#liturgia"><span class="t">Liturgia diária</span><span class="dots"></span><span class="d">As leituras da Missa de hoje, conforme a CNBB, e como se organizam.</span></a></li>
       <li><a href="#oracoes"><span class="t">Orações</span><span class="dots"></span><span class="d">Orações diárias, marianas e eucarísticas, o Angelus e a Via-Sacra.</span></a></li>
       <li><a href="#terco"><span class="t">Santo Terço</span><span class="dots"></span><span class="d">Terço guiado, conta por conta, com os quatro grupos de mistérios.</span></a></li>
       <li><a href="#doutrina-social"><span class="t">Doutrina social</span><span class="dots"></span><span class="d">Os princípios da Igreja sobre trabalho, economia, política e bem comum.</span></a></li>
@@ -532,6 +538,7 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
   </div>
 
   <div class="block"><h2>2. Liturgia da Palavra</h2>
+    <p class="note">As leituras de cada dia estão na <a href="#liturgia">Liturgia diária</a>.</p>
     <div class="rite"><span class="what">Primeira leitura</span><span class="r">Sentados</span><span class="how">Em geral do Antigo Testamento; no Tempo Pascal, dos Atos dos Apóstolos.</span><span class="say"><i class="v">℣.</i> Palavra do Senhor.<br><b>℟.</b> Graças a Deus.</span></div>
     <div class="rite"><span class="what">Salmo responsorial</span><span class="r">Sentados</span><span class="how">Resposta da assembleia à Palavra ouvida.</span><span class="say"><b>℟.</b> A assembleia repete o refrão depois de cada estrofe.</span></div>
     <div class="rite"><span class="what">Segunda leitura</span><span class="r">Sentados</span><span class="how">Das cartas apostólicas, nos domingos e solenidades.</span><span class="say"><i class="v">℣.</i> Palavra do Senhor.<br><b>℟.</b> Graças a Deus.</span></div>
@@ -566,6 +573,46 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
       <tr><td>Rosa</td><td>3º domingo do Advento (Gaudete) e 4º da Quaresma (Laetare), onde for costume</td></tr>
     </tbody></table></div>
   </div>
+</section>
+
+<!-- LITURGIA DIÁRIA -->
+<section class="view" data-view="liturgia">
+  <div class="stack"><h1>Liturgia diária</h1><p class="lede">As leituras da Missa de hoje, conforme o Lecionário da CNBB, e como a Igreja distribui a Palavra de Deus ao longo do ano.</p></div>
+  <div class="today" aria-live="polite">
+    <div class="date" id="l-date">Hoje</div>
+    <div class="season" id="l-day">Tempo Comum</div>
+    <div class="facts">
+      <div class="fact"><span>Tempo litúrgico</span><strong id="l-season">Tempo Comum</strong></div>
+      <div class="fact"><span>Cor litúrgica</span><strong><i class="swatch"></i><span id="l-color" style="all:unset">Verde</span></strong></div>
+      <div class="fact"><span>Ano dos domingos</span><strong id="l-sun">Ano A</strong></div>
+      <div class="fact"><span>Ano dos dias de semana</span><strong id="l-fer">Ano par (II)</strong></div>
+    </div>
+    <p class="r">Calculado pelo calendário geral. Solenidades, festas e memórias de santos podem mudar a celebração e a cor do dia; a página da CNBB abaixo traz a celebração exata.</p>
+  </div>
+  <div class="block" id="leituras"><h2>Leituras de hoje</h2>
+    <p>O texto das leituras, do salmo e do Evangelho é o do Lecionário publicado pela CNBB, que reserva os direitos de reprodução. Por isso o Catholicam não copia o texto: mostra a página oficial da CNBB, do jeito que ela mesma publica.</p>
+    <div class="cnbb-box" id="cnbb-box">
+      <p class="note">A página da CNBB vem do site dela (liturgiadiaria.edicoescnbb.com.br) e usa estatísticas de visita do Google. Ela só é carregada se você pedir.</p>
+      <div class="controls"><button class="btn" id="cnbb-load" type="button">Mostrar as leituras da CNBB</button><a class="btn ghost" href="https://liturgiadiaria.edicoescnbb.com.br/" target="_blank" rel="noopener noreferrer">Abrir no site da CNBB</a></div>
+      <label><input type="checkbox" id="cnbb-auto"> Carregar sempre neste aparelho</label>
+    </div>
+  </div>
+<div class="block about" id="about-liturgia"><h2>Entenda</h2><h3>O que é a liturgia diária</h3><p>Em cada Missa a Igreja proclama trechos da Sagrada Escritura escolhidos para aquele dia. A escolha não é livre: está no Lecionário, o livro das leituras da Missa, organizado para que em alguns anos os fiéis ouçam as partes mais importantes de toda a Bíblia. O Concílio Vaticano II pediu que a mesa da Palavra de Deus fosse preparada com mais abundância, e o Lecionário atual foi publicado em 1969, com segunda edição em 1981.</p><p>No Brasil, os lecionários em português são aprovados e publicados pela CNBB. É o mesmo texto lido nas paróquias, e por isso a liturgia diária da CNBB é a referência para preparar a Missa ou rezar com as leituras do dia.</p>
+<h3>Como se organizam as leituras</h3>
+<div class="rite"><span class="what">Domingos e solenidades</span><span class="how">Três leituras: a primeira, em geral do Antigo Testamento (no Tempo Pascal, dos Atos dos Apóstolos), o salmo responsorial, a segunda leitura, das cartas dos Apóstolos, e o Evangelho.</span></div>
+<div class="rite"><span class="what">Dias de semana</span><span class="how">Uma leitura, o salmo responsorial e o Evangelho.</span></div>
+<div class="rite"><span class="what">Ano A, B e C</span><span class="how">As leituras dos domingos seguem um ciclo de três anos. No ano A se lê sobretudo o Evangelho segundo Mateus, no ano B o de Marcos e no ano C o de Lucas. O de João aparece em todos os anos, sobretudo na Quaresma e no Tempo Pascal.</span></div>
+<div class="rite"><span class="what">Ano ímpar e ano par</span><span class="how">Nos dias de semana do Tempo Comum, a primeira leitura segue um ciclo de dois anos: ano I nos anos ímpares e ano II nos anos pares. O Evangelho dos dias de semana é o mesmo nos dois anos.</span></div>
+<div class="rite"><span class="what">Santos e festas</span><span class="how">Nas solenidades e festas há leituras próprias. Nas memórias dos santos, em geral se mantêm as leituras do dia de semana.</span></div>
+<h3>Os ciclos dos próximos anos</h3><p>O ano litúrgico começa no 1º Domingo do Advento, no fim de novembro ou início de dezembro.</p>
+<table><thead><tr><th>Ano litúrgico</th><th>Começa em</th><th>Domingos</th><th>Dias de semana</th></tr></thead><tbody id="l-cycles">
+<tr><td>2025–2026</td><td>30/11/2025</td><td>Ano A (Mateus)</td><td>Ano II (par)</td></tr>
+<tr><td>2026–2027</td><td>29/11/2026</td><td>Ano B (Marcos)</td><td>Ano I (ímpar)</td></tr>
+<tr><td>2027–2028</td><td>28/11/2027</td><td>Ano C (Lucas)</td><td>Ano II (par)</td></tr>
+<tr><td>2028–2029</td><td>03/12/2028</td><td>Ano A (Mateus)</td><td>Ano I (ímpar)</td></tr>
+</tbody></table>
+<p>Veja também as <a href="#missa">partes da Missa</a>, o <a href="#calendario">calendário litúrgico</a> e a <a href="#biblia">Bíblia</a> completa.</p>
+<p class="r">Fontes: Sacrosanctum Concilium, 51; Elenco das Leituras da Missa (Ordo Lectionum Missae, 1981), Introdução; Instrução Geral do Missal Romano, 357–361.</p></div>
 </section>
 
 <!-- CALENDÁRIO -->
@@ -875,6 +922,93 @@ try{$("t-date").textContent=now.toLocaleDateString("pt-BR",{weekday:"long",day:"
 $("t-season").textContent=S[0];$("t-color").textContent=S[2];$("t-myst").textContent=M[todaySet].n;
 $("t-pray").addEventListener("click",function(){setSet(todaySet);location.hash="terco"});
 setSet(todaySet);
+
+/* ---------- Liturgia diária ---------- */
+function advent(y){var d24=D(y,11,24);return addDays(d24,-d24.getDay()-21)}
+function baptism(y){var j2=D(y,0,2),epi=addDays(j2,(7-j2.getDay())%7);return [epi,addDays(epi,epi.getDate()>=7?1:7)]}
+function litYear(now){var y=now.getFullYear(),t=D(y,now.getMonth(),now.getDate());return t>=advent(y)?y+1:y}
+function cycles(end){return [["C","A","B"][end%3],end%2?"I":"II"]}
+var EVG={A:"Mateus",B:"Marcos",C:"Lucas"};
+function litDay(now){
+  var y=now.getFullYear(),t=D(y,now.getMonth(),now.getDate()),sun=t.getDay()===0,DAY=864e5;
+  function wk(from){return Math.floor((t-from)/DAY/7)+1}
+  function eq(d){return t.getTime()===d.getTime()}
+  function lab(n,tempo,dom){return sun?n+"º Domingo "+dom:n+"ª Semana "+tempo}
+  var E=easter(y),ash=addDays(E,-46),pent=addDays(E,49),adv=advent(y),ep=baptism(y),epi=ep[0],bap=ep[1];
+  var W="branco",V="roxo",R="vermelho",G="verde";
+  if(t>=D(y,11,25)||t<=bap){
+    var x="Tempo do Natal",c=W,dd=t.getDate(),mm=t.getMonth();
+    var hf=(function(){var yy=mm===11?y:y-1,n=D(yy,11,25);for(var i=1;i<=6;i++){var s=addDays(n,i);if(s.getDay()===0)return s}return D(yy,11,30)})();
+    if(mm===11&&dd===25)x="Natal do Senhor";
+    else if(mm===0&&dd===1)x="Santa Maria, Mãe de Deus";
+    else if(eq(epi))x="Epifania do Senhor";
+    else if(eq(bap))x="Batismo do Senhor";
+    else if(eq(hf))x="Sagrada Família";
+    else if(mm===11&&dd<=31)x="Oitava do Natal";
+    return [x,"Tempo do Natal",c];
+  }
+  if(t>=adv){var n=wk(adv);return [lab(n,"do Advento","do Advento"),"Tempo do Advento",sun&&n===3?"roxo ou rosa":V]}
+  if(t<ash){var b0=bap.getDay()===1?addDays(bap,-1):bap;return [lab(wk(b0),"do Tempo Comum","do Tempo Comum"),"Tempo Comum",G]}
+  if(t<addDays(E,-3)){
+    if(eq(ash))return ["Quarta-feira de Cinzas","Tempo da Quaresma",V];
+    var l1=addDays(ash,4);if(t<l1)return ["Depois das Cinzas","Tempo da Quaresma",V];
+    var q=wk(l1);
+    if(q===6)return [sun?"Domingo de Ramos e da Paixão do Senhor":"Semana Santa","Tempo da Quaresma",sun?R:V];
+    return [lab(q,"da Quaresma","da Quaresma"),"Tempo da Quaresma",sun&&q===4?"roxo ou rosa":V];
+  }
+  if(t<E){
+    if(eq(addDays(E,-3)))return ["Quinta-feira Santa","Tríduo Pascal (à noite)",W];
+    if(eq(addDays(E,-2)))return ["Sexta-feira da Paixão do Senhor","Tríduo Pascal",R];
+    return ["Sábado Santo (à noite, Vigília Pascal)","Tríduo Pascal",W];
+  }
+  if(t<=pent){
+    if(eq(E))return ["Domingo de Páscoa","Tempo Pascal",W];
+    if(eq(pent))return ["Domingo de Pentecostes","Tempo Pascal",R];
+    if(eq(addDays(E,42)))return ["Ascensão do Senhor","Tempo Pascal",W];
+    var p=wk(E);
+    if(p===1)return ["Oitava da Páscoa","Tempo Pascal",W];
+    if(sun&&p===2)return ["2º Domingo da Páscoa (da Divina Misericórdia)","Tempo Pascal",W];
+    return [lab(p,"da Páscoa","da Páscoa"),"Tempo Pascal",W];
+  }
+  var ck=addDays(adv,-7),s0=addDays(t,-t.getDay()),o=34-Math.round((ck-s0)/DAY/7);
+  if(eq(addDays(pent,7)))return ["Santíssima Trindade","Tempo Comum",W];
+  if(eq(addDays(pent,11)))return ["Corpo e Sangue de Cristo (Corpus Christi)","Tempo Comum",W];
+  if(eq(addDays(pent,19)))return ["Sagrado Coração de Jesus","Tempo Comum",W];
+  if(eq(ck))return ["Nosso Senhor Jesus Cristo, Rei do Universo","Tempo Comum",W];
+  return [lab(o,"do Tempo Comum","do Tempo Comum"),"Tempo Comum",G];
+}
+(function(){
+  var day=document.getElementById("l-day");if(!day)return;
+  var L=litDay(now),cy=cycles(litYear(now));
+  try{$("l-date").textContent=now.toLocaleDateString("pt-BR",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}catch(e){}
+  day.textContent=L[0];$("l-season").textContent=L[1];
+  $("l-color").textContent=L[2].charAt(0).toUpperCase()+L[2].slice(1);
+  $("l-sun").textContent="Ano "+cy[0]+" ("+EVG[cy[0]]+")";
+  $("l-fer").textContent=cy[1]==="I"?"Ano ímpar (I)":"Ano par (II)";
+  var tb=document.getElementById("l-cycles");
+  if(tb){tb.textContent="";var y0=litYear(now);
+    for(var y=y0;y<y0+4;y++){var c=cycles(y),a=advent(y-1),tr=document.createElement("tr");
+      [(y-1)+"–"+y,("0"+a.getDate()).slice(-2)+"/"+("0"+(a.getMonth()+1)).slice(-2)+"/"+a.getFullYear(),"Ano "+c[0]+" ("+EVG[c[0]]+")",c[1]==="I"?"Ano I (ímpar)":"Ano II (par)"]
+      .forEach(function(v){var td=document.createElement("td");td.textContent=v;tr.appendChild(td)});
+      if(y===y0)tr.className="next";tb.appendChild(tr)}}
+  /* Página oficial da CNBB: só é carregada quando a pessoa pede */
+  var box=document.getElementById("cnbb-box"),btn=document.getElementById("cnbb-load"),auto=document.getElementById("cnbb-auto"),KEY="cath-cnbb";
+  if(!box||!btn)return;
+  function load(){
+    if(document.getElementById("cnbb-frame"))return;
+    var f=document.createElement("iframe");
+    f.id="cnbb-frame";f.className="cnbb-frame";f.title="Liturgia diária da CNBB (site oficial)";
+    f.src="https://liturgiadiaria.edicoescnbb.com.br/";
+    f.setAttribute("sandbox","allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox");
+    f.setAttribute("referrerpolicy","strict-origin-when-cross-origin");
+    f.setAttribute("loading","lazy");
+    btn.hidden=true;box.appendChild(f);
+  }
+  try{auto.checked=localStorage.getItem(KEY)==="1"}catch(e){}
+  auto.addEventListener("change",function(){try{if(auto.checked)localStorage.setItem(KEY,"1");else localStorage.removeItem(KEY)}catch(e){}if(auto.checked)load()});
+  btn.addEventListener("click",load);
+  if(auto.checked)load();
+})();
 
 /* ---------- Calendário ---------- */
 function movable(y){

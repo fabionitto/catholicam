@@ -119,6 +119,93 @@ $("t-season").textContent=S[0];$("t-color").textContent=S[2];$("t-myst").textCon
 $("t-pray").addEventListener("click",function(){location.href="/terco/"});
 setSet(todaySet);
 
+/* ---------- Liturgia diária ---------- */
+function advent(y){var d24=D(y,11,24);return addDays(d24,-d24.getDay()-21)}
+function baptism(y){var j2=D(y,0,2),epi=addDays(j2,(7-j2.getDay())%7);return [epi,addDays(epi,epi.getDate()>=7?1:7)]}
+function litYear(now){var y=now.getFullYear(),t=D(y,now.getMonth(),now.getDate());return t>=advent(y)?y+1:y}
+function cycles(end){return [["C","A","B"][end%3],end%2?"I":"II"]}
+var EVG={A:"Mateus",B:"Marcos",C:"Lucas"};
+function litDay(now){
+  var y=now.getFullYear(),t=D(y,now.getMonth(),now.getDate()),sun=t.getDay()===0,DAY=864e5;
+  function wk(from){return Math.floor((t-from)/DAY/7)+1}
+  function eq(d){return t.getTime()===d.getTime()}
+  function lab(n,tempo,dom){return sun?n+"º Domingo "+dom:n+"ª Semana "+tempo}
+  var E=easter(y),ash=addDays(E,-46),pent=addDays(E,49),adv=advent(y),ep=baptism(y),epi=ep[0],bap=ep[1];
+  var W="branco",V="roxo",R="vermelho",G="verde";
+  if(t>=D(y,11,25)||t<=bap){
+    var x="Tempo do Natal",c=W,dd=t.getDate(),mm=t.getMonth();
+    var hf=(function(){var yy=mm===11?y:y-1,n=D(yy,11,25);for(var i=1;i<=6;i++){var s=addDays(n,i);if(s.getDay()===0)return s}return D(yy,11,30)})();
+    if(mm===11&&dd===25)x="Natal do Senhor";
+    else if(mm===0&&dd===1)x="Santa Maria, Mãe de Deus";
+    else if(eq(epi))x="Epifania do Senhor";
+    else if(eq(bap))x="Batismo do Senhor";
+    else if(eq(hf))x="Sagrada Família";
+    else if(mm===11&&dd<=31)x="Oitava do Natal";
+    return [x,"Tempo do Natal",c];
+  }
+  if(t>=adv){var n=wk(adv);return [lab(n,"do Advento","do Advento"),"Tempo do Advento",sun&&n===3?"roxo ou rosa":V]}
+  if(t<ash){var b0=bap.getDay()===1?addDays(bap,-1):bap;return [lab(wk(b0),"do Tempo Comum","do Tempo Comum"),"Tempo Comum",G]}
+  if(t<addDays(E,-3)){
+    if(eq(ash))return ["Quarta-feira de Cinzas","Tempo da Quaresma",V];
+    var l1=addDays(ash,4);if(t<l1)return ["Depois das Cinzas","Tempo da Quaresma",V];
+    var q=wk(l1);
+    if(q===6)return [sun?"Domingo de Ramos e da Paixão do Senhor":"Semana Santa","Tempo da Quaresma",sun?R:V];
+    return [lab(q,"da Quaresma","da Quaresma"),"Tempo da Quaresma",sun&&q===4?"roxo ou rosa":V];
+  }
+  if(t<E){
+    if(eq(addDays(E,-3)))return ["Quinta-feira Santa","Tríduo Pascal (à noite)",W];
+    if(eq(addDays(E,-2)))return ["Sexta-feira da Paixão do Senhor","Tríduo Pascal",R];
+    return ["Sábado Santo (à noite, Vigília Pascal)","Tríduo Pascal",W];
+  }
+  if(t<=pent){
+    if(eq(E))return ["Domingo de Páscoa","Tempo Pascal",W];
+    if(eq(pent))return ["Domingo de Pentecostes","Tempo Pascal",R];
+    if(eq(addDays(E,42)))return ["Ascensão do Senhor","Tempo Pascal",W];
+    var p=wk(E);
+    if(p===1)return ["Oitava da Páscoa","Tempo Pascal",W];
+    if(sun&&p===2)return ["2º Domingo da Páscoa (da Divina Misericórdia)","Tempo Pascal",W];
+    return [lab(p,"da Páscoa","da Páscoa"),"Tempo Pascal",W];
+  }
+  var ck=addDays(adv,-7),s0=addDays(t,-t.getDay()),o=34-Math.round((ck-s0)/DAY/7);
+  if(eq(addDays(pent,7)))return ["Santíssima Trindade","Tempo Comum",W];
+  if(eq(addDays(pent,11)))return ["Corpo e Sangue de Cristo (Corpus Christi)","Tempo Comum",W];
+  if(eq(addDays(pent,19)))return ["Sagrado Coração de Jesus","Tempo Comum",W];
+  if(eq(ck))return ["Nosso Senhor Jesus Cristo, Rei do Universo","Tempo Comum",W];
+  return [lab(o,"do Tempo Comum","do Tempo Comum"),"Tempo Comum",G];
+}
+(function(){
+  var day=document.getElementById("l-day");if(!day)return;
+  var L=litDay(now),cy=cycles(litYear(now));
+  try{$("l-date").textContent=now.toLocaleDateString("pt-BR",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}catch(e){}
+  day.textContent=L[0];$("l-season").textContent=L[1];
+  $("l-color").textContent=L[2].charAt(0).toUpperCase()+L[2].slice(1);
+  $("l-sun").textContent="Ano "+cy[0]+" ("+EVG[cy[0]]+")";
+  $("l-fer").textContent=cy[1]==="I"?"Ano ímpar (I)":"Ano par (II)";
+  var tb=document.getElementById("l-cycles");
+  if(tb){tb.textContent="";var y0=litYear(now);
+    for(var y=y0;y<y0+4;y++){var c=cycles(y),a=advent(y-1),tr=document.createElement("tr");
+      [(y-1)+"–"+y,("0"+a.getDate()).slice(-2)+"/"+("0"+(a.getMonth()+1)).slice(-2)+"/"+a.getFullYear(),"Ano "+c[0]+" ("+EVG[c[0]]+")",c[1]==="I"?"Ano I (ímpar)":"Ano II (par)"]
+      .forEach(function(v){var td=document.createElement("td");td.textContent=v;tr.appendChild(td)});
+      if(y===y0)tr.className="next";tb.appendChild(tr)}}
+  /* Página oficial da CNBB: só é carregada quando a pessoa pede */
+  var box=document.getElementById("cnbb-box"),btn=document.getElementById("cnbb-load"),auto=document.getElementById("cnbb-auto"),KEY="cath-cnbb";
+  if(!box||!btn)return;
+  function load(){
+    if(document.getElementById("cnbb-frame"))return;
+    var f=document.createElement("iframe");
+    f.id="cnbb-frame";f.className="cnbb-frame";f.title="Liturgia diária da CNBB (site oficial)";
+    f.src="https://liturgiadiaria.edicoescnbb.com.br/";
+    f.setAttribute("sandbox","allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox");
+    f.setAttribute("referrerpolicy","strict-origin-when-cross-origin");
+    f.setAttribute("loading","lazy");
+    btn.hidden=true;box.appendChild(f);
+  }
+  try{auto.checked=localStorage.getItem(KEY)==="1"}catch(e){}
+  auto.addEventListener("change",function(){try{if(auto.checked)localStorage.setItem(KEY,"1");else localStorage.removeItem(KEY)}catch(e){}if(auto.checked)load()});
+  btn.addEventListener("click",load);
+  if(auto.checked)load();
+})();
+
 /* ---------- Calendário ---------- */
 function movable(y){
   var E=easter(y),d24=D(y,11,24),adv=addDays(d24,-d24.getDay()-21);
