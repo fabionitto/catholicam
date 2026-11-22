@@ -96,89 +96,22 @@ $("r-next").addEventListener("click",function(){pos=pos===steps.length-1?0:pos+1
 $("r-prev").addEventListener("click",function(){if(pos>0){pos--;draw()}});
 
 /* ---------- Tempo litúrgico ---------- */
-function D(y,m,d){return new Date(y,m,d,12)}
-function addDays(dt,n){var x=new Date(dt);x.setDate(x.getDate()+n);return x}
-function easter(y){var a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1;return D(y,mo-1,da)}
-function season(now){
-  var y=now.getFullYear(),t=D(y,now.getMonth(),now.getDate()).getTime();
-  var E=easter(y),ash=addDays(E,-46),pent=addDays(E,49);
-  var d24=D(y,11,24),adv=addDays(d24,-d24.getDay()-21);
-  var j2=D(y,0,2),epi=addDays(j2,(7-j2.getDay())%7),bap=addDays(epi,epi.getDate()>=7?1:7);
-  if(t>=D(y,11,25).getTime()||t<=bap.getTime())return["Tempo do Natal","branco","Branco"];
-  if(t>=adv.getTime())return["Tempo do Advento","roxo","Roxo"];
-  if(t>=ash.getTime()&&t<addDays(E,-3).getTime())return["Tempo da Quaresma","roxo","Roxo"];
-  if(t>=addDays(E,-3).getTime()&&t<E.getTime())return t===addDays(E,-2).getTime()?["Tríduo Pascal","vermelho","Vermelho"]:["Tríduo Pascal","branco","Branco"];
-  if(t===pent.getTime())return["Domingo de Pentecostes","vermelho","Vermelho"];
-  if(t>=E.getTime()&&t<pent.getTime())return["Tempo Pascal","branco","Branco"];
-  return["Tempo Comum","verde","Verde"];
-}
-var now=new Date(),S=season(now),todaySet=byDay[now.getDay()];
-if(S[1]!=="verde")document.documentElement.setAttribute("data-season",S[1]);
+/* O cálculo (litDay, easter, advent...) fica em /assets/lit.js, carregado no <head> de todas as páginas,
+   que também já aplica a cor litúrgica do dia ao site (data-season). */
+var now=LIT_NOW,L=LIT,todaySet=byDay[now.getDay()];
 try{$("t-date").textContent=now.toLocaleDateString("pt-BR",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}catch(e){}
-$("t-season").textContent=S[0];$("t-color").textContent=S[2];$("t-myst").textContent=M[todaySet].n;
+$("t-season").textContent=L.n;$("t-color").textContent=L.k;$("t-myst").textContent=M[todaySet].n;
 $("t-pray").addEventListener("click",function(){location.href="/terco/"});
 setSet(todaySet);
 
 /* ---------- Liturgia diária ---------- */
-function advent(y){var d24=D(y,11,24);return addDays(d24,-d24.getDay()-21)}
-function baptism(y){var j2=D(y,0,2),epi=addDays(j2,(7-j2.getDay())%7);return [epi,addDays(epi,epi.getDate()>=7?1:7)]}
-function litYear(now){var y=now.getFullYear(),t=D(y,now.getMonth(),now.getDate());return t>=advent(y)?y+1:y}
-function cycles(end){return [["C","A","B"][end%3],end%2?"I":"II"]}
 var EVG={A:"Mateus",B:"Marcos",C:"Lucas"};
-function litDay(now){
-  var y=now.getFullYear(),t=D(y,now.getMonth(),now.getDate()),sun=t.getDay()===0,DAY=864e5;
-  function wk(from){return Math.floor((t-from)/DAY/7)+1}
-  function eq(d){return t.getTime()===d.getTime()}
-  function lab(n,tempo,dom){return sun?n+"º Domingo "+dom:n+"ª Semana "+tempo}
-  var E=easter(y),ash=addDays(E,-46),pent=addDays(E,49),adv=advent(y),ep=baptism(y),epi=ep[0],bap=ep[1];
-  var W="branco",V="roxo",R="vermelho",G="verde";
-  if(t>=D(y,11,25)||t<=bap){
-    var x="Tempo do Natal",c=W,dd=t.getDate(),mm=t.getMonth();
-    var hf=(function(){var yy=mm===11?y:y-1,n=D(yy,11,25);for(var i=1;i<=6;i++){var s=addDays(n,i);if(s.getDay()===0)return s}return D(yy,11,30)})();
-    if(mm===11&&dd===25)x="Natal do Senhor";
-    else if(mm===0&&dd===1)x="Santa Maria, Mãe de Deus";
-    else if(eq(epi))x="Epifania do Senhor";
-    else if(eq(bap))x="Batismo do Senhor";
-    else if(eq(hf))x="Sagrada Família";
-    else if(mm===11&&dd<=31)x="Oitava do Natal";
-    return [x,"Tempo do Natal",c];
-  }
-  if(t>=adv){var n=wk(adv);return [lab(n,"do Advento","do Advento"),"Tempo do Advento",sun&&n===3?"roxo ou rosa":V]}
-  if(t<ash){var b0=bap.getDay()===1?addDays(bap,-1):bap;return [lab(wk(b0),"do Tempo Comum","do Tempo Comum"),"Tempo Comum",G]}
-  if(t<addDays(E,-3)){
-    if(eq(ash))return ["Quarta-feira de Cinzas","Tempo da Quaresma",V];
-    var l1=addDays(ash,4);if(t<l1)return ["Depois das Cinzas","Tempo da Quaresma",V];
-    var q=wk(l1);
-    if(q===6)return [sun?"Domingo de Ramos e da Paixão do Senhor":"Semana Santa","Tempo da Quaresma",sun?R:V];
-    return [lab(q,"da Quaresma","da Quaresma"),"Tempo da Quaresma",sun&&q===4?"roxo ou rosa":V];
-  }
-  if(t<E){
-    if(eq(addDays(E,-3)))return ["Quinta-feira Santa","Tríduo Pascal (à noite)",W];
-    if(eq(addDays(E,-2)))return ["Sexta-feira da Paixão do Senhor","Tríduo Pascal",R];
-    return ["Sábado Santo (à noite, Vigília Pascal)","Tríduo Pascal",W];
-  }
-  if(t<=pent){
-    if(eq(E))return ["Domingo de Páscoa","Tempo Pascal",W];
-    if(eq(pent))return ["Domingo de Pentecostes","Tempo Pascal",R];
-    if(eq(addDays(E,42)))return ["Ascensão do Senhor","Tempo Pascal",W];
-    var p=wk(E);
-    if(p===1)return ["Oitava da Páscoa","Tempo Pascal",W];
-    if(sun&&p===2)return ["2º Domingo da Páscoa (da Divina Misericórdia)","Tempo Pascal",W];
-    return [lab(p,"da Páscoa","da Páscoa"),"Tempo Pascal",W];
-  }
-  var ck=addDays(adv,-7),s0=addDays(t,-t.getDay()),o=34-Math.round((ck-s0)/DAY/7);
-  if(eq(addDays(pent,7)))return ["Santíssima Trindade","Tempo Comum",W];
-  if(eq(addDays(pent,11)))return ["Corpo e Sangue de Cristo (Corpus Christi)","Tempo Comum",W];
-  if(eq(addDays(pent,19)))return ["Sagrado Coração de Jesus","Tempo Comum",W];
-  if(eq(ck))return ["Nosso Senhor Jesus Cristo, Rei do Universo","Tempo Comum",W];
-  return [lab(o,"do Tempo Comum","do Tempo Comum"),"Tempo Comum",G];
-}
 (function(){
   var day=document.getElementById("l-day");if(!day)return;
-  var L=litDay(now),cy=cycles(litYear(now));
+  var cy=cycles(litYear(now));
   try{$("l-date").textContent=now.toLocaleDateString("pt-BR",{weekday:"long",day:"numeric",month:"long",year:"numeric"})}catch(e){}
-  day.textContent=L[0];$("l-season").textContent=L[1];
-  $("l-color").textContent=L[2].charAt(0).toUpperCase()+L[2].slice(1);
+  day.textContent=L.n;$("l-season").textContent=L.s;
+  $("l-color").textContent=L.k;
   $("l-sun").textContent="Ano "+cy[0]+" ("+EVG[cy[0]]+")";
   $("l-fer").textContent=cy[1]==="I"?"Ano ímpar (I)":"Ano par (II)";
   var tb=document.getElementById("l-cycles");

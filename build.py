@@ -6,7 +6,8 @@ Edite sempre _src/site.html (e, se quiser, os textos de SEO abaixo); depois rode
 Saída: uma página por seção (/<secao>/index.html, a inicial em /index.html), uma página
 por oração (/oracoes/<oracao>/), uma por grupo de mistérios do terço (/terco/misterios-<grupo>/),
 uma por livro e por capítulo da Bíblia (/biblia/<livro>/<capitulo>/), 404.html, sitemap.xml,
-robots.txt e os arquivos comuns em /assets/ (site.css, site.js e biblia.json, usado na busca).
+robots.txt e os arquivos comuns em /assets/ (site.css, site.js, lit.js e biblia.json, usado na busca).
+O calendário litúrgico (cor do dia, que também colore o site) fica em _src/lit.js e é copiado para /assets/lit.js.
 O /assets/qrcode.min.js (qrcodejs 1.0.0, licença MIT) fica no repositório e não é gerado.
 Precisa de Python 3 e Node.js (o Node lê as listas de orações, frases e mistérios do script da página).
 Textos extras das orações (título do Google, descrição, outros nomes, versões, história, latim): _src/oracoes_info.json.
@@ -155,10 +156,14 @@ head = head.replace("</style>", EXTRA_CSS + "</style>", 1)
 css_m = re.search(r"<style>\n?(.*?)</style>\n?", head, re.S)
 SITE_CSS = css_m.group(1)
 css_ver = hashlib.sha256(SITE_CSS.encode()).hexdigest()[:10]
+# Calendário litúrgico (/assets/lit.js): vai no <head>, sem defer, para a cor do dia ser aplicada antes da primeira pintura
+LIT_JS = (SRC / "lit.js").read_text(encoding="utf-8")
+lit_ver = hashlib.sha256(LIT_JS.encode()).hexdigest()[:10]
 head = head.replace(css_m.group(0), f'<link rel="stylesheet" href="/assets/site.css?v={css_ver}">\n')
 head = head.replace('<meta name="viewport" content="width=device-width, initial-scale=1">',
     '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
     '<meta name="theme-color" content="#2f6b45">\n'
+    f'<script src="/assets/lit.js?v={lit_ver}"></script>\n'
     '<link rel="icon" href="/favicon.ico" sizes="48x48">\n'
     '<link rel="icon" href="/favicon.svg" type="image/svg+xml">\n'
     '<link rel="apple-touch-icon" href="/apple-touch-icon.png">')
@@ -696,6 +701,7 @@ assets = ROOT / "assets"
 assets.mkdir(exist_ok=True)
 (assets / "site.css").write_text(SITE_CSS, encoding="utf-8")
 (assets / "site.js").write_text(SITE_JS, encoding="utf-8")
+(assets / "lit.js").write_text(LIT_JS, encoding="utf-8")
 (assets / "biblia.json").write_text(json.dumps(
     [{"n": b["n"], "s": b["s"], "c": [[[n, t] for n, t in cap] for cap in b["caps"]]} for b in BOOKS],
     ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
