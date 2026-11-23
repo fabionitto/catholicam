@@ -14,6 +14,8 @@ Textos extras das orações (título do Google, descrição, outros nomes, vers�
 orações rezadas junto ("junto") e perguntas frequentes ("faq", também em FAQPage no JSON-LD)): _src/oracoes_info.json.
 Liturgia diária (/liturgia/): o texto das leituras não é copiado (direitos da CNBB); a página mostra o
 site oficial da CNBB num iframe que só carrega quando o visitante pede.
+Frase do dia (página inicial): versículo do Evangelho da Missa, dito por Jesus ou por Maria, escolhido no build
+(veja "Frase do dia a partir do Evangelho da Missa" abaixo; o build busca os dias novos na internet).
 Texto da Bíblia: _src/biblia.json (baixado de BIBLIA_FONTE na primeira vez, se não existir).
 """
 import hashlib, html, json, re, subprocess, datetime, pathlib, unicodedata, urllib.request
@@ -387,6 +389,161 @@ def passage(ref):
     vs = [(n, t) for n, t in b["caps"][c - 1] if v0 <= n <= v1]
     return vs or None
 
+# ---------------------------------------------------------------- Frase do dia a partir do Evangelho da Missa
+# Para cada dia, a API pública liturgia.up.railway.app (dados da liturgia diária da CNBB) diz qual é o Evangelho.
+# O build escolhe nele um versículo dito por Jesus (ou por Maria) e guarda só a citação em
+# _src/frase_liturgia.json; o texto vem da Bíblia do site (Matos Soares), não do Lecionário (direitos da CNBB).
+# O resultado vai para /assets/frase-do-dia/AAAA-MM.json, que a página inicial lê; sem o dia no arquivo,
+# fica a frase da lista (Q). Os dias novos (até FRASE_DIAS à frente) são buscados a cada build;
+# para pular a busca, rode com CATHOLICAM_SEM_LITURGIA=1.
+LIT_API = "https://liturgia.up.railway.app/v2/?dia={d}&mes={m}&ano={a}"
+FRASE_DIAS = 400
+frase_file = SRC / "frase_liturgia.json"
+VERSE_MARK = re.compile(r"(\d{1,3})[a-d]?(?=[“‘\"A-ZÀ-ÖØ-Þa-zà-öø-ÿ—–])")
+QUOTE_KEYS = re.compile(r"vos digo|eu sou|bem-aventurad|reino|meu pai|vosso pai|\bamor\b|\bamai|\bfé\b|vida eterna|"
+                        r"\bsenhor\b|\bdeus\b|\bpaz\b|perdo|misericórdia|\bluz\b|salv|\bcrê|segue-me|permanec", re.I)
+CONJ = re.compile(r"^(Mas|Pois|Porque|Porém|E|Então|Portanto|Por isso|Assim|Ora|Que|Também|Contudo|Todavia|Logo|Já)\b")
+NAO_NOMES = {"Jesus", "Deus", "Senhor", "Espírito", "Santo", "Templo", "Reino", "Pai", "Filho", "Homem", "Lei", "Escritura",
+             "Escrituras", "Naquele", "Naqueles", "Em", "Na", "No", "Nesse", "Neste", "Diante", "Depois", "Então", "Quando",
+             "Ao", "Os", "As", "O", "A", "E", "Mas", "Por", "Ele", "Eles", "Enquanto", "Tendo", "Vendo", "Ouvindo", "Logo"}
+
+FALA_V = (r"(?:disse|diz|dizia|dizendo|respondeu|respondia|perguntou|falou|falava|declarou|exclamou|ensinava|ensinou|"
+          r"ordenou|replicou|acrescentou|rezou|orou|clamou|chamou|prosseguiu|continuou|explicou|advertiu|contou)")
+
+def _sujeito(frase, nome):
+    """O nome é quem fala: "Jesus disse", "Jesus lhe respondeu", "disse-lhes Jesus", "Maria, então, disse"."""
+    n = r"\b" + nome + r"\b(?:,\s*(?:então|porém|logo|depois),)?"
+    return re.search(r"(?<!\ba )(?<!\bde )(?<!\bao )(?<!\bcom )(?<!\bpara )(?<!\bviu )(?<!\bque )" + n + r"[^,.;:!?]{0,45}?\b" + FALA_V + r"\b", frase) \
+        or re.search(r"\b" + FALA_V + r"(?:-(?:lhes?|o|a|os|as))?\s+" + nome + r"\b", frase)
+
+def _inicia(frase, nome):
+    """A frase começa com o nome como sujeito ("Jesus foi...", "Naquele tempo, Jesus...", "Então Jesus...")."""
+    return re.match(r"\s*(?:[^,]{0,25},\s*)?(?:Então\s+|E\s+|Depois\s+)?" + nome + r"\b(?!,)", frase)
+
+def _nomes(frase):
+    """Nomes próprios no meio da frase (a primeira palavra não conta: é maiúscula por começar a frase)."""
+    frase = frase.strip()
+    return [m.group() for m in re.finditer(r"\b[A-ZÀ-Ý][a-zà-ÿ]+", frase) if m.start() > 0 and m.group() not in NAO_NOMES]
+
+def _falante(antes):
+    """Quem fala na citação que começa depois do texto `antes` (desde a última fala)."""
+    antes = VERSE_MARK.sub(" ", antes)
+    frases = [f for f in re.split(r"(?<=[.!?])\s+", antes.strip()) if f]
+    ultima = frases[-1] if frases else ""
+    for nome, rot in (("Jesus", "Jesus Cristo"), ("Maria", "Maria")):
+        if _sujeito(ultima, nome): return rot
+    nomes = _nomes(ultima)
+    if not nomes and re.search(r"\b(ele|disse|respondeu|dizia|falou|declarou|ensinava)\b", ultima, re.I):
+        outros = [w for f in frases for w in _nomes(f)]
+        if any(_inicia(f, "Jesus") for f in frases) and not outros: return "Jesus Cristo"
+    return None
+
+def _versiculos(ref, texto):
+    """Divide o texto da CNBB em [(capítulo, versículo, quem fala, fração do versículo na fala, tem citação dentro)]."""
+    m = re.match(r"\s*(Mt|Mc|Lc|Jo)\s*(\d+)\s*,\s*(\d+)", ref)
+    if not m: return None, []
+    livro, cap, prev = m.group(1), int(m.group(2)), int(m.group(3))
+    aspas = iter("“”" * texto.count('"'))
+    texto = re.sub('"', lambda _: next(aspas), texto)  # alguns dias vêm com aspas retas
+    sem_aspas = "“" not in texto
+    marks = list(VERSE_MARK.finditer(texto))
+    out, fala, ultimo_fim = [], None, 0
+    for i, mk in enumerate(marks):
+        v, s1 = int(mk.group(1)), mk.end()
+        fim = marks[i + 1].start() if i + 1 < len(marks) else len(texto)
+        if v < prev: cap += 1
+        prev = v
+        conta = {}
+        for k in range(s1, fim):
+            ch = texto[k]
+            if ch == "“":
+                fala = _falante(texto[ultimo_fim:k]) or "?"
+            elif ch == "”":
+                fala, ultimo_fim = None, k + 1
+            elif fala and not ch.isspace():
+                conta[fala] = conta.get(fala, 0) + 1
+        tot = max(1, sum(1 for ch in texto[s1:fim] if not ch.isspace()))
+        if sem_aspas: quem, frac = "Evangelho", 1.0
+        elif len(conta) == 1 and next(iter(conta.values())) >= 15: quem, frac = next(iter(conta)), next(iter(conta.values())) / tot
+        else: quem, frac = None, 0
+        out.append((cap, v, quem if quem in ("Jesus Cristo", "Maria", "Evangelho") else None, frac, "‘" in texto[s1:fim]))
+    return livro, out
+
+def _limpa_ms(t):
+    """Texto de um versículo da Bíblia do site, só com a fala."""
+    t = re.sub(r"\s*\(ver nota\)", "", t).replace(" :", ":").strip()
+    if t.count('"') == 1 and re.search(r':\s*"', t): t = t.split('"', 1)[1]
+    elif t.count('"') == 2 and re.search(r':\s*"', t): t = t.split('"')[1]
+    elif t.count('"') == 1 and t.rstrip().endswith('"'): t = t.rstrip()[:-1]
+    elif t.count('"') == 1 and not re.search(r':\s*"', t): t = t.split('"')[0]
+    elif '"' in t: return None
+    t = re.sub(r"\s+", " ", t).strip()
+    if t and t[-1] in ",;:": t = t[:-1] + "."
+    return t
+
+def escolhe_frase(evs):
+    """Recebe [(referência, texto)] do Evangelho e devolve {"r": "Lc 21,3", "a": "Jesus Cristo"} ou None."""
+    if not evs: return None
+    livro, vs = _versiculos(*evs[0])
+    if not livro: return None
+    b = ABBR[livro]
+    melhor, nota = None, -99
+    for c, v, quem, frac, aninh in vs:
+        if not quem or not (1 <= c <= len(b["caps"])): continue
+        ms = dict(b["caps"][c - 1]).get(v)
+        if frac < 0.5 and not (ms and re.search(r':\s*"', ms)): continue  # a fala é só parte do versículo e a Bíblia do site não a separa
+        t = ms and _limpa_ms(ms)
+        if not t or len(t) < 15 or len(t) > 200 or not t[0].isupper(): continue
+        n = (2 if 40 <= len(t) <= 160 else 0) + min(3, len(QUOTE_KEYS.findall(t)))
+        if t.endswith("?"): n -= 3
+        if CONJ.match(t): n -= 2
+        if aninh or "'" in t: n -= 3
+        if re.search(r"\b" + FALA_V + r"\b", t): n -= 3  # narração dentro da fala (parábola: "e ele respondeu...")
+        if quem == "Evangelho":
+            if len(QUOTE_KEYS.findall(t)) < 2 or "Jesus" in t: continue  # sem falas no texto: só versículos de conteúdo, não narração
+            n -= 1
+        if n > nota: melhor, nota = {"r": f"{livro} {c},{v}", "a": quem}, n
+    return melhor
+
+def _busca(dia):
+    url_api = LIT_API.format(d=dia.day, m=dia.month, a=dia.year)
+    req = urllib.request.Request(url_api, headers={"User-Agent": "Catholicam-build/1.0"})
+    for tentativa in range(3):
+        try:
+            j = json.loads(urllib.request.urlopen(req, timeout=25).read().decode("utf-8"))
+            return [(e["referencia"], e["texto"]) for e in (j.get("leituras") or {}).get("evangelho") or []]
+        except Exception:
+            if tentativa == 2: raise
+
+FRASE_VERSAO = 3  # mude ao alterar escolhe_frase(): o build busca tudo de novo
+FRASE_CACHE = json.loads(frase_file.read_text(encoding="utf-8")) if frase_file.exists() else {}
+if FRASE_CACHE.pop("versao", None) != FRASE_VERSAO: FRASE_CACHE = {}
+_hoje = datetime.date.today()
+_dias = [_hoje + datetime.timedelta(i) for i in range(-3, FRASE_DIAS)]
+_falta = [d for d in _dias if d.isoformat() not in FRASE_CACHE]
+if _falta and not __import__("os").environ.get("CATHOLICAM_SEM_LITURGIA"):
+    from concurrent.futures import ThreadPoolExecutor
+    def _um(d):
+        try: return d, escolhe_frase(_busca(d)), True
+        except Exception: return d, None, False
+    with ThreadPoolExecutor(6) as ex:
+        res = list(ex.map(_um, _falta))
+    falhas = 0
+    for d, fr, ok in res:
+        if ok: FRASE_CACHE[d.isoformat()] = fr
+        else: falhas += 1
+    print(f"Frase do dia: {len(_falta) - falhas} dias buscados na liturgia" + (f", {falhas} falharam (tenta de novo no próximo build)" if falhas else ""))
+_corte = (_hoje - datetime.timedelta(40)).isoformat()
+FRASE_CACHE = {k: FRASE_CACHE[k] for k in sorted(FRASE_CACHE) if k >= _corte}
+frase_file.write_text(json.dumps({"versao": FRASE_VERSAO, **FRASE_CACHE}, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+FRASES_MES = {}
+for k, fr in FRASE_CACHE.items():
+    if not fr: continue
+    m = REF_RE.fullmatch(fr["r"])
+    b, c, v = ABBR[m.group(1)], int(m.group(2)), int(m.group(3))
+    t = _limpa_ms(dict(b["caps"][c - 1])[v])
+    FRASES_MES.setdefault(k[:7], {})[str(int(k[8:]))] = {"q": t, "a": fr["a"], "r": fr["r"], "u": burl(b, c) + f"#v{v}"}
+
 # ---------------------------------------------------------------- conteúdo pré-montado
 def prayer_article(k, link=True, tag="h3", title=None):
     p = P[k]
@@ -732,6 +889,12 @@ assets.mkdir(exist_ok=True)
     [{"n": b["n"], "s": b["s"], "c": [[[n, t] for n, t in cap] for cap in b["caps"]]} for b in BOOKS],
     ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 (ROOT / "404.html").write_text(nf_html, encoding="utf-8")
+fd = assets / "frase-do-dia"
+fd.mkdir(exist_ok=True)
+for f in fd.glob("*.json"):
+    if f.stem not in FRASES_MES: f.unlink()
+for mes, dias in FRASES_MES.items():
+    (fd / f"{mes}.json").write_text(json.dumps(dias, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
 # lastmod só muda quando o conteúdo da página muda
 lm_file = SRC / "lastmod.json"

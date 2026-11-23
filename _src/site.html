@@ -278,7 +278,7 @@ footer{border-top:1px solid var(--line);padding:1.25rem 0 2.5rem;font-family:var
     <p class="r">Calculado pelo calendário litúrgico do Brasil, com as solenidades e festas. As cores do site acompanham a cor do dia; memórias de santos podem mudá-la na Missa.</p>
     <div class="controls"><button class="btn" id="t-pray" type="button">Rezar o terço de hoje</button><a class="btn ghost" href="#liturgia">Leituras da Missa de hoje</a></div>
   </div>
-  <div class="stack"><h2>Frase do dia</h2><figure class="quote qday" id="qday"><blockquote id="qd-q">Eu sou o caminho, a verdade e a vida.</blockquote><figcaption id="qd-a"><b>Jesus Cristo</b> · Jo 14,6</figcaption></figure></div>
+  <div class="stack"><h2>Frase do dia</h2><figure class="quote qday" id="qday"><blockquote id="qd-q">Eu sou o caminho, a verdade e a vida.</blockquote><figcaption id="qd-a"><b>Jesus Cristo</b> · Jo 14,6</figcaption></figure><p class="r" id="qd-n" hidden>Do Evangelho da Missa de hoje, na tradução do Pe. Matos Soares. <a href="/liturgia/">Ler as leituras do dia</a></p></div>
   <div class="stack">
     <h2>Orações mais rezadas</h2>
     <div class="chips"><a class="chip" href="/oracoes/pai-nosso/">Pai Nosso</a><a class="chip" href="/oracoes/ave-maria/">Ave Maria</a><a class="chip" href="/oracoes/salve-rainha/">Salve Rainha</a><a class="chip" href="/oracoes/credo/">Credo</a><a class="chip" href="/oracoes/ato-de-contricao/">Ato de Contrição</a><a class="chip" href="/oracoes/vinde-espirito-santo/">Vinde, Espírito Santo</a><a class="chip" href="/oracoes/sao-miguel-arcanjo/">São Miguel Arcanjo</a><a class="chip" href="/oracoes/santo-anjo/">Santo Anjo</a><a class="chip" href="/oracoes/gloria-ao-pai/">Glória ao Pai</a><a class="chip" href="/oracoes/o-meu-jesus/">Ó meu Jesus</a></div>
@@ -1148,8 +1148,20 @@ function qfig(q){
   });
   chip("Atribuídas por engano",$("q-erradas"));
   var doy=Math.floor((D(now.getFullYear(),now.getMonth(),now.getDate())-D(now.getFullYear(),0,1))/864e5),q=Q[doy%Q.length];
-  $("qd-q").textContent=q[1];
-  var a=$("qd-a"),n=document.createElement("b");a.textContent="";n.textContent=q[0];a.appendChild(n);a.appendChild(document.createTextNode(" · "+q[2]));
+  function qday(txt,who,ref,href){
+    $("qd-q").textContent=txt;
+    var a=$("qd-a"),n=document.createElement("b");a.textContent="";n.textContent=who;a.appendChild(n);a.appendChild(document.createTextNode(" · "));
+    if(href){var l=document.createElement("a");l.href=href;l.textContent=ref;a.appendChild(l)}else a.appendChild(document.createTextNode(ref));
+  }
+  qday(q[1],q[0],q[2]);
+  /* frase do dia tirada do Evangelho da Missa (gerada pelo build.py em /assets/frase-do-dia/); sem ela, fica a da lista */
+  if(document.getElementById("qday")&&window.fetch){
+    var mm=now.getMonth()+1;
+    fetch("/assets/frase-do-dia/"+now.getFullYear()+"-"+(mm<10?"0":"")+mm+".json").then(function(r){return r.ok?r.json():null}).then(function(j){
+      var e=j&&j[now.getDate()];if(!e)return;
+      qday(e.q,e.a==="Evangelho"?"Evangelho do dia":e.a,e.r,e.u);$("qd-n").hidden=false;
+    })["catch"](function(){});
+  }
 })();
 
 /* ---------- Menu e tamanho da letra ---------- */

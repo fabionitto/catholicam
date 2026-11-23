@@ -279,8 +279,20 @@ function qfig(q){
   });
   chip("Atribuídas por engano",$("q-erradas"));
   var doy=Math.floor((D(now.getFullYear(),now.getMonth(),now.getDate())-D(now.getFullYear(),0,1))/864e5),q=Q[doy%Q.length];
-  $("qd-q").textContent=q[1];
-  var a=$("qd-a"),n=document.createElement("b");a.textContent="";n.textContent=q[0];a.appendChild(n);a.appendChild(document.createTextNode(" · "+q[2]));
+  function qday(txt,who,ref,href){
+    $("qd-q").textContent=txt;
+    var a=$("qd-a"),n=document.createElement("b");a.textContent="";n.textContent=who;a.appendChild(n);a.appendChild(document.createTextNode(" · "));
+    if(href){var l=document.createElement("a");l.href=href;l.textContent=ref;a.appendChild(l)}else a.appendChild(document.createTextNode(ref));
+  }
+  qday(q[1],q[0],q[2]);
+  /* frase do dia tirada do Evangelho da Missa (gerada pelo build.py em /assets/frase-do-dia/); sem ela, fica a da lista */
+  if(document.getElementById("qday")&&window.fetch){
+    var mm=now.getMonth()+1;
+    fetch("/assets/frase-do-dia/"+now.getFullYear()+"-"+(mm<10?"0":"")+mm+".json").then(function(r){return r.ok?r.json():null}).then(function(j){
+      var e=j&&j[now.getDate()];if(!e)return;
+      qday(e.q,e.a==="Evangelho"?"Evangelho do dia":e.a,e.r,e.u);$("qd-n").hidden=false;
+    })["catch"](function(){});
+  }
 })();
 
 /* ---------- Menu e tamanho da letra ---------- */
