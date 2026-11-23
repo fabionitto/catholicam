@@ -11,7 +11,7 @@ function baptism(y){var j2=D(y,0,2),epi=addDays(j2,(7-j2.getDay())%7);return [ep
 function litYear(now){var y=now.getFullYear(),t=D(y,now.getMonth(),now.getDate());return t>=advent(y)?y+1:y}
 function cycles(end){return [["C","A","B"][end%3],end%2?"I":"II"]}
 var LIT_NAMES={verde:"Verde",roxo:"Roxo",branco:"Branco",vermelho:"Vermelho",rosa:"Rosa",preto:"Preto"};
-var LIT_META={verde:"#2f6b45",roxo:"#5b3a86",branco:"#7d5e12",vermelho:"#a3262a",rosa:"#a63d6e",preto:"#3d434a"};
+var LIT_META={verde:"#2f6b45",roxo:"#5b3a86",branco:"#e6b422",vermelho:"#a3262a",rosa:"#a63d6e",preto:"#3d434a"};
 /* Solenidades e festas de data fixa (ou transferida) do ano y: [nome, cor, grau]. Grau menor vence. */
 function litFixed(y){
   var E=easter(y),palm=addDays(E,-7),out={},W="branco",R="vermelho";

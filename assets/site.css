@@ -8,16 +8,17 @@
 :root{
   --bg:#eef0f1; --surface:#fbfcfc; --ink:#17202a; --muted:#566370; --line:#d2d8dd;
   --rubric:#a3262a;
-  --accent-l:#2f6b45; --accent-d:#7fc497; --accent:var(--accent-l);
+  --accent-l:#2f6b45; --accent-d:#7fc497; --accent:var(--accent-l); --fill:var(--accent); --on-fill:var(--bg); --edge:var(--fill);
   --display:"Alegreya", Georgia, "Times New Roman", serif;
   --body:"Alegreya", Georgia, "Times New Roman", serif;
   --ui:"Alegreya Sans", "Segoe UI", Roboto, Arial, sans-serif;
 }
 /* Cor litúrgica do dia (data-season, aplicada por /assets/lit.js). --accent-l/-d: tom legível (contraste AA no claro e no escuro);
-   --lit: a cor da veste, usada só em superfícies (amostra e faixa do cabeçalho). Branco usa dourado no texto. */
+   --lit: a cor da veste, usada só em superfícies (amostra e faixa do cabeçalho). --fill/--on-fill: superfícies (botões, faixas) e o texto sobre elas. --edge: bordas e faixas. Branco: elementos brancos com borda dourada (amarela) e texto de destaque em ardósia. */
 :root{--lit:#2f7d4a}
 :root[data-season="roxo"]{--accent-l:#5b3a86;--accent-d:#b9a0e2;--lit:#6a3fa0}
-:root[data-season="branco"]{--accent-l:#7d5e12;--accent-d:#e0bd62;--lit:#fff}
+:root[data-season="branco"]{--accent-l:#4a5a6a;--accent-d:#e8c66a;--lit:#fff;--fill:#fff;--on-fill:#17202a;--edge:#e6b422;--bg:#f6f5f1;--surface:#fff}
+:root[data-season="branco"] .btn.ghost{border-color:var(--line)}
 :root[data-season="vermelho"]{--accent-l:#a3262a;--accent-d:#ef8b84;--lit:#c0272d}
 :root[data-season="rosa"]{--accent-l:#a63d6e;--accent-d:#f0a0c4;--lit:#e58fb4}
 :root[data-season="preto"]{--accent-l:#3d434a;--accent-d:#c3cad2;--lit:#111}
@@ -38,7 +39,7 @@ a{color:var(--accent)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .wrap{max-width:44rem;margin:0 auto;padding:0 1.125rem}
 
-header.site{border-bottom:1px solid var(--line);background:var(--surface);border-top:4px solid var(--accent)}
+header.site{border-bottom:1px solid var(--line);background:var(--surface);border-top:4px solid var(--edge)}
 .masthead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem;padding-top:1.1rem;padding-bottom:.9rem}
 .tools{display:flex;gap:.4rem}
 .tool{font-family:var(--ui);font-size:.95rem;font-weight:700;min-width:2.6rem;padding:.45rem .6rem;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:4px;cursor:pointer}
@@ -48,14 +49,14 @@ nav.main{flex-basis:100%}
 .quote blockquote{margin:0;font-family:var(--display);font-style:italic;font-size:1.3rem;line-height:1.35;text-wrap:balance}
 .quote figcaption{font-family:var(--ui);font-size:.92rem;color:var(--muted)}
 .quote figcaption b{color:var(--ink)}
-.qday{border-left:4px solid var(--accent);padding:.2rem 0 .2rem 1rem;border-bottom:0}
+.qday{border-left:4px solid var(--edge);padding:.2rem 0 .2rem 1rem;border-bottom:0}
 .top{font-family:var(--ui);font-size:.95rem}
 .brand{font-family:var(--display);font-style:italic;font-weight:500;font-size:2rem;white-space:nowrap;line-height:1;color:var(--ink);text-decoration:none;letter-spacing:.01em}
 .brand b{font-style:normal;font-weight:700;color:var(--accent)}
 nav.main{display:flex;flex-wrap:wrap;gap:.25rem .9rem;font-family:var(--ui);font-size:.95rem}
 nav.main a{color:var(--muted);text-decoration:none;padding:.15rem 0;border-bottom:2px solid transparent}
 nav.main a:hover{color:var(--ink)}
-nav.main a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:700}
+nav.main a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--edge);font-weight:700}
 @media (max-width:719px){
   header.site{position:sticky;top:0;z-index:5}
   .masthead{padding-top:.7rem;padding-bottom:.7rem}
@@ -77,19 +78,19 @@ p{margin:0}
 .stack{display:flex;flex-direction:column;gap:.75rem}
 .block{display:flex;flex-direction:column;gap:.75rem;padding-top:1.25rem;border-top:1px solid var(--line)}
 .r{color:var(--rubric);font-family:var(--ui);font-size:.92rem;font-weight:500}
-.note{font-family:var(--ui);font-size:.92rem;color:var(--muted);border-left:3px solid var(--accent);padding:.1rem 0 .1rem .8rem}
+.note{font-family:var(--ui);font-size:.92rem;color:var(--muted);border-left:3px solid var(--edge);padding:.1rem 0 .1rem .8rem}
 ol,ul{margin:0;padding-left:1.3rem;display:flex;flex-direction:column;gap:.3rem}
 ol.plain,ul.plain{list-style:none;padding:0}
 
 /* Hoje */
-.today{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--accent);padding:1.1rem 1.15rem;display:flex;flex-direction:column;gap:.9rem}
+.today{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--edge);padding:1.1rem 1.15rem;display:flex;flex-direction:column;gap:.9rem}
 .today .date{font-family:var(--ui);font-size:.9rem;color:var(--muted)}
 .today .season{font-family:var(--display);font-size:1.9rem;font-style:italic;line-height:1.1}
 .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:.9rem}
 .fact{display:flex;flex-direction:column;gap:.1rem}
 .fact span{font-family:var(--ui);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .fact strong{font-weight:500}
-.swatch{display:inline-block;width:.8rem;height:.8rem;border-radius:50%;background:var(--lit);box-shadow:0 0 0 1px var(--muted);margin-right:.45rem;vertical-align:-.05em}
+.swatch{display:inline-block;width:.8rem;height:.8rem;border-radius:50%;background:var(--lit);box-shadow:0 0 0 1.5px var(--edge);margin-right:.45rem;vertical-align:-.05em}
 
 /* Sumário */
 .toc{list-style:none;padding:0;margin:0;display:flex;flex-direction:column}
@@ -102,7 +103,7 @@ ol.plain,ul.plain{list-style:none;padding:0}
 /* Orações */
 .chips{display:flex;flex-wrap:wrap;gap:.4rem}
 .chip,button.chip{font-family:var(--ui);font-size:.9rem;padding:.3rem .7rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;text-decoration:none;cursor:pointer}
-button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:700}
+button.chip[aria-pressed="true"]{background:var(--fill);border-color:var(--edge);box-shadow:inset 0 0 0 1px var(--edge);color:var(--on-fill);font-weight:700}
 .prayer{display:flex;flex-direction:column;gap:.4rem;padding-top:1.1rem;border-top:1px solid var(--line)}
 .prayer p{white-space:pre-line}
 
@@ -111,24 +112,24 @@ button.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--acc
 .rosary .step{font-family:var(--ui);font-size:.85rem;color:var(--muted)}
 .rosary .text{white-space:pre-line;min-height:9rem}
 .beads{display:flex;gap:.4rem;flex-wrap:wrap;min-height:1rem}
-.bead{width:.85rem;height:.85rem;border-radius:50%;border:1.5px solid var(--accent)}
-.bead.done{background:var(--accent)}
+.bead{width:.85rem;height:.85rem;border-radius:50%;border:1.5px solid var(--edge)}
+.bead.done{background:var(--edge)}
 .bar{height:3px;background:var(--line)}
-.bar i{display:block;height:100%;background:var(--accent);width:0}
+.bar i{display:block;height:100%;background:var(--edge);width:0}
 .controls{display:flex;gap:.6rem;flex-wrap:wrap}
-button.btn{font-family:var(--ui);font-size:1rem;font-weight:700;padding:.65rem 1.1rem;border:1px solid var(--accent);background:var(--accent);color:var(--bg);cursor:pointer;border-radius:4px;flex:1 1 8rem}
-button.btn.ghost{background:transparent;color:var(--accent)}
+button.btn{font-family:var(--ui);font-size:1rem;font-weight:700;padding:.65rem 1.1rem;border:2px solid var(--edge);background:var(--fill);color:var(--on-fill);cursor:pointer;border-radius:4px;flex:1 1 8rem}
+button.btn.ghost{background:transparent;color:var(--accent);border-width:1px;padding:calc(.65rem + 1px) calc(1.1rem + 1px)}
 button.btn:disabled{opacity:.4;cursor:default}
 
 /* Bíblia */
 .books{display:grid;grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr));gap:.4rem}
 button.book{font-family:var(--ui);font-size:.95rem;text-align:left;padding:.5rem .65rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;border-radius:4px;display:flex;justify-content:space-between;gap:.5rem}
 button.book small{color:var(--muted);font-variant-numeric:tabular-nums}
-button.book[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+button.book[aria-pressed="true"]{border-color:var(--edge);box-shadow:inset 3px 0 0 var(--edge)}
 .reader{background:var(--surface);border:1px solid var(--line);padding:1.1rem;display:flex;flex-direction:column;gap:.8rem}
 .chapters{display:flex;flex-wrap:wrap;gap:.3rem}
 .chapters button{font-family:var(--ui);font-size:.85rem;font-variant-numeric:tabular-nums;min-width:2.3rem;padding:.3rem 0;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:3px;cursor:pointer}
-.chapters button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:700}
+.chapters button[aria-pressed="true"]{background:var(--fill);border-color:var(--edge);box-shadow:inset 0 0 0 1px var(--edge);color:var(--on-fill);font-weight:700}
 .verses{display:flex;flex-direction:column;gap:.55rem}
 .verses p .vn{color:var(--rubric);font-family:var(--ui);font-size:.78rem;font-weight:700;margin-right:.35rem;font-variant-numeric:tabular-nums}
 .verses p.hit{background:color-mix(in srgb,var(--accent) 16%,transparent)}
@@ -154,15 +155,15 @@ input[type="file"]{font-family:var(--ui);font-size:.95rem;max-width:100%}
 .hist li span:last-child{font-family:var(--ui);font-size:.98rem}
 .about h2:not(:first-child){margin-top:.5rem}
 #d-key{font-family:var(--ui);font-size:1.15rem;overflow-wrap:anywhere}
-a.btn.ghost{background:transparent;color:var(--accent)}
-a.btn{display:inline-block;text-align:center;text-decoration:none;font-family:var(--ui);font-size:1rem;font-weight:700;padding:.65rem 1.1rem;border:1px solid var(--accent);background:var(--accent);color:var(--bg);border-radius:4px;flex:1 1 8rem}
+a.btn.ghost{background:transparent;color:var(--accent);border-width:1px;padding:calc(.65rem + 1px) calc(1.1rem + 1px)}
+a.btn{display:inline-block;text-align:center;text-decoration:none;font-family:var(--ui);font-size:1rem;font-weight:700;padding:.65rem 1.1rem;border:2px solid var(--edge);background:var(--fill);color:var(--on-fill);border-radius:4px;flex:1 1 8rem}
 .qr{display:flex;flex-direction:column;align-items:flex-start;gap:.5rem}
 #d-qr{background:#fff;padding:12px;border-radius:6px;line-height:0}
 #d-qr img,#d-qr canvas{display:block;width:216px;height:216px}
 .table{overflow-x:auto}
 tr.past td{color:var(--muted)}
 tr.next td{font-weight:700}
-tr.next td:first-child{box-shadow:inset 3px 0 0 var(--accent);padding-left:.6rem}
+tr.next td:first-child{box-shadow:inset 3px 0 0 var(--edge);padding-left:.6rem}
 td.dt{white-space:nowrap;font-variant-numeric:tabular-nums}
 .cat-h{padding-top:1.25rem;border-top:1px solid var(--line)}
 table{border-collapse:collapse;width:100%;font-family:var(--ui);font-size:.95rem}
@@ -184,7 +185,7 @@ a.book:hover{border-color:var(--accent);color:var(--accent)}
 a.book small{color:var(--muted);font-variant-numeric:tabular-nums}
 .chapters a{font-family:var(--ui);font-size:.9rem;font-variant-numeric:tabular-nums;min-width:2.6rem;min-height:2.4rem;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:3px;text-decoration:none}
 .chapters a:hover{border-color:var(--accent);color:var(--accent)}
-.chapters a[aria-current="page"]{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:700}
+.chapters a[aria-current="page"]{background:var(--fill);border-color:var(--edge);box-shadow:inset 0 0 0 1px var(--edge);color:var(--on-fill);font-weight:700}
 .verses p{margin:0;scroll-margin-top:5rem}
 .verses p:target{background:color-mix(in srgb,var(--accent) 16%,transparent)}
 .verses p .vn{text-decoration:none}
