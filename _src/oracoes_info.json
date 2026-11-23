@@ -35,7 +35,17 @@
    "Por isso é chamada Oração do Senhor. Tertuliano a chamou de resumo de todo o Evangelho, e a Didaqué, escrito cristão do século I, já recomendava rezá-la três vezes ao dia. O Catecismo da Igreja Católica dedica a ela toda a sua última parte (CIC 2759-2865)."
   ],
   "quando": "Na Missa, antes da comunhão; no terço, no início de cada mistério; e nas orações da manhã e da noite.",
-  "latim": "Pater noster, qui es in caelis, sanctificetur nomen tuum. Adveniat regnum tuum. Fiat voluntas tua, sicut in caelo et in terra.\nPanem nostrum quotidianum da nobis hodie, et dimitte nobis debita nostra, sicut et nos dimittimus debitoribus nostris. Et ne nos inducas in tentationem, sed libera nos a malo. Amen."
+  "latim": "Pater noster, qui es in caelis, sanctificetur nomen tuum. Adveniat regnum tuum. Fiat voluntas tua, sicut in caelo et in terra.\nPanem nostrum quotidianum da nobis hodie, et dimitte nobis debita nostra, sicut et nos dimittimus debitoribus nostris. Et ne nos inducas in tentationem, sed libera nos a malo. Amen.",
+  "faq": [
+   [
+    "Onde está o Pai Nosso na Bíblia?",
+    "Em Mt 6,9-13, no Sermão da Montanha, e numa forma mais breve em Lc 11,2-4."
+   ],
+   [
+    "Por que o Pai Nosso na Missa não termina com “Amém”?",
+    "Porque na Missa o sacerdote continua com a oração “Livrai-nos de todos os males, ó Pai”, e os fiéis concluem com a aclamação “Vosso é o reino, o poder e a glória para sempre!”."
+   ]
+  ]
  },
  "ave": {
   "titulo": "Ave Maria: oração completa, origem e latim",
@@ -50,12 +60,22 @@
    "A segunda parte, o pedido \"Santa Maria, Mãe de Deus, rogai por nós\", foi se formando no fim da Idade Média e ganhou a forma atual no Breviário Romano de São Pio V, em 1568. O título Mãe de Deus foi proclamado pelo Concílio de Éfeso, em 431."
   ],
   "quando": "No terço (dez vezes em cada mistério), no Angelus e em qualquer momento do dia.",
-  "latim": "Ave Maria, gratia plena, Dominus tecum. Benedicta tu in mulieribus, et benedictus fructus ventris tui, Iesus.\nSancta Maria, Mater Dei, ora pro nobis peccatoribus, nunc et in hora mortis nostrae. Amen."
+  "latim": "Ave Maria, gratia plena, Dominus tecum. Benedicta tu in mulieribus, et benedictus fructus ventris tui, Iesus.\nSancta Maria, Mater Dei, ora pro nobis peccatoribus, nunc et in hora mortis nostrae. Amen.",
+  "faq": [
+   [
+    "Onde está a Ave Maria na Bíblia?",
+    "A primeira parte está no Evangelho de São Lucas: a saudação do anjo Gabriel (Lc 1,28) e as palavras de Isabel (Lc 1,42). A segunda parte, “Santa Maria, Mãe de Deus”, é o pedido da Igreja."
+   ],
+   [
+    "Quantas Ave-Marias tem o terço?",
+    "Cinquenta e três: três no início, pela fé, pela esperança e pela caridade, e dez em cada um dos cinco mistérios."
+   ]
+  ]
  },
  "gloria": {
-  "titulo": "Glória ao Pai: oração completa e em latim",
+  "titulo": "Oração do Glória ao Pai completa (e o Ó meu Jesus)",
   "h1": "Oração do Glória ao Pai",
-  "descricao": "O Glória ao Pai completo: “Glória ao Pai, ao Filho e ao Espírito Santo, como era no princípio, agora e sempre. Amém.” Com a origem e o Gloria Patri.",
+  "descricao": "O Glória ao Pai completo, “Glória ao Pai, ao Filho e ao Espírito Santo”, e o Ó meu Jesus que se reza depois dele no terço. Com a origem e o Gloria Patri.",
   "nomes": [
    "Glória",
    "Gloria Patri",
@@ -66,7 +86,29 @@
    "A segunda parte, \"como era no princípio\", já aparece no Ocidente no século VI: o Concílio de Vaison, em 529, mandou que fosse cantada nas igrejas da Gália, como já se fazia em Roma."
   ],
   "quando": "No fim de cada salmo na Liturgia das Horas e no fim de cada mistério do terço.",
-  "latim": "Gloria Patri, et Filio, et Spiritui Sancto. Sicut erat in principio, et nunc, et semper, et in saecula saeculorum. Amen."
+  "latim": "Gloria Patri, et Filio, et Spiritui Sancto. Sicut erat in principio, et nunc, et semper, et in saecula saeculorum. Amen.",
+  "junto": {
+   "h2": "Glória ao Pai e Ó meu Jesus no terço",
+   "intro": "No terço, as duas orações são rezadas juntas no fim de cada mistério: primeiro o Glória ao Pai, depois o Ó meu Jesus.",
+   "ordem": [
+    "gloria",
+    "fatima"
+   ]
+  },
+  "faq": [
+   [
+    "O que se reza depois do Glória ao Pai no terço?",
+    "No fim de cada um dos cinco mistérios, depois do Glória ao Pai se reza o Ó meu Jesus, a oração ensinada em Fátima. No início do terço, depois das três primeiras Ave-Marias, costuma-se rezar só o Glória ao Pai."
+   ],
+   [
+    "Qual é a diferença entre o Glória ao Pai e o Glória da Missa?",
+    "O Glória ao Pai é uma doxologia curta, de uma só frase. O Glória da Missa, “Glória a Deus nas alturas”, é um hino mais longo, rezado ou cantado aos domingos fora do Advento e da Quaresma e nas solenidades e festas."
+   ],
+   [
+    "O que quer dizer “como era no princípio, agora e sempre”?",
+    "A frase afirma que a glória da Santíssima Trindade é eterna: o Pai, o Filho e o Espírito Santo foram, são e serão glorificados para sempre. Em latim: “sicut erat in principio, et nunc, et semper, et in saecula saeculorum”."
+   ]
+  ]
  },
  "credo": {
   "titulo": "Credo (Creio em Deus Pai): oração completa",
@@ -82,7 +124,17 @@
    "Ele não deve ser confundido com o Credo Niceno-Constantinopolitano, mais longo, elaborado pelos concílios de Niceia (325) e de Constantinopla (381) e rezado na Missa dos domingos. Os dois professam a mesma fé."
   ],
   "quando": "No início do terço e, quando o celebrante o indica, na Missa no lugar do Credo Niceno-Constantinopolitano.",
-  "latim": "Credo in Deum Patrem omnipotentem, Creatorem caeli et terrae. Et in Iesum Christum, Filium eius unicum, Dominum nostrum, qui conceptus est de Spiritu Sancto, natus ex Maria Virgine, passus sub Pontio Pilato, crucifixus, mortuus, et sepultus, descendit ad inferos, tertia die resurrexit a mortuis, ascendit ad caelos, sedet ad dexteram Dei Patris omnipotentis, inde venturus est iudicare vivos et mortuos.\nCredo in Spiritum Sanctum, sanctam Ecclesiam catholicam, sanctorum communionem, remissionem peccatorum, carnis resurrectionem, vitam aeternam. Amen."
+  "latim": "Credo in Deum Patrem omnipotentem, Creatorem caeli et terrae. Et in Iesum Christum, Filium eius unicum, Dominum nostrum, qui conceptus est de Spiritu Sancto, natus ex Maria Virgine, passus sub Pontio Pilato, crucifixus, mortuus, et sepultus, descendit ad inferos, tertia die resurrexit a mortuis, ascendit ad caelos, sedet ad dexteram Dei Patris omnipotentis, inde venturus est iudicare vivos et mortuos.\nCredo in Spiritum Sanctum, sanctam Ecclesiam catholicam, sanctorum communionem, remissionem peccatorum, carnis resurrectionem, vitam aeternam. Amen.",
+  "faq": [
+   [
+    "Qual Credo se reza no terço?",
+    "O Símbolo dos Apóstolos, o Creio em Deus Pai, rezado no início segurando o crucifixo. O Credo mais longo, o Niceno-Constantinopolitano, é o que se reza na Missa dos domingos."
+   ],
+   [
+    "Por que o Credo se chama Símbolo dos Apóstolos?",
+    "Porque resume fielmente a fé dos Apóstolos e é o antigo símbolo batismal da Igreja de Roma (CIC 194). “Símbolo” quer dizer sinal de reconhecimento: a fórmula com que os cristãos professam a mesma fé."
+   ]
+  ]
  },
  "salve": {
   "titulo": "Oração da Salve Rainha completa, origem e latim",
@@ -111,24 +163,61 @@
    "Desde a Idade Média ela é cantada no fim das Completas, a última oração do dia, e se tornou a oração com que se encerra o terço. Pede a Maria que, depois deste exílio, nos mostre Jesus."
   ],
   "quando": "No fim do terço e no fim da oração da noite (Completas), fora do Tempo Pascal.",
-  "latim": "Salve, Regina, Mater misericordiae, vita, dulcedo, et spes nostra, salve. Ad te clamamus, exsules filii Hevae. Ad te suspiramus, gementes et flentes in hac lacrimarum valle.\nEia ergo, advocata nostra, illos tuos misericordes oculos ad nos converte. Et Iesum, benedictum fructum ventris tui, nobis post hoc exsilium ostende. O clemens, O pia, O dulcis Virgo Maria."
+  "latim": "Salve, Regina, Mater misericordiae, vita, dulcedo, et spes nostra, salve. Ad te clamamus, exsules filii Hevae. Ad te suspiramus, gementes et flentes in hac lacrimarum valle.\nEia ergo, advocata nostra, illos tuos misericordes oculos ad nos converte. Et Iesum, benedictum fructum ventris tui, nobis post hoc exsilium ostende. O clemens, O pia, O dulcis Virgo Maria.",
+  "faq": [
+   [
+    "Quando se reza a Salve Rainha no terço?",
+    "No fim, depois do quinto mistério, antes do Sinal da Cruz que encerra o terço."
+   ],
+   [
+    "A Salve Rainha é rezada também na Páscoa?",
+    "No terço, costuma ser rezada o ano inteiro. Na Liturgia das Horas, do domingo de Páscoa até Pentecostes, a antífona mariana do fim do dia é a Rainha do Céu (Regina Caeli)."
+   ]
+  ]
  },
  "fatima": {
-  "titulo": "Ó meu Jesus, perdoai-nos: a oração de Fátima",
-  "h1": "Ó meu Jesus, perdoai-nos (oração de Fátima)",
-  "descricao": "A oração de Fátima “Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno”, ensinada por Nossa Senhora em 1917 e rezada no terço depois de cada Glória.",
+  "titulo": "Oração Ó meu Jesus, perdoai-nos (Oração de Fátima)",
+  "h1": "Oração Ó meu Jesus, perdoai-nos (oração de Fátima)",
+  "descricao": "A oração Ó meu Jesus completa: “Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno”. Rezada no terço depois do Glória, como Nossa Senhora pediu em Fátima.",
   "nomes": [
    "Oração de Fátima",
-   "Ó meu Jesus, perdoai-nos"
+   "Ó meu Jesus, perdoai-nos",
+   "Ó meu Jesus, livrai-nos do fogo do inferno"
   ],
   "historia": [
    "Esta oração foi ensinada por Nossa Senhora aos três pastorinhos de Fátima, Lúcia, Francisco e Jacinta, na aparição de 13 de julho de 1917. Ela pediu que fosse rezada depois de cada mistério do terço.",
    "As aparições de Fátima foram reconhecidas pela Igreja em 1930, e Francisco e Jacinta foram canonizados em 2017. A oração pede perdão, a salvação das almas e socorro para os que mais precisam da misericórdia de Deus."
   ],
-  "quando": "No terço, depois do Glória ao Pai de cada mistério."
+  "quando": "No terço, depois do Glória ao Pai de cada mistério.",
+  "junto": {
+   "h2": "Glória ao Pai e Ó meu Jesus no terço",
+   "intro": "No terço, as duas orações são rezadas juntas no fim de cada mistério: primeiro o Glória ao Pai, depois o Ó meu Jesus.",
+   "ordem": [
+    "gloria",
+    "fatima"
+   ]
+  },
+  "faq": [
+   [
+    "Quando se reza o Ó meu Jesus?",
+    "No terço, logo depois do Glória ao Pai que encerra cada mistério. Foi o que Nossa Senhora pediu aos pastorinhos de Fátima em 13 de julho de 1917."
+   ],
+   [
+    "Qual é a oração que vem depois do Glória no terço?",
+    "É o Ó meu Jesus, também chamado de oração de Fátima: “Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno, levai as almas todas para o céu e socorrei principalmente as que mais precisarem.”"
+   ],
+   [
+    "Por que se chama oração de Fátima?",
+    "Porque foi ensinada por Nossa Senhora a Lúcia, Francisco e Jacinta na Cova da Iria, em Fátima, Portugal, durante as aparições de 1917, reconhecidas pela Igreja em 1930."
+   ],
+   [
+    "Existem outras versões do Ó meu Jesus?",
+    "Sim. Em Portugal se diz “levai as alminhas todas para o Céu”, e há quem termine com “principalmente as que mais precisarem da vossa misericórdia”. O sentido é o mesmo; aqui está a forma mais rezada no Brasil."
+   ]
+  ]
  },
  "anjo": {
-  "titulo": "Oração do Santo Anjo da Guarda completa",
+  "titulo": "Santo Anjo do Senhor: oração completa ao Anjo da Guarda",
   "h1": "Oração do Santo Anjo da Guarda",
   "descricao": "A oração do Santo Anjo completa: “Santo Anjo do Senhor, meu zeloso guardador”. Com a origem da devoção ao anjo da guarda e o Angele Dei em latim.",
   "nomes": [
@@ -141,7 +230,21 @@
    "A festa dos Santos Anjos da Guarda é celebrada em 2 de outubro. A versão rimada usada no Brasil, \"Santo Anjo do Senhor, meu zeloso guardador\", é uma adaptação popular da oração latina."
   ],
   "quando": "Ao acordar, antes de dormir e antes de sair de casa.",
-  "latim": "Angele Dei, qui custos es mei, me tibi commissum pietate superna illumina, custodi, rege et guberna. Amen."
+  "latim": "Angele Dei, qui custos es mei, me tibi commissum pietate superna illumina, custodi, rege et guberna. Amen.",
+  "faq": [
+   [
+    "Qual é a oração do Santo Anjo completa?",
+    "“Santo Anjo do Senhor, meu zeloso guardador, se a ti me confiou a piedade divina, sempre me rege, me guarda, me governa e me ilumina. Amém.”"
+   ],
+   [
+    "Todo mundo tem um anjo da guarda?",
+    "Sim. A Igreja ensina que, do início da vida até a morte, cada fiel tem ao seu lado um anjo como protetor e pastor (CIC 336). Jesus fala dos anjos das crianças, que “veem sem cessar a face de meu Pai” (Mt 18,10)."
+   ],
+   [
+    "Quando é o dia do Anjo da Guarda?",
+    "A festa dos Santos Anjos da Guarda é em 2 de outubro. Os arcanjos Miguel, Gabriel e Rafael são celebrados em 29 de setembro."
+   ]
+  ]
  },
  "contricao": {
   "titulo": "Ato de Contrição: oração completa para a Confissão",
@@ -213,7 +316,21 @@
    "Essas orações depois da Missa deixaram de ser obrigatórias em 1964, mas São João Paulo II, em 1994, pediu que os fiéis não esquecessem esta oração, e o Papa Francisco renovou o pedido em 2018. A festa dos arcanjos Miguel, Gabriel e Rafael é em 29 de setembro."
   ],
   "quando": "Em momentos de tentação e de luta espiritual, e no fim do terço, onde é costume.",
-  "latim": "Sancte Michael Archangele, defende nos in proelio; contra nequitiam et insidias diaboli esto praesidium. Imperet illi Deus, supplices deprecamur: tuque, Princeps militiae caelestis, Satanam aliosque spiritus malignos, qui ad perditionem animarum pervagantur in mundo, divina virtute in infernum detrude. Amen."
+  "latim": "Sancte Michael Archangele, defende nos in proelio; contra nequitiam et insidias diaboli esto praesidium. Imperet illi Deus, supplices deprecamur: tuque, Princeps militiae caelestis, Satanam aliosque spiritus malignos, qui ad perditionem animarum pervagantur in mundo, divina virtute in infernum detrude. Amen.",
+  "faq": [
+   [
+    "Quem escreveu a oração a São Miguel Arcanjo?",
+    "O Papa Leão XIII, em 1886. Ele mandou que fosse rezada depois das Missas rezadas, junto com outras orações, costume que durou até 1964."
+   ],
+   [
+    "Quando é o dia de São Miguel Arcanjo?",
+    "Em 29 de setembro, festa dos arcanjos Miguel, Gabriel e Rafael."
+   ],
+   [
+    "Quando rezar a oração a São Miguel?",
+    "Em momentos de tentação e de luta espiritual, de manhã ou à noite, e no fim do terço, onde é costume. Em 2018, o Papa Francisco pediu que os fiéis a rezassem no fim do terço durante o mês de outubro."
+   ]
+  ]
  },
  "angelus": {
   "titulo": "Angelus (O Anjo do Senhor): oração completa",

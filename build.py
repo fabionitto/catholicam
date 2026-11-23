@@ -10,7 +10,8 @@ robots.txt e os arquivos comuns em /assets/ (site.css, site.js, lit.js e biblia.
 O calendário litúrgico (cor do dia, que também colore o site) fica em _src/lit.js e é copiado para /assets/lit.js.
 O /assets/qrcode.min.js (qrcodejs 1.0.0, licença MIT) fica no repositório e não é gerado.
 Precisa de Python 3 e Node.js (o Node lê as listas de orações, frases e mistérios do script da página).
-Textos extras das orações (título do Google, descrição, outros nomes, versões, história, latim): _src/oracoes_info.json.
+Textos extras das orações (título do Google, descrição, outros nomes, versões, história, latim,
+orações rezadas junto ("junto") e perguntas frequentes ("faq", também em FAQPage no JSON-LD)): _src/oracoes_info.json.
 Liturgia diária (/liturgia/): o texto das leituras não é copiado (direitos da CNBB); a página mostra o
 site oficial da CNBB num iframe que só carrega quando o visitante pede.
 Texto da Bíblia: _src/biblia.json (baixado de BIBLIA_FONTE na primeira vez, se não existir).
@@ -62,8 +63,8 @@ SEO = {
             "O que se canta em cada momento da Missa, os hinos tradicionais em latim (Salve Regina, Regina Caeli, Tantum Ergo) e os cantos católicos mais conhecidos."),
  "livros": ("Livros católicos: clássicos e documentos da Igreja",
             "Uma estante de leitura espiritual: clássicos da espiritualidade católica e os principais documentos da Igreja para começar."),
- "apoiar": ("Apoie o Catholicam com uma doação por Pix",
-            "O Catholicam não tem anúncios nem patrocinadores. Ajude a manter o site com uma doação por Pix, de qualquer valor."),
+ "apoiar": ("Doação por Pix: apoie o Catholicam, site católico",
+            "Faça uma doação por Pix, de qualquer valor, para manter o Catholicam: um site católico sem anúncios, sem patrocinadores e sem rastreamento."),
  "projeto": ("Sobre o Catholicam: site católico sem anúncios",
             "Quem somos e como funciona o Catholicam, um site católico sem anúncios e sem rastreamento, mantido por quem reza."),
 }
@@ -81,6 +82,8 @@ for _k, _v in INFO.items():
         assert _v.get(_c), f"oracoes_info.json: falta {_c} em {_k}"
     assert len(_v["titulo"]) <= 60, f"título longo demais ({_k}): o Google corta perto de 60 caracteres"
     assert len(_v["descricao"]) <= 160, f"descrição longa demais ({_k}): o Google corta perto de 160 caracteres"
+    for _q in _v.get("faq", []):
+        assert len(_q) == 2 and _q[0].endswith("?"), f"faq de {_k}: cada item é [pergunta?, resposta]"
 IN_ROSARY = {"sinal", "credo", "pai", "ave", "gloria", "fatima", "salve"}
 
 # ---------------------------------------------------------------- partes da fonte
@@ -552,6 +555,10 @@ for k in PRAYERS:
     if k in IN_ROSARY:
         extra += '<p>Esta oração faz parte do <a href="/terco/">Santo Terço</a>. Reze o terço guiado, conta por conta.</p>'
     more = ""
+    if info.get("junto"):  # orações rezadas em sequência (ex.: Glória ao Pai e Ó meu Jesus no terço)
+        j = info["junto"]
+        more += (f'<div class="stack"><h2 id="{slugify(j["h2"])[:60]}">{esc(j["h2"])}</h2><p>{linkify(esc(j["intro"]))}</p>'
+                 + "".join(prayer_article(s, link=s != k) for s in j["ordem"]) + "</div>\n")
     for nome_v, texto_v in info.get("versoes", []):
         more += (f'<div class="stack"><h2>{esc(p["t"])}: {esc(nome_v.lower() if nome_v.startswith("Versão") else nome_v)}</h2>'
                  f'<article class="prayer">{prayer_text(texto_v)}</article></div>\n')
@@ -561,6 +568,9 @@ for k in PRAYERS:
     if info.get("latim"):
         more += ('<div class="stack"><h2 id="latim">Em latim</h2>'
                  f'<p class="latin" lang="la">{esc(info["latim"]).replace(chr(10), "<br>")}</p></div>\n')
+    if info.get("faq"):
+        more += ('<div class="stack"><h2 id="perguntas">Perguntas frequentes</h2>'
+                 + "".join(f"<h3>{esc(q)}</h3><p>{linkify(esc(a))}</p>" for q, a in info["faq"]) + "</div>\n")
     if info.get("veja"):
         more += ('<div class="stack"><h2 id="veja-tambem">Veja também</h2><ul class="related">'
                  + "".join(f'<li><a href="{esc(u)}">{esc(t)}</a></li>' for t, u in info["veja"]) + "</ul></div>\n")
@@ -580,6 +590,9 @@ for k in PRAYERS:
          "isPartOf": {"@id": BASE + "/#site"}, "mainEntity": {"@id": BASE + path + "#oracao"}},
         oracao,
         crumbs_ld([("Início", "/"), ("Orações", "/oracoes/"), (p["t"], path)])]}
+    if info.get("faq"):
+        ld["@graph"].append({"@type": "FAQPage", "@id": BASE + path + "#perguntas", "inLanguage": "pt-BR", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in info["faq"]]})
     pages[path] = (page_head(f'{info["titulo"]} · Catholicam', desc, path, ld) + "</head>\n<body>" + header_f
                    + "\n\n" + body + "\n\n" + script_noqr)
 
@@ -615,7 +628,8 @@ for k in SET_ORDER:
     body = (f'<section class="view on" data-view="misterios">\n'
             f'<nav class="crumb" aria-label="Caminho"><a href="/">Início</a> › <a href="/terco/">Terço</a> › Mistérios {nome}</nav>\n'
             f'<div class="stack"><h1>Mistérios {nome}</h1><p class="lede">Rezados {dias}. '
-            f'Em cada mistério se reza um Pai Nosso, dez Ave-Marias e um Glória ao Pai, contemplando a passagem do Evangelho.</p>'
+            f'Em cada mistério se reza um <a href="{purl("pai")}">Pai Nosso</a>, dez <a href="{purl("ave")}">Ave-Marias</a>, '
+            f'um <a href="{purl("gloria")}">Glória ao Pai</a> e o <a href="{purl("fatima")}">Ó meu Jesus</a>, contemplando a passagem do Evangelho.</p>'
             f'<p><a class="btn" href="/terco/">Rezar o terço guiado</a></p></div>\n'
             + items +
             f'<div class="stack"><h2 id="outros">Outros mistérios</h2><p>{outros}</p></div>\n</section>')
