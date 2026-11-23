@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.web3forms.com; form-action 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2f6b45">
+<script src="/assets/lit.js?v=04332f95ad"></script>
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>Sugestões e correções para o Catholicam · Catholicam</title>
+<meta name="description" content="Envie uma sugestão, avise sobre um erro no conteúdo ou peça uma oração que falta no Catholicam, site católico sem anúncios.">
+<link rel="canonical" href="https://catholicam.com.br/sugestoes/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Catholicam">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Sugestões e correções para o Catholicam · Catholicam">
+<meta property="og:description" content="Envie uma sugestão, avise sobre um erro no conteúdo ou peça uma oração que falta no Catholicam, site católico sem anúncios.">
+<meta property="og:url" content="https://catholicam.com.br/sugestoes/">
+<meta property="og:image" content="https://catholicam.com.br/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebPage", "name": "Sugestões", "url": "https://catholicam.com.br/sugestoes/", "description": "Envie uma sugestão, avise sobre um erro no conteúdo ou peça uma oração que falta no Catholicam, site católico sem anúncios.", "inLanguage": "pt-BR", "isPartOf": {"@id": "https://catholicam.com.br/#site"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Início", "item": "https://catholicam.com.br/"}, {"@type": "ListItem", "position": 2, "name": "Sugestões", "item": "https://catholicam.com.br/sugestoes/"}]}]}</script>
+
+<link rel="preload" href="/assets/fonts/alegreya-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css?v=8a66ecd1ea">
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<header class="site">
+  <div class="wrap masthead">
+    <a class="brand" href="/">Catholic<b>am</b></a>
+    <div class="tools">
+      <button type="button" class="tool" id="fs-down" aria-label="Diminuir o tamanho da letra">A−</button>
+      <button type="button" class="tool" id="fs-up" aria-label="Aumentar o tamanho da letra">A+</button>
+      <button type="button" class="tool menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    </div>
+    <nav class="main" id="nav" aria-label="Seções">
+      <a href="/">Início</a>
+      <a href="/doutrina/">Doutrina</a>
+      <a href="/missa/">Missa</a>
+      <a href="/oracoes/">Orações</a>
+      <a href="/terco/">Terço</a>
+      <a href="/liturgia/">Liturgia diária</a>
+      <a href="/doutrina-social/">Doutrina social</a>
+      <a href="/maria/">Maria</a>
+      <a href="/santos/">Santos</a>
+      <a href="/frases/">Frases</a>
+      <a href="/biblia/">Bíblia</a>
+      <a href="/calendario/">Calendário</a>
+      <a href="/catequese/">Catequese</a>
+      <a href="/musicas/">Músicas</a>
+      <a href="/livros/">Livros</a>
+      <a href="/projeto/">O projeto</a>
+      <a href="/sugestoes/">Sugestões</a>
+      <a href="/apoiar/">Apoiar</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="conteudo">
+
+<!-- SUGESTÕES -->
+<section class="view on" data-view="sugestoes">
+  <div class="stack"><h1>Sugestões</h1><p class="lede">Encontrou um erro, sente falta de uma oração ou tem uma ideia para o site? Escreva aqui. Toda mensagem é lida, mesmo quando não dá para responder.</p></div>
+  <div class="today" id="s-box">
+    <h2 id="enviar-uma-sugestao">Enviar uma sugestão</h2>
+    <p id="s-off" class="r">O formulário de sugestões ainda está sendo configurado. Volte em breve.</p>
+    <noscript><p class="r">Para enviar uma sugestão, ative o JavaScript do navegador.</p></noscript>
+    <form id="s-form" class="sform" novalidate hidden>
+      <div class="field"><label for="s-tipo">Assunto</label>
+        <select id="s-tipo" name="tipo">
+          <option>Sugestão</option>
+          <option>Erro no conteúdo</option>
+          <option>Problema no site</option>
+          <option>Outro assunto</option>
+        </select></div>
+      <div class="field"><label for="s-msg">Mensagem</label>
+        <textarea id="s-msg" name="mensagem" rows="7" minlength="10" maxlength="2000" required aria-describedby="s-count"></textarea>
+        <span class="hint" id="s-count" aria-live="polite">Até 2000 caracteres.</span></div>
+      <div class="field"><label for="s-nome">Nome <span class="hint">(opcional)</span></label>
+        <input id="s-nome" name="nome" type="text" maxlength="80" autocomplete="name"></div>
+      <div class="field"><label for="s-email">E-mail, se quiser resposta <span class="hint">(opcional)</span></label>
+        <input id="s-email" name="email" type="email" maxlength="120" autocomplete="email" inputmode="email"></div>
+      <div class="hp" aria-hidden="true"><label for="s-site">Não preencha este campo</label><input id="s-site" name="site" type="text" tabindex="-1" autocomplete="off"></div>
+      <div class="controls"><button class="btn" id="s-send" type="submit">Enviar sugestão</button></div>
+      <p class="r" id="s-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+  <div class="block"><h2 id="privacidade">Privacidade</h2>
+    <ul>
+      <li>A mensagem vai direto para o e-mail do responsável pelo site, pelo serviço Web3Forms. Nada do que você escreve é publicado aqui.</li>
+      <li>Nome e e-mail são opcionais e servem só para responder. Não guardamos esses dados em lista nem os usamos para outra coisa.</li>
+      <li>Não escreva dados pessoais de outras pessoas, senhas, números de documentos ou pedidos de oração com nomes de terceiros.</li>
+    </ul></div>
+  <div class="block"><h2 id="antes-de-escrever">Antes de escrever</h2>
+    <p>Se for um erro no conteúdo, diga em qual página ele está e, se puder, a fonte correta. Para dúvidas de fé e de vida espiritual, procure também um padre da sua paróquia.</p>
+    <p class="r">Mensagens com propaganda, links em excesso ou ofensas são descartadas automaticamente.</p></div>
+</section>
+
+</main>
+<footer><div class="wrap"><p class="top"><a href="/">Voltar ao sumário</a></p>Catholicam · sem anúncios · <a href="/apoiar/">Apoiar o projeto</a> · <a href="/sugestoes/">Enviar sugestão</a> · <span class="r">Ad maiorem Dei gloriam</span></div></footer>
+
+<script src="/assets/site.js?v=5bf0f56cea" defer></script>
+</body>
+</html>

@@ -321,6 +321,57 @@ Array.prototype.forEach.call(document.querySelectorAll("button.to"),function(b){
   b.addEventListener("click",function(){var e=$(b.dataset.to);if(e)e.scrollIntoView({block:"start"})});
 });
 
+/* ---------- Sugestões: preencha a chave abaixo ----------
+   chave: a "Access Key" do Web3Forms (web3forms.com). Ela é pública por natureza: só permite enviar
+   mensagens para o e-mail cadastrado. Vazia, a página mostra o aviso de "em configuração".
+   O que o visitante escreve nunca é exibido no site: só sai para o Web3Forms. */
+var SUGESTOES={chave:"",destino:"https://api.web3forms.com/submit"};
+(function(){
+  var f=document.getElementById("s-form");
+  if(!f||!SUGESTOES.chave)return;
+  var st=$("s-status"),btn=$("s-send"),msg=$("s-msg"),nome=$("s-nome"),mail=$("s-email"),hp=$("s-site"),tipo=$("s-tipo"),cnt=$("s-count");
+  var MAX=2000,MIN=10,WAIT=60000,DAY=5,t0=Date.now(),busy=false;
+  $("s-off").hidden=true;f.hidden=false;
+  /* tira caracteres de controle e espaços repetidos; o texto segue como texto puro */
+  function clean(s,max){return String(s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F​-‏‪-‮⁦-⁩]/g,"").replace(/[ \t]{3,}/g,"  ").replace(/\n{4,}/g,"\n\n\n").trim().slice(0,max)}
+  function say(t){st.textContent=t}
+  function log(){try{return JSON.parse(localStorage.getItem("cath-sug")||"[]").filter(function(x){return typeof x==="number"&&Date.now()-x<864e5})}catch(e){return[]}}
+  function bad(el,t){el.setAttribute("aria-invalid","true");el.focus();say(t);return false}
+  msg.addEventListener("input",function(){var n=msg.value.length;cnt.textContent=n+" de "+MAX+" caracteres.";msg.removeAttribute("aria-invalid")});
+  mail.addEventListener("input",function(){mail.removeAttribute("aria-invalid")});
+  f.addEventListener("submit",function(e){
+    e.preventDefault();
+    if(busy)return;
+    var m=clean(msg.value,MAX),n=clean(nome.value,80).replace(/\s+/g," "),em=clean(mail.value,120),tp=clean(tipo.value,40);
+    /* robôs: campo escondido preenchido. Finge que deu certo e não envia nada */
+    if(hp.value){f.reset();say("Obrigado! Sua sugestão foi enviada.");return}
+    if(Date.now()-t0<4000){say("Espere alguns segundos e envie de novo.");return}
+    if(m.length<MIN)return bad(msg,"Escreva um pouco mais: a mensagem precisa ter pelo menos "+MIN+" caracteres.");
+    if((m.match(/https?:\/\/|www\./gi)||[]).length>2)return bad(msg,"A mensagem tem links demais. Deixe no máximo dois.");
+    if(em&&!/^[^\s@<>()",;:]+@[^\s@<>()",;:]+\.[a-z]{2,}$/i.test(em))return bad(mail,"Confira o e-mail ou deixe o campo em branco.");
+    if(["Sugestão","Erro no conteúdo","Problema no site","Outro assunto"].indexOf(tp)<0)tp="Outro assunto";
+    var sent=log();
+    if(sent.length&&Date.now()-sent[sent.length-1]<WAIT){say("Você acabou de enviar uma sugestão. Espere um minuto para mandar outra.");return}
+    if(sent.length>=DAY){say("Você já enviou "+DAY+" sugestões hoje. Obrigado! Tente de novo amanhã.");return}
+    busy=true;btn.disabled=true;say("Enviando…");
+    var body={access_key:SUGESTOES.chave,subject:"Catholicam: "+tp,from_name:n||"Visitante do Catholicam",
+      assunto:tp,mensagem:m,pagina:"catholicam.com.br/sugestoes/",botcheck:""};
+    if(n)body.nome=n;
+    if(em)body.email=em;
+    var ctl=window.AbortController?new AbortController():null,timer=setTimeout(function(){if(ctl)ctl.abort()},20000);
+    fetch(SUGESTOES.destino,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},
+      body:JSON.stringify(body),credentials:"omit",referrerPolicy:"no-referrer",signal:ctl?ctl.signal:undefined})
+      .then(function(r){return r.json().catch(function(){return{}}).then(function(j){return r.ok&&j.success})})
+      .then(function(ok){
+        if(!ok)throw 0;
+        sent.push(Date.now());try{localStorage.setItem("cath-sug",JSON.stringify(sent))}catch(e){}
+        f.reset();cnt.textContent="Até "+MAX+" caracteres.";say("Obrigado! Sua sugestão foi enviada.");
+      })
+      .catch(function(){say("Não foi possível enviar agora. Confira a internet e tente de novo em alguns minutos.")})
+      .then(function(){clearTimeout(timer);busy=false;btn.disabled=false;t0=Date.now()-2000});
+  });
+})();
+
 /* ---------- Página atual no menu ---------- */
 Array.prototype.forEach.call(document.querySelectorAll("#nav a"),function(a){
   var h=a.getAttribute("href"),p=location.pathname;

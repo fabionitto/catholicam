@@ -67,7 +67,15 @@ SEO = {
             "Faça uma doação por Pix, de qualquer valor, para manter o Catholicam: um site católico sem anúncios, sem patrocinadores e sem rastreamento."),
  "projeto": ("Sobre o Catholicam: site católico sem anúncios",
             "Quem somos e como funciona o Catholicam, um site católico sem anúncios e sem rastreamento, mantido por quem reza."),
+ "sugestoes": ("Sugestões e correções para o Catholicam",
+            "Envie uma sugestão, avise sobre um erro no conteúdo ou peça uma oração que falta no Catholicam, site católico sem anúncios."),
 }
+# Página de sugestões: CSP própria e rígida (só scripts e estilos do site; envio só para o Web3Forms).
+# O GitHub Pages não deixa configurar headers, então a política vai num <meta>, logo no começo do <head>.
+SUG_CSP = ('<meta http-equiv="Content-Security-Policy" content="default-src \'self\'; script-src \'self\'; '
+           "style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.web3forms.com; "
+           "form-action 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'\">\n"
+           '<meta name="referrer" content="strict-origin-when-cross-origin">')
 # endereço de cada oração. Título do Google, título da página (h1), descrição, outros nomes,
 # outras versões e links "veja também" ficam em _src/oracoes_info.json.
 PRAYERS = {
@@ -540,7 +548,11 @@ for v, body in sections:
         sec, acc_ld = accordionize(sec, url(v))
         if acc_ld and v != "oracoes":  # /oracoes/ já tem a ItemList com o endereço de cada oração
             ld["@graph"].append(acc_ld)
-    pages[url(v)] = (page_head(title, desc, url(v), ld, legacy if v == "inicio" else "") + "</head>\n<body>" + header_f
+    ph = page_head(title, desc, url(v), ld, legacy if v == "inicio" else "")
+    if v == "sugestoes":
+        assert ph.count('<meta charset="utf-8">') == 1 and "<script>" not in ph and " style=" not in sec + header_f + script_noqr
+        ph = ph.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n' + SUG_CSP, 1)
+    pages[url(v)] = (ph + "</head>\n<body>" + header_f
                      + "\n\n" + sec + "\n\n" + (script if v == "apoiar" else script_noqr))
 
 def prayer_text(t):
