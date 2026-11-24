@@ -17,6 +17,7 @@ site oficial da CNBB num iframe que só carrega quando o visitante pede.
 Frase do dia (página inicial): versículo do Evangelho da Missa, dito por Jesus ou por Maria, escolhido no build
 (veja "Frase do dia a partir do Evangelho da Missa" abaixo; o build busca os dias novos na internet).
 Texto da Bíblia: _src/biblia.json (baixado de BIBLIA_FONTE na primeira vez, se não existir).
+Apresentação de cada livro da Bíblia (página do livro e descrição do Google): _src/biblia_intro.json.
 """
 import hashlib, html, json, re, subprocess, datetime, pathlib, unicodedata, urllib.request
 
@@ -109,6 +110,9 @@ missing = set(views) - set(SEO)
 assert not missing, f"faltam textos de SEO para: {missing}"
 
 def url(v): return "/" if v == "inicio" else f"/{v}/"
+def full_title(t):
+    """Título com " · Catholicam" no fim, só se não passar de 65 caracteres (o Google corta perto disso)."""
+    return t if len(t) + len(" · Catholicam") > 65 else t + " · Catholicam"
 def esc(s): return html.escape(s, quote=True)
 def text(s): return html.unescape(re.sub(r"<[^>]+>", "", s)).strip()
 def fix_links(s):
@@ -349,6 +353,9 @@ for (name, nch, grp), bk in zip(_flat, BIBLE):
     BOOKS.append({"n": name, "s": slugify(name), "g": grp,
                   "caps": [[(v["numero"], v["texto"]) for v in c["versiculos"]] for c in bk["capitulos"]]})
 assert len({b["s"] for b in BOOKS}) == 73
+# apresentação curta de cada livro (página /biblia/<livro>/)
+BOOK_INTRO = json.loads((SRC / "biblia_intro.json").read_text(encoding="utf-8"))
+assert set(BOOK_INTRO) == {b["s"] for b in BOOKS}, f"biblia_intro.json não bate com os livros: {set(BOOK_INTRO) ^ {b['s'] for b in BOOKS}}"
 def burl(b, c=None): return f"/biblia/{b['s']}/" + (f"{c}/" if c else "")
 
 # Salmos: o texto segue a numeração grega/Vulgata; entre parênteses, a hebraica, usada em muitas Bíblias
@@ -683,7 +690,7 @@ legacy = ('<script>(function(){var h=location.hash.slice(1),v=%s;'
 for v, body in sections:
     title, desc = SEO[v]
     if v != "inicio":
-        title += " · Catholicam"
+        title = full_title(title)
     h1 = text(re.search(r"<h1>(.*?)</h1>", body, re.S).group(1))
     if v == "inicio":
         ld = {"@context": "https://schema.org", "@graph": [ORG, SITE]}
@@ -762,7 +769,7 @@ for k in PRAYERS:
     if info.get("faq"):
         ld["@graph"].append({"@type": "FAQPage", "@id": BASE + path + "#perguntas", "inLanguage": "pt-BR", "mainEntity": [
             {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in info["faq"]]})
-    pages[path] = (page_head(f'{info["titulo"]} · Catholicam', desc, path, ld) + "</head>\n<body>" + header_f
+    pages[path] = (page_head(full_title(info["titulo"]), desc, path, ld) + "</head>\n<body>" + header_f
                    + "\n\n" + body + "\n\n" + script_noqr)
 
 # ---------------------------------------------------------------- mistérios do terço
@@ -807,7 +814,7 @@ for k in SET_ORDER:
     ld = {"@context": "https://schema.org", "@graph": [
         {"@type": "WebPage", "name": f"Mistérios {nome}", "url": BASE + path, "description": desc, "inLanguage": "pt-BR", "isPartOf": {"@id": BASE + "/#site"}},
         crumbs_ld([("Início", "/"), ("Terço", "/terco/"), (f"Mistérios {nome}", path)])] + ([acc_ld] if acc_ld else [])}
-    pages[path] = (page_head(f"{title} · Catholicam", desc, path, ld) + "</head>\n<body>" + header_f
+    pages[path] = (page_head(full_title(title), desc, path, ld) + "</head>\n<body>" + header_f
                    + "\n\n" + body + "\n\n" + script_noqr)
 
 # ---------------------------------------------------------------- Bíblia: uma página por livro e por capítulo
@@ -819,17 +826,26 @@ for bi, b in enumerate(BOOKS):
     nch = len(b["caps"])
     path = burl(b)
     grid = '<div class="chapters">' + "".join(f'<a href="{burl(b, c)}">{c}</a>' for c in range(1, nch + 1)) + "</div>"
-    first = b["caps"][0][0][1]
     caps_txt = "capítulo" if nch == 1 else "capítulos"
-    desc = short(f"Leia {b['n']} na Bíblia católica, {nch} {caps_txt}, tradução do Pe. Matos Soares. Começa assim: “{first}", 152)
-    if not desc.endswith("…"): desc += "”"
+    intro = BOOK_INTRO[b["s"]]
+    desc = short(f"{b['n']} na Bíblia católica online, {nch} {caps_txt}. {intro}", 155)
+    # começo do livro (primeiros versículos), para a página não ser só a lista de capítulos
+    inicio = "".join(f'<p><span class="vn">{n}</span>{esc(t)}</p>' for n, t in b["caps"][0][:3])
+    viz = [x for x in BOOKS if x["g"] == b["g"] and x is not b]
     body = (f'<section class="view on" data-view="biblia-livro">\n'
             f'<nav class="crumb" aria-label="Caminho"><a href="/">Início</a> › <a href="/biblia/">Bíblia</a> › {esc(b["n"])}</nav>\n'
-            f'<div class="stack"><h1>{esc(b["n"])}</h1><p class="lede">{esc(b["g"])} · {nch} {caps_txt}</p></div>\n'
+            f'<div class="stack"><h1>{esc(b["n"])}</h1><p class="lede">{esc(b["g"])} · {nch} {caps_txt}</p>'
+            f'<p>{esc(intro)}</p><p><a class="btn" href="{burl(b, 1)}">Começar a ler: {esc(cap_name(b, 1))}</a></p></div>\n'
             f'<div class="stack"><h2 id="capitulos">Capítulos</h2>{grid}</div>\n'
+            f'<div class="stack"><h2 id="inicio-do-livro">Como começa</h2><div class="passage">{inicio}</div>'
+            f'<p class="r">{BIBLIA_TRAD[0].upper() + BIBLIA_TRAD[1:]}. <a href="{burl(b, 1)}">Continuar a leitura</a></p></div>\n'
+            f'<div class="stack"><h2 id="outros-livros">Outros livros: {esc(b["g"].split(" · ")[-1])}</h2><div class="books">'
+            + "".join(f'<a class="book" href="{burl(x)}"><span>{esc(x["n"])}</span><small>{len(x["caps"])}</small></a>' for x in viz)
+            + '</div></div>\n'
             f'<p><a href="/biblia/">Todos os livros da Bíblia</a></p>\n</section>')
     ld = {"@context": "https://schema.org", "@graph": [
-        {"@type": "WebPage", "name": b["n"], "url": BASE + path, "description": desc, "inLanguage": "pt-BR", "isPartOf": {"@id": BASE + "/#site"}},
+        {"@type": "WebPage", "name": b["n"], "url": BASE + path, "description": desc, "inLanguage": "pt-BR", "isPartOf": {"@id": BASE + "/#site"},
+         "about": {"@type": "Book", "name": b["n"], "isPartOf": {"@type": "Book", "name": "Bíblia Sagrada"}}},
         crumbs_ld([("Início", "/"), ("Bíblia", "/biblia/"), (b["n"], path)])]}
     pages[path] = (page_head(f"{b['n']}: Bíblia católica online · Catholicam", desc, path, ld) + "</head>\n<body>" + header_f
                    + "\n\n" + body + "\n\n" + script_noqr)
@@ -900,8 +916,9 @@ for mes, dias in FRASES_MES.items():
 lm_file = SRC / "lastmod.json"
 lm = json.loads(lm_file.read_text()) if lm_file.exists() else {}
 today = datetime.date.today().isoformat()
+# (a versão dos arquivos comuns, ?v=..., não conta: mudar o CSS ou o JS não muda o conteúdo da página)
 for path, content in pages.items():
-    h = hashlib.sha256(content.encode()).hexdigest()[:16]
+    h = hashlib.sha256(re.sub(r"\?v=[0-9a-f]{10}", "", content).encode()).hexdigest()[:16]
     if lm.get(path, {}).get("hash") != h:
         lm[path] = {"hash": h, "date": today}
 lm = {p: lm[p] for p in pages}
