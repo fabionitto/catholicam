@@ -145,16 +145,29 @@ EXTRA_CSS = """
 .related{list-style:none;padding:0;margin:0}
 .related li{padding:.45rem 0;border-bottom:1px solid var(--line)}
 /* acordeões (<details>) das listas longas: o texto fica no HTML, só recolhido */
-.acc{border-top:1px solid var(--line)}
-.acc>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:.75rem;padding:.85rem .35rem;border-radius:4px;transition:background-color .15s}
+.acc{background:var(--surface);border:1px solid var(--line);border-radius:8px;margin:0;transition:border-color .15s,box-shadow .15s}
+.view>details.acc+details.acc{margin-top:-.85rem}
+.acc.cat-h{padding-top:0}
+.acc:hover{border-color:var(--accent)}
+.acc[open]{box-shadow:inset 3px 0 0 var(--accent)}
+.acc>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:.9rem;padding:.95rem 1.15rem;border-radius:8px}
+.acc[open]>summary{border-bottom:1px solid var(--line);border-radius:8px 8px 0 0}
 .acc>summary::-webkit-details-marker{display:none}
-.acc>summary:hover{background:var(--surface)}
-.acc>summary>h2,.acc>summary>h3{flex:1;margin:0;font-family:var(--ui);font-size:1.12rem;font-weight:700;letter-spacing:0;text-transform:none;color:var(--ink);line-height:1.3}
+.acc>summary>h2,.acc>summary>h3{flex:1;margin:0;font-family:var(--display);font-size:1.25rem;font-weight:600;font-style:normal;letter-spacing:0;text-transform:none;color:var(--ink);line-height:1.3}
 .acc>summary:hover>h2,.acc>summary:hover>h3{color:var(--accent)}
-.acc>summary::after{content:"";flex:none;width:.5rem;height:.5rem;margin-right:.3rem;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:translateY(-.15rem) rotate(45deg);transition:transform .2s}
-.acc[open]>summary::after{transform:translateY(.1rem) rotate(-135deg)}
-.acc-body{max-width:70ch;line-height:1.65;padding:.15rem .35rem 1.3rem;display:flex;flex-direction:column;gap:.9rem}
-.acc-body.block,.acc-body.prayer{border-top:0;padding-top:.15rem}
+.acc>summary::after{content:"";flex:none;width:.48rem;height:.48rem;margin:0 .25rem .2rem 0;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:rotate(45deg);transition:transform .2s,margin .2s}
+.acc[open]>summary::after{transform:rotate(-135deg);margin:.3rem .25rem 0 0}
+.acc-body{max-width:70ch;line-height:1.65;padding:1rem 1.15rem 1.25rem;display:flex;flex-direction:column;gap:.9rem}
+.acc-body.block,.acc-body.prayer{border-top:0;padding-top:1rem}
+/* lista de orações: cada item é um link para a página própria da oração */
+.plinks{display:flex;flex-direction:column;gap:.55rem}
+.plink{display:flex;align-items:center;gap:1rem;padding:.9rem 1.15rem;background:var(--surface);border:1px solid var(--line);border-radius:8px;color:var(--ink);text-decoration:none;transition:border-color .15s;scroll-margin-top:calc(var(--hdr,0px) + .75rem)}
+.plink:hover,.plink:focus-visible{border-color:var(--accent)}
+.plink-m{flex:1;min-width:0;display:flex;flex-direction:column;gap:.1rem}
+.plink-t{font-family:var(--display);font-size:1.25rem;font-weight:600;line-height:1.3}
+.plink:hover .plink-t{color:var(--accent)}
+.plink-x{font-size:.98rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.plink::after{content:"";flex:none;width:.48rem;height:.48rem;margin-right:.3rem;border-right:2px solid var(--accent);border-top:2px solid var(--accent);transform:rotate(45deg)}
 .acc-actions{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center;font-family:var(--ui);font-size:.92rem}
 .acc-copy{font:inherit;color:var(--muted);background:none;border:1px solid var(--line);border-radius:999px;padding:.3rem .8rem;cursor:pointer}
 .acc-copy:hover{color:var(--accent);border-color:var(--accent)}
@@ -163,12 +176,13 @@ EXTRA_CSS = """
 .acc-row input{flex:1 1 12rem;min-width:0;font:inherit;font-size:1rem;padding:.5rem .7rem;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink)}
 .acc-az{display:flex;gap:.3rem;overflow-x:auto;padding-bottom:.15rem}
 .acc-az .chip{flex:none;min-width:2.25rem;padding:.25rem .55rem}
-.acc-count{margin:0;font-size:.88rem;color:var(--muted)}
+.acc-count{margin:0;font-size:.88rem;color:var(--muted);display:none}
+.acc-tools:has(input:not(:placeholder-shown)) .acc-count,.acc-tools:has([data-l]:not([data-l=""])[aria-pressed="true"]) .acc-count{display:block}
 mark.acc-hit{background:#ffe08a;color:#17202a;border-radius:2px}
 .acc-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 details.acc,.acc [id]{scroll-margin-top:calc(var(--hdr,0px) + var(--tools,0px) + .75rem)}
 @media (min-width:720px){.acc-az{flex-wrap:wrap;overflow:visible}}
-@media (prefers-reduced-motion:reduce){.acc>summary,.acc>summary::after{transition:none}}
+@media (prefers-reduced-motion:reduce){.acc,.acc>summary::after,.plink{transition:none}}
 @media print{.acc-tools,.acc-copy,.acc>summary::after{display:none}}
 """
 head = head.replace("</style>", EXTRA_CSS + "</style>", 1)
@@ -573,16 +587,18 @@ def initial(t):
     m = re.search(r"[a-z]", slugify(t))
     return m.group(0).upper() if m else "#"
 
-def prayer_acc(k):
-    """Oração da lista em acordeão: o texto completo fica no HTML, só recolhido."""
+def prayer_link(k):
+    """Item da lista de orações: link real para a página própria (o texto completo fica só lá, sem duplicar)."""
     p = P[k]
-    r = f'<p class="r">{esc(p["r"])}</p>' if p.get("r") else ""
-    return (f'<details class="acc" id="{PRAYERS[k]}" data-l="{initial(p["t"])}"><summary><h3>{esc(p["t"])}</h3></summary>'
-            f'<div class="acc-body prayer">{r}<p>{esc(p["x"])}</p>'
-            f'<p class="acc-actions"><a href="{purl(k)}">Origem, quando rezar e latim</a></p></div></details>')
+    first = re.sub(r"\s+", " ", p["x"]).strip()
+    if len(first) > 110:
+        first = first[:110].rsplit(" ", 1)[0].rstrip(",;:.") + "…"
+    return (f'<a class="plink" id="{PRAYERS[k]}" href="{purl(k)}"><span class="plink-m">'
+            f'<span class="plink-t">{esc(p["t"])}</span><span class="plink-x">{esc(first)}</span></span></a>')
 
 prayers_html = "".join(
-    f'<div class="stack cat-h"><h2>{esc(g[0])}</h2>' + "".join(prayer_acc(k) for k in g[1]) + "</div>" for g in GROUPS)
+    f'<div class="stack cat-h"><h2>{esc(g[0])}</h2><div class="plinks">' + "".join(prayer_link(k) for k in g[1]) + "</div></div>"
+    for g in GROUPS)
 
 def qfig(q):
     return f'<figure class="quote"><blockquote>{esc(q[1])}</blockquote><figcaption><b>{esc(q[0])}</b> · {linkify(esc(q[2]))}</figcaption></figure>'
@@ -676,9 +692,10 @@ def accordionize(sec, path, min_items=3):
     if len(found) < min_items: return sec, None
     ids = [i for i, _, _ in found]
     assert len(set(ids)) == len(ids), f"ids repetidos em {path}"
-    letters = sorted({initial(text(s)) for _, s, _ in found} - {"#"})
-    first = top_children(new)[0][1]  # depois do bloco do título (h1)
-    new = new[:first] + acc_toolbar(letters, len(found)) + new[first:]
+    letters = sorted({initial(text(s)) for _, s, _ in found} - {"#"}) if len(found) >= 15 else []
+    if len(found) >= 8:  # em páginas curtas a barra de busca só atrapalha
+        first = top_children(new)[0][1]  # depois do bloco do título (h1)
+        new = new[:first] + acc_toolbar(letters, len(found)) + new[first:]
     ld = {"@type": "ItemList", "name": "Tópicos desta página", "numberOfItems": len(found), "itemListElement": [
         {"@type": "ListItem", "position": i + 1, "item": {
             "@type": "CreativeWork", "@id": BASE + path + "#" + aid, "url": BASE + path + "#" + aid,
