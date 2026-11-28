@@ -735,8 +735,12 @@ for k in PRAYERS:
         j = info["junto"]
         more += (f'<div class="stack"><h2 id="{slugify(j["h2"])[:60]}">{esc(j["h2"])}</h2><p>{linkify(esc(j["intro"]))}</p>'
                  + "".join(prayer_article(s, link=s != k) for s in j["ordem"]) + "</div>\n")
+    if info.get("sentido"):  # explicação frase por frase
+        s_ = info["sentido"]
+        more += (f'<div class="stack"><h2 id="significado">{esc(s_["h2"])}</h2><p>{linkify(esc(s_["intro"]))}</p>'
+                 + "".join(f"<h3>“{esc(fr)}”</h3><p>{linkify(esc(ex))}</p>" for fr, ex in s_["frases"]) + "</div>\n")
     for nome_v, texto_v in info.get("versoes", []):
-        more += (f'<div class="stack"><h2>{esc(p["t"])}: {esc(nome_v.lower() if nome_v.startswith("Versão") else nome_v)}</h2>'
+        more += (f'<div class="stack"><h2>{esc(p["t"])}: {esc(nome_v[0].lower() + nome_v[1:] if nome_v.startswith("Versão") else nome_v)}</h2>'
                  f'<article class="prayer">{prayer_text(texto_v)}</article></div>\n')
     more += ('<div class="stack"><h2 id="historia">Origem e história</h2>'
              + "".join(f"<p>{linkify(esc(t))}</p>" for t in info["historia"])

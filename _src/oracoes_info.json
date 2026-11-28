@@ -73,9 +73,9 @@
   ]
  },
  "gloria": {
-  "titulo": "Oração do Glória ao Pai completa (e o Ó meu Jesus)",
-  "h1": "Oração do Glória ao Pai",
-  "descricao": "O Glória ao Pai completo, “Glória ao Pai, ao Filho e ao Espírito Santo”, e o Ó meu Jesus que se reza depois dele no terço. Com a origem e o Gloria Patri.",
+  "titulo": "Oração Glória ao Pai completa, como se reza no terço",
+  "h1": "Oração Glória ao Pai completa",
+  "descricao": "Oração Glória ao Pai completa: “Glória ao Pai, ao Filho e ao Espírito Santo…”. Como rezar no terço, com o Ó meu Jesus, o significado e o latim.",
   "nomes": [
    "Glória",
    "Gloria Patri",
@@ -97,6 +97,14 @@
   },
   "faq": [
    [
+    "Qual é a oração Glória ao Pai completa?",
+    "“Glória ao Pai, ao Filho e ao Espírito Santo. Como era no princípio, agora e sempre. Amém.” Em alguns lugares se acrescenta “pelos séculos dos séculos” antes do Amém, como no latim."
+   ],
+   [
+    "Quantas vezes se reza o Glória ao Pai no terço?",
+    "Seis vezes: uma no início, depois das três primeiras Ave-Marias, e uma no fim de cada um dos cinco mistérios, seguida do Ó meu Jesus."
+   ],
+   [
     "O que se reza depois do Glória ao Pai no terço?",
     "No fim de cada um dos cinco mistérios, depois do Glória ao Pai se reza o Ó meu Jesus, a oração ensinada em Fátima. No início do terço, depois das três primeiras Ave-Marias, costuma-se rezar só o Glória ao Pai."
    ],
@@ -107,6 +115,38 @@
    [
     "O que quer dizer “como era no princípio, agora e sempre”?",
     "A frase afirma que a glória da Santíssima Trindade é eterna: o Pai, o Filho e o Espírito Santo foram, são e serão glorificados para sempre. Em latim: “sicut erat in principio, et nunc, et semper, et in saecula saeculorum”."
+   ]
+  ],
+  "sentido": {
+   "h2": "O que significa o Glória ao Pai",
+   "intro": "Em poucas palavras, o Glória ao Pai resume a fé na Santíssima Trindade e a devolve a Deus em forma de louvor.",
+   "frases": [
+    [
+     "Glória ao Pai, ao Filho e ao Espírito Santo",
+     "Dá a mesma glória às três Pessoas divinas: um só Deus em três Pessoas, iguais em dignidade."
+    ],
+    [
+     "Como era no princípio",
+     "Deus não começou a ser glorioso quando o louvamos: a sua glória existe desde sempre, antes da criação."
+    ],
+    [
+     "Agora e sempre. Amém",
+     "O louvor continua hoje e por toda a eternidade. O “Amém” final quer dizer “assim é” e confirma tudo o que foi dito."
+    ]
+   ]
+  },
+  "veja": [
+   [
+    "Como rezar o terço passo a passo",
+    "/terco/"
+   ],
+   [
+    "Oração Ó meu Jesus completa",
+    "/oracoes/o-meu-jesus/"
+   ],
+   [
+    "O Glória da Missa e as partes da Missa",
+    "/missa/"
    ]
   ]
  },
@@ -176,13 +216,14 @@
   ]
  },
  "fatima": {
-  "titulo": "Oração Ó meu Jesus, perdoai-nos (Oração de Fátima)",
-  "h1": "Oração Ó meu Jesus, perdoai-nos (oração de Fátima)",
-  "descricao": "A oração Ó meu Jesus completa: “Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno”. Rezada no terço depois do Glória, como Nossa Senhora pediu em Fátima.",
+  "titulo": "Oração Ó meu Jesus completa: a oração de Fátima do terço",
+  "h1": "Oração Ó meu Jesus completa",
+  "descricao": "Oração Ó meu Jesus completa: “Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno, levai as almas todas para o céu…”. Como e quando rezar no terço.",
   "nomes": [
    "Oração de Fátima",
    "Ó meu Jesus, perdoai-nos",
-   "Ó meu Jesus, livrai-nos do fogo do inferno"
+   "Ó meu Jesus, livrai-nos do fogo do inferno",
+   "Oração do terço depois do Glória"
   ],
   "historia": [
    "Esta oração foi ensinada por Nossa Senhora aos três pastorinhos de Fátima, Lúcia, Francisco e Jacinta, na aparição de 13 de julho de 1917. Ela pediu que fosse rezada depois de cada mistério do terço.",
@@ -199,6 +240,10 @@
   },
   "faq": [
    [
+    "Qual é a oração Ó meu Jesus completa?",
+    "“Ó meu Jesus, perdoai-nos, livrai-nos do fogo do inferno, levai as almas todas para o céu e socorrei principalmente as que mais precisarem.” É a forma mais rezada no Brasil."
+   ],
+   [
     "Quando se reza o Ó meu Jesus?",
     "No terço, logo depois do Glória ao Pai que encerra cada mistério. Foi o que Nossa Senhora pediu aos pastorinhos de Fátima em 13 de julho de 1917."
    ],
@@ -213,6 +258,68 @@
    [
     "Existem outras versões do Ó meu Jesus?",
     "Sim. Em Portugal se diz “levai as alminhas todas para o Céu”, e há quem termine com “principalmente as que mais precisarem da vossa misericórdia”. O sentido é o mesmo; aqui está a forma mais rezada no Brasil."
+   ],
+   [
+    "Quantas vezes se reza o Ó meu Jesus no terço?",
+    "Cinco vezes, uma no fim de cada mistério, logo depois do Glória ao Pai. No rosário completo, com os vinte mistérios, são vinte vezes."
+   ]
+  ],
+  "sentido": {
+   "h2": "O que significa a oração Ó meu Jesus",
+   "intro": "É uma oração curta, mas cada frase tem um pedido. Rezada devagar, ajuda a terminar cada mistério do terço pensando na salvação de todos.",
+   "frases": [
+    [
+     "Ó meu Jesus, perdoai-nos",
+     "Começa falando diretamente com Jesus e pedindo perdão. Não é “perdoai-me”, mas “perdoai-nos”: quem reza pede por si e por todos os pecadores."
+    ],
+    [
+     "Livrai-nos do fogo do inferno",
+     "Pede a graça de não se afastar de Deus para sempre. Na aparição de 13 de julho de 1917, os pastorinhos tinham acabado de ver a visão do inferno, e Nossa Senhora ensinou esta oração logo depois."
+    ],
+    [
+     "Levai as almas todas para o céu",
+     "O pedido se abre para o mundo inteiro: que todas as pessoas cheguem à vida eterna com Deus. Muitos lembram aqui também as almas do purgatório."
+    ],
+    [
+     "Socorrei principalmente as que mais precisarem",
+     "Termina pelos que estão mais longe de Deus ou em maior perigo, que são os que mais precisam da misericórdia divina."
+    ]
+   ]
+  },
+  "versoes": [
+   [
+    "Versão de Portugal",
+    "Ó meu Jesus, perdoai-nos e livrai-nos do fogo do inferno; levai as alminhas todas para o Céu e socorrei principalmente as que mais precisarem."
+   ]
+  ],
+  "veja": [
+   [
+    "Como rezar o terço passo a passo",
+    "/terco/"
+   ],
+   [
+    "Oração do Glória ao Pai",
+    "/oracoes/gloria-ao-pai/"
+   ],
+   [
+    "Mistérios gozosos (segunda e sábado)",
+    "/terco/misterios-gozosos/"
+   ],
+   [
+    "Mistérios dolorosos (terça e sexta)",
+    "/terco/misterios-dolorosos/"
+   ],
+   [
+    "Mistérios gloriosos (quarta e domingo)",
+    "/terco/misterios-gloriosos/"
+   ],
+   [
+    "Mistérios luminosos (quinta-feira)",
+    "/terco/misterios-luminosos/"
+   ],
+   [
+    "Salve Rainha",
+    "/oracoes/salve-rainha/"
    ]
   ]
  },
