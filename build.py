@@ -137,6 +137,9 @@ def purl(k): return f"/oracoes/{PRAYERS[k]}/"
 EXTRA_CSS = """
 .crumb{font-family:var(--ui);font-size:.92rem;color:var(--muted);margin:1.2rem 0 0}
 .crumb a{color:var(--muted)}
+.prayer-full{margin:.4rem 0 .2rem;padding:1.15rem 1.35rem;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:6px;font-size:1.32rem;line-height:1.6;display:flex;flex-direction:column;gap:.75rem}
+.prayer-full p{margin:0}
+@media (max-width:560px){.prayer-full{font-size:1.2rem;padding:1rem 1.05rem}}
 .prayer h3 a{color:inherit;text-decoration:none}
 .prayer h3 a:hover{color:var(--accent);text-decoration:underline}
 .related{list-style:none;padding:0;margin:0}
@@ -558,6 +561,13 @@ def prayer_article(k, link=True, tag="h3", title=None):
     r = f'<p class="r">{esc(p["r"])}</p>' if p.get("r") else ""
     return f'<article class="prayer"><{tag}>{t}</{tag}>{r}<p>{esc(p["x"])}</p></article>'
 
+def prayer_main(k, h1):
+    """Topo da página da oração: o h1 e, logo abaixo, o texto completo em destaque (é o que a busca procura)."""
+    p = P[k]
+    r = f'<p class="r">{esc(p["r"])}</p>' if p.get("r") else ""
+    return (f'<article class="prayer"><h1>{esc(h1)}</h1>{r}'
+            f'<div class="prayer-full" id="texto" aria-label="Texto completo da oração">{prayer_text(p["x"])}</div></article>')
+
 def initial(t):
     """Letra inicial do título, sem acento (usada no filtro A-Z)."""
     m = re.search(r"[a-z]", slugify(t))
@@ -756,7 +766,7 @@ for k in PRAYERS:
                  + "".join(f'<li><a href="{esc(u)}">{esc(t)}</a></li>' for t, u in info["veja"]) + "</ul></div>\n")
     body = (f'<section class="view on" data-view="oracao">\n'
             f'<nav class="crumb" aria-label="Caminho"><a href="/">Início</a> › <a href="/oracoes/">Orações</a> › {esc(p["t"])}</nav>\n'
-            f'<div class="stack">{prayer_article(k, link=False, tag="h1", title=info["h1"])}{extra}</div>\n' + more +
+            f'<div class="stack">{prayer_main(k, info["h1"])}{extra}</div>\n' + more +
             f'<div class="stack"><h2>{esc(grp)}</h2><ul class="related">'
             + "".join(f'<li><a href="{purl(s)}">{esc(INFO[s]["h1"])}</a></li>' for s in siblings)
             + f'</ul><p><a href="/oracoes/">Ver todas as orações católicas</a></p></div>\n</section>')
